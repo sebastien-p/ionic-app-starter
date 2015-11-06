@@ -1,0 +1,13 @@
+env:
+  node: true
+rules:
+  dot-notation:
+    - 1
+    - allowKeywords: true
+  max-params:
+    - 2
+    - 4
+  no-var: 0
+  strict:
+    - 2
+    - "global"

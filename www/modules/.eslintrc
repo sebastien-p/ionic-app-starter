@@ -1,0 +1,15 @@
+env:
+  browser: true
+  es6: false
+globals:
+  angular: false
+  ionic: false
+  _: false
+  Gator: false
+rules:
+  consistent-this: 0
+  func-names: 0
+  max-params: 0
+  max-statements: 0
+  no-var: 0
+  padded-blocks: 0

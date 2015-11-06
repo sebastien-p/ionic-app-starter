@@ -1,0 +1,11 @@
+.build.cache/
+node_modules/
+platforms/
+plugins/
+build/
+www/css/
+www/lib/
+www/modules/app/app.templates.js
+**/.sublime-gulp.cache
+**/sublime-gulp.log
+**/npm-debug.log

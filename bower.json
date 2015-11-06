@@ -1,0 +1,63 @@
+{
+  "private": true,
+  "name": "ionic-app-starter",
+  "version": "1.0.0-dev",
+  "description": "Easily start an Ionic app",
+  "dependencies": {
+    "lodash": "^3.10.0",
+    "ionic": "^1.1.0",
+    "ngCordova": "^0.1.17-alpha",
+    "angular-cache": "^4.3.2",
+    "gator": "ccampbell/gator#1.2.4",
+    "angular-ios9-uiwebview.patch": "https://gist.github.com/863acd413e3925bf282c.git"
+  },
+  "overrides": {
+    "angular": {
+      "ignore": true
+    },
+    "angular-animate": {
+      "ignore": true
+    },
+    "angular-sanitize": {
+      "ignore": true
+    },
+    "angular-ui-router": {
+      "ignore": true
+    },
+    "lodash": {
+      "main": {
+        "development": "lodash.js",
+        "production": "lodash.min.js"
+      }
+    },
+    "gator": {
+      "main": {
+        "development": "gator.js",
+        "production": "gator.min.js"
+      }
+    },
+    "ionic": {
+      "main": {
+        "development": "release/js/ionic.bundle.js",
+        "production": "release/js/ionic.bundle.min.js"
+      },
+      "dependencies": null
+    },
+    "ngCordova": {
+      "main": {
+        "development": "dist/ng-cordova.js",
+        "production": "dist/ng-cordova.min.js"
+      },
+      "dependencies": null
+    },
+    "angular-cache": {
+      "main": {
+        "development": "dist/angular-cache.js",
+        "production": "dist/angular-cache.min.js"
+      }
+    },
+    "angular-ios9-uiwebview.patch": {
+      "main": "angular-ios9-uiwebview.patch.js"
+    }
+  }
+}
