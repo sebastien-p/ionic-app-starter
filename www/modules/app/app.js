@@ -10,7 +10,7 @@
    * @function config
    * @param {Object} $httpProvider - The Angular $httpProvider service.
    * @param {Object} $ionicConfigProvider - Ionic $ionicConfigProvider service.
-   * @param {Object} $urlRouterProvider - Angular UI $urlRouterProvider service.
+   * @param {Object} $urlRouterProvider - UI Router $urlRouterProvider service.
    */
   function config($httpProvider, $ionicConfigProvider, $urlRouterProvider) {
     $ionicConfigProvider.scrolling.jsScrolling(ionic.Platform.isIOS());
@@ -38,4 +38,8 @@
   ]);
   module.run(['$rootScope', '$ionicLoading', run]);
 
-}(angular.module('app', ['ngIOS9UIWebViewPatch'])));
+}(angular.module('app', [
+  'ngIOS9UIWebViewPatch',
+  'fp.utils',
+  'app.home'
+])));
