@@ -21,8 +21,8 @@
      * @param {Object} config - Angular $http config object.
      */
     function broadcast(event, config) {
-      var isApiRequest = !!config.url.match('TODO'); // TODO
-      if (isApiRequest) { $rootScope.$broadcast(event); }
+      var isExternalRequest = /^http(?:s)?:\/\//.test(config.url);
+      if (isExternalRequest) { $rootScope.$broadcast(event); }
     }
 
     /**
