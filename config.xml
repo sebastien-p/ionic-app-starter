@@ -20,17 +20,20 @@
   <allow-navigation href="mailto:*"/>
   <allow-navigation href="tel:*"/>
   <preference name="phonegap-version" value="cli-5.2.0"/>
-  <preference name="android-minSdkVersion" value="16"/>
   <preference name="BackupWebStorage" value="none"/>
   <preference name="DisallowOverscroll" value="true"/>
   <preference name="HideKeyboardFormAccessoryBar" value="true"/>
+  <preference name="SplashScreen" value="screen"/>
+  <preference name="SplashScreenDelay" value="3000"/>
   <preference name="AutoHideSplashScreen" value="false"/>
   <preference name="ShowSplashScreenSpinner" value="false"/>
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
+  <preference name="Orientation" value="portrait"/>
   <preference name="orientation" value="portrait"/>
-  <preference name="SplashScreen" value="screen"/>
-  <preference name="SplashScreenDelay" value="3000"/>
+  <preference name="target-device" value="handset"/>
+  <preference name="deployment-target" value="8.0"/>
+  <preference name="android-minSdkVersion" value="19"/>
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
