@@ -5,11 +5,10 @@
   "description": "Easily start an Ionic app",
   "dependencies": {
     "lodash": "^3.10.0",
-    "ionic": "^1.1.0",
-    "ngCordova": "^0.1.17-alpha",
-    "angular-cache": "^4.3.2",
-    "gator": "ccampbell/gator#1.2.4",
-    "angular-ios9-uiwebview.patch": "https://gist.github.com/863acd413e3925bf282c.git"
+    "ionic": "^1.1.1",
+    "ngCordova": "^0.1.23-alpha",
+    "angular-cache": "^4.4.2",
+    "gator": "ccampbell/gator#1.2.4"
   },
   "overrides": {
     "angular": {
@@ -55,9 +54,6 @@
         "development": "dist/angular-cache.js",
         "production": "dist/angular-cache.min.js"
       }
-    },
-    "angular-ios9-uiwebview.patch": {
-      "main": "angular-ios9-uiwebview.patch.js"
     }
   }
 }
