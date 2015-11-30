@@ -5,4 +5,4 @@ function gulpBuildCopyConfig(gulp, plugins, config) {
   return gulp.src(task.src).pipe(gulp.dest(task.dest));
 }
 
-module.exports = [['build.copy'], gulpBuildCopyConfig];
+module.exports = [['build.copy.resources'], gulpBuildCopyConfig];

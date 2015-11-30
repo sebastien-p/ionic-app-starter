@@ -11,6 +11,7 @@ var plugins = require('gulp-load-plugins')();
 var FOLDERS = {
   build: './build/',
   modules: './www/modules/',
+  resources: './resources/',
   sass: './scss/',
   www: './www/'
 };
@@ -50,8 +51,15 @@ var TASKS = {
     dest: FOLDERS.build
   },
   'build.copy': {
-    src: [FOLDERS.www + PATTERNS.all, FOLDERS.www + PATTERNS.pgbomit],
+    src: FOLDERS.www + PATTERNS.all,
     dest: FOLDERS.build
+  },
+  'build.copy.resources': {
+    src: [
+      FOLDERS.resources + PATTERNS.images,
+      FOLDERS.resources + PATTERNS.pgbomit
+    ],
+    dest: FOLDERS.build + '/resources/'
   },
   'build.phonegap-build': {
     src: FOLDERS.build,
