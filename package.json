@@ -33,7 +33,9 @@
     "start": "ionic serve",
     "build": "gulp build --type production",
     "android": "gulp && ionic run android --device",
-    "ios": "gulp && ionic run ios --device"
+    "ios": "gulp && ionic run ios --device",
+    "android:emulator": "gulp && ionic emulate android",
+    "ios:emulator": "gulp && ionic emulate ios"
   },
   "cordovaPlugins": [
     "ionic-plugin-keyboard",
