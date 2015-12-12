@@ -9,11 +9,12 @@
   /**
    * Some Cordova utilities.
    * @constructor CordovaUtils
+   * @param {Object} $q - The Angular $q service.
    * @param {Object} $rootScope - The Angular root scope object.
    * @param {Object} $ionicPlatform - The Ionic $ionicPlatform service.
    * @param {Object} $cordovaToast - The ngCordova $cordovaToast service.
    */
-  function CordovaUtils($rootScope, $ionicPlatform, $cordovaToast) {
+  function CordovaUtils($q, $rootScope, $ionicPlatform, $cordovaToast) {
     var service = this;
 
     /**
@@ -39,20 +40,23 @@
     /**
      * Call a given callback when Cordova is available and ready.
      * @method callWhenReady
-     * @param {Function} callback
+     * @param {Function} cb
+     * @return {Promise}
      */
-    service.callWhenReady = function (callback) {
-      if (service.isCordova()) { $ionicPlatform.ready(callback); }
+    service.callWhenReady = function (cb) {
+      if (service.isCordova()) { return $ionicPlatform.ready().then(cb); }
+      return $q.reject(new Error('App not running inside Cordova'));
     };
 
     /**
      * Show a toast at the center of the screen for a short duration.
      * @method showToast
      * @param {String} message
+     * @return {Promise}
      */
     service.showToast = function (message) {
-      function showToast() { $cordovaToast.showShortCenter(message); }
-      service.callWhenReady(showToast);
+      function showToast() { return $cordovaToast.showShortCenter(message); }
+      return service.callWhenReady(showToast);
     };
 
     // Broadcast 'paused' and 'resumed' events when the app runs in Cordova.
@@ -67,6 +71,7 @@
   }
 
   module.service('cordovaUtils', [
+    '$q',
     '$rootScope',
     '$ionicPlatform',
     '$cordovaToast',
