@@ -5,7 +5,7 @@
   "description": "Easily start an Ionic app",
   "dependencies": {
     "lodash": "^3.10.0",
-    "ionic": "^1.1.1",
+    "ionic": "^1.2.0",
     "ngCordova": "^0.1.23-alpha",
     "angular-cache": "^4.4.2",
     "gator": "ccampbell/gator#1.2.4"
