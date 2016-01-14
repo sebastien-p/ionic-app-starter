@@ -49,15 +49,27 @@
     };
 
     /**
+     * Get a callback that would be called when Cordova is available and ready.
+     * @method whenReady
+     * @param {Function} cb
+     * @return {Function}
+     */
+    service.whenReady = function (cb) {
+      return function () {
+        var bound = _.bind.apply(_, [cb, this].concat(_.toArray(arguments)));
+        return service.callWhenReady(bound);
+      };
+    };
+
+    /**
      * Show a toast at the center of the screen for a short duration.
      * @method showToast
      * @param {String} message
      * @return {Promise}
      */
-    service.showToast = function (message) {
-      function showToast() { return $cordovaToast.showShortCenter(message); }
-      return service.callWhenReady(showToast);
-    };
+    service.showToast = service.whenReady(function (message) {
+      return $cordovaToast.showShortCenter(message);
+    });
 
     // Broadcast 'paused' and 'resumed' events when the app runs in Cordova.
     service.callWhenReady(function () {
