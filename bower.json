@@ -4,10 +4,10 @@
   "version": "1.0.0-dev",
   "description": "Easily start an Ionic app",
   "dependencies": {
-    "lodash": "^3.10.0",
-    "ionic": "^1.2.0",
+    "lodash": "^3.10.1",
+    "ionic": "^1.2.4",
+    "ionic-fp-utils": "^0.2.0",
     "ngCordova": "^0.1.23-alpha",
-    "angular-cache": "^4.4.2",
     "gator": "ccampbell/gator#1.2.4"
   },
   "overrides": {
@@ -48,12 +48,9 @@
         "production": "dist/ng-cordova.min.js"
       },
       "dependencies": null
-    },
-    "angular-cache": {
-      "main": {
-        "development": "dist/angular-cache.js",
-        "production": "dist/angular-cache.min.js"
-      }
     }
+  },
+  "resolutions": {
+    "ionic": "^1.2.4"
   }
 }
