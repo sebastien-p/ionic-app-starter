@@ -3,8 +3,8 @@
 var sh = require('shelljs');
 
 function gulpGitCheck(gulp, plugins, config, done) {
+  var colors = plugins.util.colors;
   if (!sh.which('git')) {
-    var colors = plugins.util.colors;
     console.log(
       '  ' + colors.red('Git is not installed.'),
       '\n  Git, the version control system, is required to download Ionic.',
