@@ -1,0 +1,11 @@
+/node_modules/
+/platforms/
+/plugins/
+/www/
+/test/e2e-report.json
+/config.xml
+npm-debug.log
+.sublime*
+.idea*
+.npmrc
+/nbproject/
