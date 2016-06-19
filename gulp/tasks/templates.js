@@ -1,0 +1,111 @@
+'use strict';
+
+var path = require('path');
+var format = require('util').format;
+var _ = require('lodash');
+var merge = require('merge-stream');
+
+/**
+ * Handle loading and caching data like JSON from files.
+ * @constructor
+ */
+var DataCache = _.merge(function DataCache() {
+  /**
+   * The cached ids array.
+   * @property {Array} cached
+   */
+  this.cached = [];
+}, {
+  prototype: {
+    /**
+     * Get the index of a given data module id in the cached array.
+     * @param {String} id - The module id.
+     * @return {Number}
+     */
+    getCachedIndex: function getCachedIndex(id) {
+      return this.cached.indexOf(id);
+    },
+    /**
+     * Load some JSON data at a given path.
+     * @param {String} path - Path of the JSON file to load, minus extension.
+     * @return {Object|Array}
+     */
+    loadJSON: function loadJSON(path) {
+      path += '.json';
+      var value = require(path);
+      if (this.getCachedIndex(path) < 0) { this.cached.push(path); }
+      return value;
+    },
+    /**
+     * Load some JSON data maybe located at a given path.
+     * Don't throw any error if the file is not found.
+     * @param {[type]} path - Path of the JSON file to load, minus extension.
+     * @return {Object|Array|null} - null if file not found.
+     */
+    maybeLoadJSON: function maybeLoadJSON(path) {
+      try { return this.loadJSON(path); }
+      catch (error) { if (error.code !== 'MODULE_NOT_FOUND') { throw error; } }
+      return null;
+    },
+    /**
+     * Invalidate the cache for every or one cached module.
+     * @param {String} [id] - If not passed, loops through every cached module.
+     * @return {Array} - The cached ids array.
+     */
+    invalidateCache: function invalidateCache(id) {
+      if (!id) { return _.each(this.cached, this.invalidateCache, this); }
+      delete require.cache[id];
+      this.cached.splice(this.getCachedIndex(id), 1);
+      return this.cached;
+    }
+  }
+});
+
+/**
+ * Inline all HTML template files in the Angular template cache.
+ * @param {Object} gulp - Current Gulp instance.
+ * @param {Object} plugins - Gulp plugins loaded by *gulp-load-plugins* and
+ *   passed to *gulp-load-tasks*.
+ * @param {Object} config - Gulp config object passed to *gulp-load-tasks*.
+ * @return {Stream}
+ */
+function gulpTemplates(gulp, plugins, config) {
+  var task = config.TASKS.templates;
+
+  var app = _.findKey(config.INFOS.apps, config.app);
+  var conf = path.join(process.cwd(), task.cwd, '%s', 'config', app);
+  var dataCache = new DataCache();
+  var invalidateCache = _.bind(dataCache.invalidateCache, dataCache);
+
+  // Merge as many streams together as we have different targets.
+  return _.reduce(task.dest, function reduce(merged, dest, target) {
+    /*eslint global-require:0 */
+    return merged.add(gulp.src(task.src[target], { cwd: task.cwd })
+      // Search for config/<app>.json files in the same module directory
+      // than Jade files. Such files contain data to expose to templates.
+      .pipe(plugins.data(function data(file) {
+        file = format(conf, file.relative.split(path.sep)[0]);
+        return dataCache.maybeLoadJSON(file);
+      }))
+      .pipe(plugins.jade({ doctype: 'html' }))
+      .pipe(plugins.if(config.IS_PROD, plugins.htmlmin({
+        removeStyleLinkTypeAttributes: true,
+        removeCDATASectionsFromCDATA: true,
+        removeScriptTypeAttributes: true,
+        removeCommentsFromCDATA: true,
+        collapseWhitespace: true,
+        removeComments: true
+      })))
+      .pipe(plugins.angularTemplatecache({
+        module: task.module || 'app',
+        moduleSystem: 'IIFE',
+        filename: task.file,
+        root: task.root
+      }))
+      .pipe(plugins.if(config.IS_PROD, plugins.uglify()))
+      .pipe(gulp.dest(dest)))
+      .on('end', invalidateCache);
+  }, merge());
+}
+
+module.exports = [gulpTemplates];
