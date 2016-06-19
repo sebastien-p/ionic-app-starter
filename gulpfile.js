@@ -38,10 +38,6 @@ load(function tasksSettings(FOLDERS, PATTERNS, I18N) {
       },
       dest: FOLDERS.www
     },
-    'copy.versions': {
-      src: FOLDERS.assets + 'versions.json',
-      dest: FOLDERS.www + 'config/'
-    },
     'i18n': {
       src: FOLDERS.modules + '**/i18n/**' + I18N + '.json',
       dest: FOLDERS.www + 'modules/app.i18n/'
@@ -64,11 +60,7 @@ load(function tasksSettings(FOLDERS, PATTERNS, I18N) {
     },
     'constants': {
       dest: FOLDERS.www + 'modules/app.utils/',
-      module: 'app.utils',
-      icons: {
-        prefixes: ['apple', 'google'],
-        extension: 'png'
-      }
+      module: 'app.utils'
     },
     'inject.lib': {
       src: FOLDERS.www + '{smartphone,tablet}.html'
@@ -164,10 +156,7 @@ load(function tasksSettings(FOLDERS, PATTERNS, I18N) {
       src: FOLDERS.styles + PATTERNS.sass,
       tasks: ['styles']
     }, {
-      src: [
-        FOLDERS.root + 'package.json',
-        FOLDERS.root + 'wiser.json'
-      ],
+      src: FOLDERS.root + '{package, project}.json',
       tasks: ['constants']
     }, {
       src: [

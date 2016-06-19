@@ -1,3 +1,5 @@
+'use strict';
+
 var plugins = require('gulp-load-plugins')();
 var extend = require('lodash').extend;
 var environment = require('./environment')(plugins.util.env);

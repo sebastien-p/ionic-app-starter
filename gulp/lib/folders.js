@@ -1,3 +1,5 @@
+'use strict';
+
 var root = './';
 var src = root + 'src/';
 
