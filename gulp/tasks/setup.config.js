@@ -22,10 +22,8 @@ function parseIdAndSpec(id) {
  * @return {Array} May be empty.
  */
 function getPlatformTags(config) {
-  var platforms = config.INFOS.cordovaPlatforms;
-
   // Transform platform ids into Cordova XML tags.
-  return _.map(platforms, function map(id) {
+  return _.map(config.INFOS.cordovaPlatforms, function map(id) {
     id = parseIdAndSpec(id);
     return '<engine name="' + id[0] + '" spec="' + id[1] + '"/>';
   });
