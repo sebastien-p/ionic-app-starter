@@ -8,7 +8,7 @@ function same(file) { return file.base; }
 module.exports = {
   same: same,
   root: root,
-  assets: root + 'assets/'
+  assets: root + 'assets/',
   platforms: root + 'platforms/',
   plugins: root + 'plugins/',
   test: root + 'test/',

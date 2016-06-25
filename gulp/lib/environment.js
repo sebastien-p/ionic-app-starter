@@ -2,19 +2,19 @@
 
 var _ = require('lodash');
 var utils = require('./utilities');
-var package = require('../../package.json');
-var project = require('../../project.json');
+var packageJson = require('../../package.json');
+var projectJson = require('../../project.json');
 
 var infos = _.extend(
   _.pick(
-    package,
+    packageJson,
     'name',
     'version',
     'description',
     'cordovaPlatforms',
     'cordovaPlugins'
   ),
-  project
+  projectJson
 );
 
 function environment(extraEnvironment) {

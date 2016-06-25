@@ -1,4 +1,4 @@
-require('gulp');
+'use strict';
 
 var loadTasks = require('gulp-load-tasks');
 var parameters = require('./lib/parameters');

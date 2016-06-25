@@ -1,6 +1,6 @@
 'use strict';
 
-var sh = require('shelljs');
+var which = require('shelljs').which;
 
 /**
  * Check whether Git is installed and available.
@@ -13,10 +13,10 @@ var sh = require('shelljs');
 function gulpGitCheck(gulp, plugins, config, done) {
   var colors = plugins.util.colors;
 
-  if (!sh.which('git')) {
+  if (!which('git')) {
     console.log(
       '  ' + colors.red('Git is not installed.'),
-      '\n  Git, the version control system, is required to download Ionic.',
+      '\n  Git, the version control system, is required by Bower.',
       '\n  Visit ' + colors.cyan('http://git-scm.com/downloads') + '.',
       '\n  Once installed, run \'' + colors.cyan('gulp install') + '\'.'
     );

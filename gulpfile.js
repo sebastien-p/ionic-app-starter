@@ -1,6 +1,8 @@
 /*eslint-env node */
 /*eslint quote-props: 0 */
 
+'use strict';
+
 var load = require('./gulp/load');
 
 load(function tasksSettings(FOLDERS, PATTERNS, I18N) {
