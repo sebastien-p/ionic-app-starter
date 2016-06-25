@@ -1,7 +1,7 @@
 'use strict';
 
+var extend = require('lodash').extend;
 var parseUrl = require('url').parse;
-var _ = require('lodash');
 
 /**
  * Run end-to-end tests.
@@ -22,13 +22,15 @@ function gulpTestEndToEnd(gulp, plugins, config, done) {
       plugins.connect.serverClose();
       done(potentialError);
     }
+
     // Start a connect server to serve the application.
-    plugins.connect.server(_.extend({
+    plugins.connect.server(extend({
       root: config.FOLDERS.www,
       host: url.hostname,
       port: url.port
     // Get around a gulp-connect bug: passing `false` doesn't work...
     }, url.protocol === 'https:' ? { https: true } : null));
+
     gulp.src(task.src, { cwd: task.cwd })
       .pipe(plugins.protractor.protractor({
         configFile: task.cwd + (task.conf || 'protractor.conf.js'),

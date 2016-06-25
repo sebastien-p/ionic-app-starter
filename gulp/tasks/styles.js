@@ -1,7 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
-
 /**
  * Compile preprocessor style files into regular stylesheets.
  * @param {Object} gulp - Current Gulp instance.

@@ -1,6 +1,6 @@
 'use strict';
 
-var _ = require('lodash');
+var reduce = require('lodash').reduce;
 
 /**
  * Inject styles and scripts into the project targets html files.
@@ -16,7 +16,7 @@ function gulpInjectSrc(gulp, plugins, config) {
   function src(files) { return gulp.src(files, { cwd: task.cwd }); }
 
   // Add as many injections as we have different sections.
-  return _.reduce(task.sections, function reduce(stream, files, target) {
+  return reduce(task.sections, function reduce(stream, files, target) {
     var sort = plugins.if(config.PATTERNS.js, plugins.angularFilesort());
     var opt = { relative: true, name: target };
 

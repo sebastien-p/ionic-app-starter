@@ -73,6 +73,7 @@ function getPluginTags(config) {
   // Get the result by lazily evaluating previous methods.
   }).value();
 }
+
 /**
  * Copy the source config.xml at the root of the project, adding stuff to it.
  * @param {Object} gulp - Current Gulp instance.

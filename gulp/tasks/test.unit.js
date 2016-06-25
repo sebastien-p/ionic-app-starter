@@ -1,7 +1,7 @@
 'use strict';
 
-var es = require('event-stream');
 var mainBowerFiles = require('main-bower-files');
+var es = require('event-stream');
 
 /**
  * Merge JS files from bower dependencies, project sources and test files.

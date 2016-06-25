@@ -1,6 +1,6 @@
 'use strict';
 
-var _ = require('lodash');
+var findKey = require('lodash').findKey;
 
 /**
  * Copy favicons to the Cordova *www* directory.
@@ -13,7 +13,7 @@ var _ = require('lodash');
 function gulpCopyFavicons(gulp, plugins, config) {
   var task = config.TASKS['copy.favicons'];
 
-  var src = task.src[_.findKey(config.APPS, config.APP)];
+  var src = task.src[findKey(config.APPS, config.APP)];
 
   return gulp.src(src, { cwd: task.cwd })
     .pipe(plugins.rename({ basename: 'favicon' }))

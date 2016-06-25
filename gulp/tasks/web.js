@@ -1,8 +1,8 @@
 'use strict';
 
 var join = require('path').join;
+var map = require('lodash').map;
 var sh = require('shelljs');
-var _ = require('lodash');
 
 /**
  * Build the app for the Web.
@@ -17,7 +17,7 @@ function gulpWeb(gulp, plugins, config, done) {
   function addCwd(path) { return join(task.cwd, path); }
   try {
     sh.mv(addCwd(task.index), addCwd('index.html'));
-    sh.rm(_.map(task.remove, addCwd));
+    sh.rm(map(task.remove, addCwd));
     done();
   }
   catch (error) { done(error); }

@@ -1,9 +1,9 @@
 'use strict';
 
-var path = require('path');
 var format = require('util').format;
-var _ = require('lodash');
+var path = require('path');
 var merge = require('merge-stream');
+var _ = require('lodash');
 
 /**
  * Handle loading and caching data like JSON from files.
@@ -25,6 +25,7 @@ var DataCache = _.merge(function DataCache() {
     getCachedIndex: function getCachedIndex(id) {
       return this.cached.indexOf(id);
     },
+
     /**
      * Load some JSON data at a given path.
      * @param {String} path - Path of the JSON file to load, minus extension.
@@ -36,6 +37,7 @@ var DataCache = _.merge(function DataCache() {
       if (this.getCachedIndex(path) < 0) { this.cached.push(path); }
       return value;
     },
+
     /**
      * Load some JSON data maybe located at a given path.
      * Don't throw any error if the file is not found.
@@ -44,9 +46,11 @@ var DataCache = _.merge(function DataCache() {
      */
     maybeLoadJSON: function maybeLoadJSON(path) {
       try { return this.loadJSON(path); }
+      // eslint-disable-next-line max-statements-per-line
       catch (error) { if (error.code !== 'MODULE_NOT_FOUND') { throw error; } }
       return null;
     },
+
     /**
      * Invalidate the cache for every or one cached module.
      * @param {String} [id] - If not passed, loops through every cached module.
