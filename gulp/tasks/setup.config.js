@@ -73,7 +73,39 @@ function getPluginTags(config) {
 }
 
 /**
+ * Normalize the application id.
+ * @private
+ * @param {String|Object} id - If an object, must have an ios and an
+ *                           android key and both values must be strings.
+ * @return {Object} - With an ios and an android key.
+ */
+function normalizeAppId(id) {
+  // eslint-disable-next-line max-statements-per-line
+  if (_.isString(id)) { id = { ios: id, android: id }; }
+  if (_.isPlainObject(id) && id.ios && id.android) { return id; }
+  throw new Error('The application id is missing!');
+}
+
+/**
+ * Get the application id.
+ * @private
+ * @param {Object} config - Gulp config object passed to *gulp-load-tasks*.
+ * @return {Object} - With an ios and an android key.
+ */
+function getAppId(config) {
+  // Use the target id by default.
+  if (config.TARGET.id) { return normalizeAppId(config.TARGET.id); }
+  // If no target id provided, try to use the global app id value.
+  var id = normalizeAppId(config.APP.id);
+  function appendBuildId(id) { return id + '.' + config.BUILD_ID; }
+  // If the build isn't prod, append its id to the global id so that
+  // multiple versions of the app can be installed on the device.
+  return config.BUILD_ID === 'prod' ? id : _.mapValues(id, appendBuildId);
+}
+
+/**
  * Get the application name.
+ * @private
  * @param {Object} config - Gulp config object passed to *gulp-load-tasks*.
  * @return {String}
  */
@@ -81,7 +113,7 @@ function getName(config) {
   // Use the target name by default.
   if (config.TARGET.name) { return config.TARGET.name; }
   // If no target name provided, try to use the global app name value.
-  if (!config.APP.name) { throw 'You must name your application!'; }
+  if (!config.APP.name) { throw new Error('The application is missing!'); }
   if (config.BUILD_ID === 'prod') { return config.APP.name; }
   // If the build isn't prod, append its id to the global name so
   // that the app will be easier to find on the device springboard.
@@ -98,12 +130,12 @@ function getName(config) {
  */
 function gulpSetupConfig(gulp, plugins, config) {
   var task = config.TASKS['setup.config'];
-
-  var id = config.TARGET.id; // TODO: see project.json
+  var id = getAppId(config);
 
   return gulp.src(task.src)
     .pipe(plugins.cheerio({
       parserOptions: { xmlMode: true, normalizeWhitespace: config.IS_PROD },
+      // eslint-disable-next-line max-statements
       run: function run($, file, done) {
         var $widget = $('widget');
         $widget.attr('android-packageName', id.android);
