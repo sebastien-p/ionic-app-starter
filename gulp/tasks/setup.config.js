@@ -75,6 +75,22 @@ function getPluginTags(config) {
 }
 
 /**
+ * Get the application name.
+ * @param {Object} config - Gulp config object passed to *gulp-load-tasks*.
+ * @return {String}
+ */
+function getName(config) {
+  // Use the target name by default.
+  if (config.TARGET.name) { return config.TARGET.name; }
+  // If no target name provided, try to use the global app name value.
+  if (!config.APP.name) { throw 'You must name your application!'; }
+  if (config.BUILD_ID === 'prod') { return config.APP.name; }
+  // If the build isn't prod, append its id to the global name so
+  // that the app will be easier to find on the device springboard.
+  return config.APP.name + ' ' + config.BUILD_ID.toUpperCase();
+}
+
+/**
  * Copy the source config.xml at the root of the project, adding stuff to it.
  * @param {Object} gulp - Current Gulp instance.
  * @param {Object} plugins - Gulp plugins loaded by *gulp-load-plugins* and
@@ -86,7 +102,6 @@ function gulpSetupConfig(gulp, plugins, config) {
   var task = config.TASKS['setup.config'];
 
   var id = config.TARGET.id; // TODO: see project.json
-  var app = _.findKey(config.INFOS.apps, config.APP); // TODO: always use util version
 
   return gulp.src(task.src)
     .pipe(plugins.cheerio({
@@ -97,12 +112,14 @@ function gulpSetupConfig(gulp, plugins, config) {
         $widget.attr('ios-CFBundleIdentifier', id.ios);
         $widget.attr('id', id.ios);
         $widget.attr('version', config.INFOS.version);
-        $widget.find('name').text(config.TARGET.name);
+        $widget.find('name').text(getName(config));
+        $widget.find('description').text(config.INFOS.description);
         $widget.append(getPlatformTags(config));
         $widget.append(getPluginTags(config));
         $widget.find('icon,splash').each(function each(index, element) {
           var $element = $(element);
-          $element.attr('src', $element.attr('src').replace(/APP/g, app));
+          var src = $element.attr('src');
+          $element.attr('src', src.replace(/\$APP/g, config.APP_ID));
         });
         done();
       }
