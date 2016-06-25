@@ -34,11 +34,11 @@ function getPlatformTags(config) {
 /**
  * Transform Cordova plugins variables listed in package.json into XML tags.
  * @private
- * @param {Object} variables.
+ * @param {Object} variables - Names as keys, values as values.
  * @return {Array} May be empty.
  */
 function getVariableTags(variables) {
-  if (!_.isArray(variables)) { return []; }
+  if (!_.isPlainObject(variables)) { return []; }
   return _.map(variables, function map(value, name) {
     return '<variable name="' + name + '" value="' + value + '"/>';
   });
