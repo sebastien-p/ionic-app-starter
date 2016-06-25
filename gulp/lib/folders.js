@@ -3,8 +3,17 @@
 var root = './';
 var src = root + 'src/';
 
+/**
+ * Get same file path.
+ * @param {File} file - A file object.
+ * @return {String}
+ */
 function same(file) { return file.base; }
 
+/**
+ * Common folders constants.
+ * @type {Object}
+ */
 module.exports = {
   same: same,
   root: root,

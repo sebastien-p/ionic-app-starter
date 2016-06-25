@@ -17,6 +17,11 @@ var infos = _.extend(
   projectJson
 );
 
+/**
+ * Get environment variables.
+ * @param {Object} extraEnvironment - Extra variables.
+ * @return {Object}
+ */
 function environment(extraEnvironment) {
   var env = _.extend(_.pick(process.env, 'build', 'app'), extraEnvironment);
   var build = utils.getValueOrDefault(infos.builds, env.build, 'dev');

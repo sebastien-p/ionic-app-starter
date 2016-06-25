@@ -2,6 +2,11 @@
 
 var all = '**/*';
 
+/**
+ * Build common patterns contants.
+ * @param {Array} locales - Application supported locales.
+ * @return {Object}
+ */
 function patterns(locales) {
   return {
     all: all,
