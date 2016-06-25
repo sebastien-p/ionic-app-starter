@@ -76,8 +76,7 @@ var DataCache = _.merge(function DataCache() {
 function gulpTemplates(gulp, plugins, config) {
   var task = config.TASKS.templates;
 
-  var app = _.findKey(config.INFOS.apps, config.app);
-  var conf = path.join(process.cwd(), task.cwd, '%s', 'config', app);
+  var conf = path.join(process.cwd(), task.cwd, '%s', 'config', config.APP_ID);
   var dataCache = new DataCache();
   var invalidateCache = _.bind(dataCache.invalidateCache, dataCache);
 
