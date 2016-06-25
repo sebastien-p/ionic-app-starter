@@ -22,10 +22,8 @@ function environment(extraEnvironment) {
   var build = utils.getValueOrDefault(infos.builds, env.build, 'dev');
   var app = utils.getValueOrDefault(infos.apps, env.app, 'default');
   var buildId = utils.findKeyForExactValue(infos.builds, build);
-  var locales = app.constants.I18N.locales;
 
   return {
-    I18N: locales.length > 1 ? '{' + locales.join(',') + '}' : locales[0],
     APP_ID: utils.findKeyForExactValue(infos.apps, app),
     IS_PROD: build !== infos.builds.dev,
     TARGET: app.builds[buildId],
