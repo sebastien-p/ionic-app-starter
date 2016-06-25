@@ -15,4 +15,4 @@ function gulpInstallLib(gulp, plugins) {
   });
 }
 
-module.exports = [['check', 'setup'], gulpInstallLib]; // FIXME: check before setup too
+module.exports = [['setup', 'check'], gulpInstallLib];
