@@ -5,7 +5,7 @@
 
 var load = require('./gulp/load');
 
-load(function tasksSettings(FOLDERS, PATTERNS, I18N) {
+load(function tasksSettings(FOLDERS, PATTERNS) {
   return {
     'clean.cordova': {
       src: [
@@ -22,13 +22,11 @@ load(function tasksSettings(FOLDERS, PATTERNS, I18N) {
     'copy.src': {
       cwd: FOLDERS.src,
       src: [
-        PATTERNS.html,
-        PATTERNS.htaccess,
         PATTERNS.images,
         PATTERNS.fonts,
+        PATTERNS.html,
         PATTERNS.json,
         '!modules/**/{config,i18n}/' + PATTERNS.json,
-        PATTERNS.pdf,
         PATTERNS.js
       ],
       dest: FOLDERS.www
@@ -92,8 +90,8 @@ load(function tasksSettings(FOLDERS, PATTERNS, I18N) {
     'build.rev': {
       cwd: FOLDERS.www,
       src: [
-        'fonts/' + PATTERNS.fonts,
         'images/' + PATTERNS.images,
+        'fonts/' + PATTERNS.fonts,
         'lib/lib.min.{css,js}',
         'modules/*.min.js',
         'css/*.min.css'
@@ -112,16 +110,18 @@ load(function tasksSettings(FOLDERS, PATTERNS, I18N) {
       cwd: FOLDERS.www,
       src: [
         PATTERNS.all,
-        '!{css,config,fonts,images,lib,modules,resources}/',
+        '!{css,fonts,images,lib,modules}/',
         '!css/*-*.min.css',
-        '!{config,fonts,images,resources}/' + PATTERNS.all,
+        '!images/' + PATTERNS.images,
         '!lib/lib-*.min.{css,js}',
         '!lib/{angular-i18n,ionic}/',
-        '!lib/angular-i18n/angular-locale_' + I18N.toLowerCase() + '.js',
+        '!lib/angular-i18n/angular-locale_' + PATTERNS.i18n.toLowerCase() + '.js',
         '!lib/ionic/release/',
         '!lib/ionic/release/fonts/',
-        '!lib/ionic/release/fonts/' + PATTERNS.fonts,
+        '!{fonts,lib/ionic/release/fonts}/' + PATTERNS.fonts, // TODO: check
         '!modules/*-*.min.js',
+        '!' + PATTERNS.json,
+        '!' + PATTERNS.html,
         '!*.*',
         'rev-manifest.json'
       ]
@@ -140,12 +140,11 @@ load(function tasksSettings(FOLDERS, PATTERNS, I18N) {
         PATTERNS.images,
         PATTERNS.fonts,
         PATTERNS.json,
-        '!modules/**/{config,i18n}/' + PATTERNS.json,
-        PATTERNS.pdf
+        '!modules/**/{config,i18n}/' + PATTERNS.json
       ],
       tasks: ['copy']
     }, {
-      src: FOLDERS.modules + '**/i18n/**' + I18N + '.json',
+      src: FOLDERS.modules + '**/i18n/**' + PATTERNS.i18n + '.json',
       tasks: ['i18n']
     }, {
       cwd: FOLDERS.modules,
@@ -158,7 +157,7 @@ load(function tasksSettings(FOLDERS, PATTERNS, I18N) {
       src: FOLDERS.styles + PATTERNS.sass,
       tasks: ['styles']
     }, {
-      src: FOLDERS.root + '{package, project}.json',
+      src: FOLDERS.root + '{package,project}.json',
       tasks: ['constants']
     }, {
       src: [

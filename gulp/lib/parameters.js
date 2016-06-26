@@ -14,7 +14,7 @@ var folders = require('./folders');
  */
 function parameters(tasksSettings) {
   var config = extend({ PATTERNS: patterns, FOLDERS: folders }, environment);
-  config.TASKS = tasksSettings(folders, patterns, patterns.i18n, config);
+  config.TASKS = tasksSettings(folders, patterns, config);
   return [gulp, plugins, config];
 }
 

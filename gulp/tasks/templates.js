@@ -33,6 +33,7 @@ var DataCache = _.merge(function DataCache() {
      */
     loadJSON: function loadJSON(path) {
       path += '.json';
+      // eslint-disable-next-line global-require
       var value = require(path);
       if (this.getCachedIndex(path) < 0) { this.cached.push(path); }
       return value;
@@ -82,7 +83,6 @@ function gulpTemplates(gulp, plugins, config) {
 
   // Merge as many streams together as we have different targets.
   return _.reduce(task.dest, function reduce(merged, dest, target) {
-    /*eslint global-require:0 */
     return merged.add(gulp.src(task.src[target], { cwd: task.cwd })
       // Search for config/<app>.json files in the same module directory
       // than Jade files. Such files contain data to expose to templates.
