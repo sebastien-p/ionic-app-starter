@@ -13,8 +13,10 @@ var _ = require('lodash');
 function gulpConstants(gulp, plugins, config) {
   var task = config.TASKS.constants;
 
+  var defaultDest = config.FOLDERS.www + 'modules/' + task.module + '/';
+
   return plugins.ngConstant({
-    name: task.module || 'main',
+    name: task.module,
     stream: true,
     deps: false,
     // Be careful, setting `wrap` to `true` using the default template
@@ -22,7 +24,10 @@ function gulpConstants(gulp, plugins, config) {
     wrap: false,
     constants: _.merge(
       // Define some default constants.
-      { APP_VERSION: config.INFOS.version },
+      {
+        APP_NAME: config.TARGET.name || config.APP.name,
+        APP_VERSION: config.INFOS.version
+      },
       // Merge common constants with build, app and target-related ones.
       config.INFOS.common.constants,
       config.BUILD.constants,
@@ -32,7 +37,7 @@ function gulpConstants(gulp, plugins, config) {
   })
     .pipe(plugins.rename(task.file || 'constants.js'))
     .pipe(plugins.if(config.IS_PROD, plugins.uglify()))
-    .pipe(gulp.dest(task.dest));
+    .pipe(gulp.dest(task.dest || defaultDest));
 }
 
 module.exports = [gulpConstants];

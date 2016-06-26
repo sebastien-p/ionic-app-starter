@@ -31,16 +31,19 @@ load(function tasksSettings(FOLDERS, PATTERNS) {
       ],
       dest: FOLDERS.www
     },
-    'copy.favicons': {
-      cwd: FOLDERS.images + 'favicons/',
-      src: {
-        // TODO
-      },
-      dest: FOLDERS.www
+    // 'copy.favicons': {
+    //   cwd: FOLDERS.images + 'favicons/',
+    //   src: {
+    //     // TODO
+    //   },
+    //   dest: FOLDERS.www
+    // },
+    'constants': {
+      module: 'app.utils'
     },
     'i18n': {
-      src: FOLDERS.modules + '**/i18n/**' + I18N + '.json',
-      dest: FOLDERS.www + 'modules/app.i18n/'
+      src: FOLDERS.modules + '**/i18n/**' + PATTERNS.i18n + '.json',
+      module: 'app.i18n'
     },
     'templates': {
       cwd: FOLDERS.modules,
@@ -48,19 +51,11 @@ load(function tasksSettings(FOLDERS, PATTERNS) {
         smartphone: '**/smartphone/' + PATTERNS.jade,
         tablet: '**/tablet/' + PATTERNS.jade
       },
-      dest: {
-        smartphone: FOLDERS.www + 'modules/app/smartphone/',
-        tablet: FOLDERS.www + 'modules/app/tablet/'
-      },
-      root: 'modules/'
+      module: 'main'
     },
     'styles': {
       src: FOLDERS.styles + '{shared,smartphone,tablet}.sass',
       dest: FOLDERS.www + 'css/'
-    },
-    'constants': {
-      dest: FOLDERS.www + 'modules/app.utils/',
-      module: 'app.utils'
     },
     'inject.lib': {
       src: FOLDERS.www + '{smartphone,tablet}.html'
@@ -126,14 +121,14 @@ load(function tasksSettings(FOLDERS, PATTERNS) {
         'rev-manifest.json'
       ]
     },
-    'web': {
-      cwd: FOLDERS.www,
-      index: 'tablet.html',
-      remove: [
-        'css/smartphone-*.min.css',
-        'smartphone.html'
-      ]
-    },
+    // 'web': { // TODO
+    //   cwd: FOLDERS.www,
+    //   index: 'tablet.html',
+    //   remove: [
+    //     'css/smartphone-*.min.css',
+    //     'smartphone.html'
+    //   ]
+    // },
     'watch': [{
       cwd: FOLDERS.src,
       src: [
@@ -166,7 +161,7 @@ load(function tasksSettings(FOLDERS, PATTERNS) {
         FOLDERS.root + 'bower.json'
       ],
       tasks: ['inject']
-    }],
+    }]/*,
     'test.e2e': { // TODO: fix tests
       cwd: FOLDERS.test + 'e2e/',
       src: PATTERNS.spec
@@ -178,6 +173,6 @@ load(function tasksSettings(FOLDERS, PATTERNS) {
         PATTERNS.spec
       ],
       app: FOLDERS.www + 'modules/' + PATTERNS.js
-    }
+    }*/
   };
 });

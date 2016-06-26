@@ -78,12 +78,13 @@ function gulpTemplates(gulp, plugins, config) {
   var task = config.TASKS.templates;
 
   var conf = path.join(process.cwd(), task.cwd, '%s', 'config', config.APP_ID);
+  var defaultDest = config.FOLDERS.www + 'modules/%s/%s/';
   var dataCache = new DataCache();
   var invalidateCache = _.bind(dataCache.invalidateCache, dataCache);
 
   // Merge as many streams together as we have different targets.
-  return _.reduce(task.dest, function reduce(merged, dest, target) {
-    return merged.add(gulp.src(task.src[target], { cwd: task.cwd })
+  return _.reduce(task.src, function reduce(merged, src, target) {
+    return merged.add(gulp.src(src, { cwd: task.cwd })
       // Search for config/<app>.json files in the same module directory
       // than Jade files. Such files contain data to expose to templates.
       .pipe(plugins.data(function data(file) {
@@ -100,15 +101,18 @@ function gulpTemplates(gulp, plugins, config) {
         removeComments: true
       })))
       .pipe(plugins.angularTemplatecache({
-        module: task.module || 'app',
+        root: task.root || 'modules/',
         moduleSystem: 'IIFE',
         filename: task.file,
-        root: task.root
+        module: task.module
       }))
       .pipe(plugins.if(config.IS_PROD, plugins.uglify()))
-      .pipe(gulp.dest(dest)))
-      .on('end', invalidateCache);
-  }, merge());
+      .pipe(gulp.dest(
+        _.has(task.dest, target) && task.dest[target]
+        || format(defaultDest, task.module, target)
+      ))
+    );
+  }, merge()).on('end', invalidateCache); // TODO: check
 }
 
 module.exports = [gulpTemplates];
