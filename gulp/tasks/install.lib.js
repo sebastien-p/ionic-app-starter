@@ -11,7 +11,8 @@ var bower = require('bower');
  */
 function gulpInstallLib(gulp, plugins) {
   return bower.commands.install().on('log', function log(data) {
-    plugins.util.log('bower', plugins.util.colors.cyan(data.id), data.message);
+    var dependency = plugins.util.colors.cyan(data.id);
+    plugins.util.log('bower', dependency, data.message);
   });
 }
 

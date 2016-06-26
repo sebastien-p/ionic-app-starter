@@ -1,6 +1,6 @@
 'use strict';
 
-var del = require('del'); // TODO: use shelljs?
+var del = require('del');
 
 /**
  * Remove Cordova-related directories and files to get a fresh working folder.
@@ -12,8 +12,9 @@ var del = require('del'); // TODO: use shelljs?
  */
 function gulpCleanCordova(gulp, plugins, config, done) {
   var task = config.TASKS['clean.cordova'];
+  var opt = { cwd: task.cwd, nomount: true, strict: true, mark: true };
 
-  del(task.src, { nomount: true, strict: true, mark: true }, done);
+  del(task.src, opt, done);
 }
 
 module.exports = [gulpCleanCordova];

@@ -19,7 +19,6 @@ function gulpInjectSrc(gulp, plugins, config) {
   return reduce(task.sections, function reduce(stream, files, target) {
     var sort = plugins.if(config.PATTERNS.js, plugins.angularFilesort());
     var opt = { relative: true, name: target };
-
     return stream.pipe(plugins.inject(src(files).pipe(sort), opt));
   }, src(task.src)).pipe(gulp.dest(config.FOLDERS.same));
 }

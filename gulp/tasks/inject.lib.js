@@ -12,14 +12,11 @@ var bowerFiles = require('main-bower-files');
  */
 function gulpInjectLib(gulp, plugins, config) {
   var task = config.TASKS['inject.lib'];
+  // Get regular or minified files depending on the requested build type.
+  var opt = { env: config.IS_PROD ? 'prod' : 'dev' };
+  var lib = gulp.src(bowerFiles(opt), { read: false });
 
-  var lib = gulp.src(
-    // Get regular or minified files depending on the requested build type.
-    bowerFiles({ env: config.IS_PROD ? 'prod' : 'dev' }),
-    { read: false }
-  );
-
-  return gulp.src(task.src)
+  return gulp.src(task.src, { cwd: task.cwd })
     .pipe(plugins.inject(lib, { name: 'lib', relative: true }))
     .pipe(gulp.dest(config.FOLDERS.same)
   );

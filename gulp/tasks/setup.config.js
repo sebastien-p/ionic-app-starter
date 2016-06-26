@@ -132,7 +132,7 @@ function gulpSetupConfig(gulp, plugins, config) {
   var task = config.TASKS['setup.config'];
   var id = getAppId(config);
 
-  return gulp.src(task.src)
+  return gulp.src(task.src, { cwd: task.cwd })
     .pipe(plugins.cheerio({
       parserOptions: { xmlMode: true, normalizeWhitespace: config.IS_PROD },
       // eslint-disable-next-line max-statements

@@ -11,7 +11,7 @@
 function gulpBuildUseref(gulp, plugins, config) {
   var task = config.TASKS['build.useref'];
 
-  return gulp.src(task.src)
+  return gulp.src(task.src, { cwd: task.cwd })
     .pipe(plugins.useref())
     .pipe(plugins.if(
       config.IS_PROD && config.PATTERNS.css,

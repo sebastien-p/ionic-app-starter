@@ -14,7 +14,6 @@ var es = require('event-stream');
  */
 function gulpTestUnit(gulp, plugins, config) {
   var task = config.TASKS['test.unit'];
-
   var conf = task.cwd + (task.conf || 'karma.conf.js');
   var opt = { filter: config.PATTERNS.js, includeDev: true, env: 'dev' };
 
@@ -22,9 +21,7 @@ function gulpTestUnit(gulp, plugins, config) {
     gulp.src(mainBowerFiles(opt), { read: false }),
     gulp.src(task.app).pipe(plugins.angularFilesort()),
     gulp.src(task.src, { cwd: task.cwd }).pipe(plugins.angularFilesort())
-  )
-    // .pipe(plugins.debug({ title: 'gulp-debug:' }))
-    .pipe(plugins.karma({ configFile: conf, action: 'run' }));
+  ).pipe(plugins.karma({ configFile: conf, action: 'run' }));
 }
 
 module.exports = [gulpTestUnit];

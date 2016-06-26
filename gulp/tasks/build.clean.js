@@ -1,6 +1,6 @@
 'use strict';
 
-var del = require('del'); // TODO: use shelljs?
+var del = require('del');
 
 /**
  * Remove unused directories after a build process.

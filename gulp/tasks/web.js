@@ -14,7 +14,9 @@ var sh = require('shelljs');
  */
 function gulpWeb(gulp, plugins, config, done) {
   var task = config.TASKS.web;
+
   function addCwd(path) { return join(task.cwd, path); }
+
   try {
     sh.mv(addCwd(task.index), addCwd('index.html'));
     sh.rm(map(task.remove, addCwd));

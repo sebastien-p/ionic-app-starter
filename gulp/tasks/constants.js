@@ -12,7 +12,6 @@ var _ = require('lodash');
  */
 function gulpConstants(gulp, plugins, config) {
   var task = config.TASKS.constants;
-
   var defaultDest = config.FOLDERS.www + 'modules/' + task.module + '/';
 
   return plugins.ngConstant({
