@@ -17,10 +17,6 @@ function gulpStyles(gulp, plugins, config) {
       config.IS_PROD,
       plugins.minifyCss({ keepSpecialComments: 0 })
     ))
-    .pipe(plugins.if(
-      config.IS_PROD,
-      plugins.rename({ extname: '.min.css' })
-    ))
     .pipe(gulp.dest(task.dest));
 }
 

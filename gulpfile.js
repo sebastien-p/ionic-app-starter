@@ -65,16 +65,16 @@ load(function tasksSettings(FOLDERS, PATTERNS) {
       src: '{smartphone,tablet}.html',
       sections: {
         shared: [
-          'css/shared?(.min).css',
+          'css/shared.css',
           'modules/' + PATTERNS.js,
           '!modules/**/{smartphone,tablet}/' + PATTERNS.js
         ],
         smartphone: [
-          'css/smartphone?(.min).css',
+          'css/smartphone.css',
           'modules/**/smartphone/' + PATTERNS.js
         ],
         tablet: [
-          'css/tablet?(.min).css',
+          'css/tablet.css',
           'modules/**/tablet/' + PATTERNS.js
         ]
       }
