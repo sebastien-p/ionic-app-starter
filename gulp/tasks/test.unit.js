@@ -1,7 +1,7 @@
 'use strict';
 
 var mainBowerFiles = require('main-bower-files');
-var es = require('event-stream');
+var Server = require('karma').Server;
 
 /**
  * Merge JS files from bower dependencies, project sources and test files.
@@ -10,18 +10,29 @@ var es = require('event-stream');
  * @param {Object} plugins - Gulp plugins loaded by *gulp-load-plugins* and
  *   passed to *gulp-load-tasks*.
  * @param {Object} config - Gulp config object passed to *gulp-load-tasks*.
- * @return {Stream}
+ * @param {Function} done - Function to call when asynchrounous stuff is done.
  */
-function gulpTestUnit(gulp, plugins, config) {
+function gulpTestUnit(gulp, plugins, config, done) { // TODO: check paths on windows
   var task = config.TASKS['test.unit'];
-  var conf = task.cwd + (task.conf || 'karma.conf.js');
-  var opt = { filter: config.PATTERNS.js, includeDev: true, env: 'dev' };
+  var cwd = process.cwd() + '/' + (task.cwd || '');
+  var sortedAppFiles = [];
 
-  return es.merge(
-    gulp.src(mainBowerFiles(opt), { read: false }),
-    gulp.src(task.app).pipe(plugins.angularFilesort()),
-    gulp.src(task.src, { cwd: task.cwd }).pipe(plugins.angularFilesort())
-  ).pipe(plugins.karma({ configFile: conf, action: 'run' }));
+  gulp.src(task.app, { read: true })
+    .pipe(plugins.angularFilesort())
+    .on('data', function onData(file) { sortedAppFiles.push(file.path); })
+    .on('end', function onEnd() {
+      new Server({
+        configFile: cwd + (task.conf || 'karma.conf.js'),
+        singleRun: config.IS_PROD,
+        basePath: cwd,
+        files: mainBowerFiles({
+          filter: config.PATTERNS.js,
+          includeDev: true,
+          env: 'dev'
+        }).concat(sortedAppFiles, task.src)
+      }, done).start();
+    })
+    .on('error', done);
 }
 
-module.exports = [gulpTestUnit];
+module.exports = [gulpTestUnit]; // TODO: copy

@@ -6,6 +6,8 @@
 var load = require('./gulp/load');
 
 load(function tasksSettings(FOLDERS, PATTERNS) {
+  var LOCALES = 'angular-locale_' + PATTERNS.i18n.toLowerCase() + '.js';
+
   return {
     'clean.cordova': {
       src: [
@@ -101,7 +103,7 @@ load(function tasksSettings(FOLDERS, PATTERNS) {
         'css/*-*.min.css'
       ]
     },
-    'build.clean': { // TODO: resources (json, pdf), etc.
+    'build.clean': {
       cwd: FOLDERS.www,
       src: [
         PATTERNS.all,
@@ -110,7 +112,7 @@ load(function tasksSettings(FOLDERS, PATTERNS) {
         '!images/' + PATTERNS.images,
         '!lib/lib-*.min.{css,js}',
         '!lib/{angular-i18n,ionic}/',
-        '!lib/angular-i18n/angular-locale_' + PATTERNS.i18n.toLowerCase() + '.js',
+        '!lib/angular-i18n/' + LOCALES,
         '!lib/ionic/release/',
         '!lib/ionic/release/fonts/',
         '!{fonts,lib/ionic/release/fonts}/' + PATTERNS.fonts, // TODO: check
@@ -165,14 +167,14 @@ load(function tasksSettings(FOLDERS, PATTERNS) {
     'test.e2e': { // TODO: fix tests
       cwd: FOLDERS.test + 'e2e/',
       src: PATTERNS.spec
-    },
+    }*/,
     'test.unit': { // TODO: fix tests
       cwd: FOLDERS.test + 'unit/',
-      src: [
-        '{mocks,utils}/' + PATTERNS.js,
-        PATTERNS.spec
-      ],
-      app: FOLDERS.www + 'modules/' + PATTERNS.js
-    }*/
+      src: PATTERNS.spec,
+      app: [
+        FOLDERS.www + 'modules/' + PATTERNS.js,
+        '!' + FOLDERS.www + 'modules/**/{smartphone,tablet}/' + PATTERNS.js
+      ]
+    }
   };
 });

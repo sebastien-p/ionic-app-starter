@@ -13,10 +13,11 @@ var parseUrl = require('url').parse;
  */
 function gulpTestEndToEnd(gulp, plugins, config, done) {
   var task = config.TASKS['test.e2e'];
-  var url = parseUrl(task.baseUrl || 'http://localhost:9876');
 
   // Make sure to download the Selenuim Web driver.
   plugins.protractor.webdriver_update(function onUpdate() {
+    var url = parseUrl(task.baseUrl || 'http://localhost:9876');
+
     function stop(potentialError) {
       // Don't forget to stop the connect server.
       plugins.connect.serverClose();
@@ -33,7 +34,7 @@ function gulpTestEndToEnd(gulp, plugins, config, done) {
 
     gulp.src(task.src, { cwd: task.cwd })
       .pipe(plugins.protractor.protractor({
-        configFile: task.cwd + (task.conf || 'protractor.conf.js'),
+        configFile: (task.cwd || '') + (task.conf || 'protractor.conf.js'),
         args: ['--baseUrl', url.href]
       }))
       .on('error', stop)
@@ -41,4 +42,4 @@ function gulpTestEndToEnd(gulp, plugins, config, done) {
   });
 }
 
-module.exports = [gulpTestEndToEnd];
+module.exports = [gulpTestEndToEnd]; // TODO: copy
