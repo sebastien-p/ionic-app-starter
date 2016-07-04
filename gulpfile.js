@@ -163,12 +163,12 @@ load(function tasksSettings(FOLDERS, PATTERNS) {
         FOLDERS.root + 'bower.json'
       ],
       tasks: ['inject']
-    }]/*,
-    'test.e2e': { // TODO: fix tests
+    }],
+    'test.e2e': {
       cwd: FOLDERS.test + 'e2e/',
       src: PATTERNS.spec
-    }*/,
-    'test.unit': { // TODO: fix tests
+    },
+    'test.unit': {
       cwd: FOLDERS.test + 'unit/',
       src: PATTERNS.spec,
       app: [

@@ -1,0 +1,4 @@
+env:
+  protractor: true
+globals:
+  angular: false
