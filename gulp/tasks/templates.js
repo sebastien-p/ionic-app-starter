@@ -66,6 +66,9 @@ var DataCache = _.merge(function DataCache() {
   }
 });
 
+var dataCache = new DataCache();
+var invalidateCache = _.bind(dataCache.invalidateCache, dataCache);
+
 /**
  * Inline all HTML template files in the Angular template cache.
  * @param {Object} gulp - Current Gulp instance.
@@ -76,11 +79,8 @@ var DataCache = _.merge(function DataCache() {
  */
 function gulpTemplates(gulp, plugins, config) {
   var task = config.TASKS.templates;
-
-  var conf = path.join(process.cwd(), task.cwd, '%s', 'config', config.APP_ID);
   var defaultDest = config.FOLDERS.www + 'modules/%s/%s/';
-  var dataCache = new DataCache();
-  var invalidateCache = _.bind(dataCache.invalidateCache, dataCache);
+  var conf = path.join(process.cwd(), task.cwd, '%s', 'config', config.APP_ID);
 
   // Merge as many streams together as we have different targets.
   return _.reduce(task.src, function reduce(merged, src, target) {
