@@ -41,7 +41,7 @@ load(function tasksSettings(FOLDERS, PATTERNS) {
     //   dest: FOLDERS.www
     // },
     'constants': {
-      module: 'app.utils'
+      module: 'app'
     },
     'i18n': {
       src: FOLDERS.modules + '**/i18n/**' + PATTERNS.i18n + '.json',
