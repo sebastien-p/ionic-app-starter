@@ -31,7 +31,7 @@
     provider.setFolder(provider.FOLDERS.SMARTPHONE);
 
     // Associated service.
-    function StateDecoratorFolder() {
+    function StateFolder() {
       var service = this;
 
       /**
@@ -41,9 +41,9 @@
       service.getFolder = provider.getFolder;
     }
 
-    provider.$get = [function () { return new StateDecoratorFolder(); }];
+    provider.$get = [function () { return new StateFolder(); }];
   }
 
-  module.provider('stateDecoratorFolder', [StateFolderProvider]);
+  module.provider('stateFolder', [StateFolderProvider]);
 
 }(angular.module('app')));

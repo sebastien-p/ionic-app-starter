@@ -15,15 +15,15 @@
     });
   }
 
-  function run(cordovaUtils, $cordovaStatusBar, $cordovaKeyboard) {
+  function run(cordovaUtils, $cordovaStatusbar, $cordovaKeyboard) {
     cordovaUtils.callWhenReady(function () {
-      $cordovaStatusBar.style($cordovaStatusBar.STYLES.DEFAULT);
+      $cordovaStatusbar.style($cordovaStatusbar.STYLES.DEFAULT);
       $cordovaKeyboard.hideAccessoryBar(false);
       $cordovaKeyboard.disableScroll(true);
     });
   }
 
   module.config(['$cordovaInAppBrowserProvider', config]);
-  module.run(['cordovaUtils', '$cordovaStatusBar', '$cordovaKeyboard', run]);
+  module.run(['cordovaUtils', '$cordovaStatusbar', '$cordovaKeyboard', run]);
 
 }(angular.module('app.native', ['app'])));

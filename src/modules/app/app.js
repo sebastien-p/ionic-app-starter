@@ -15,6 +15,6 @@
   }
 
   module.config(['$compileProvider', '$ionicConfigProvider', config]);
-  module.run(['$rootScope', 'APP_NAME'], run);
+  module.run(['$rootScope', 'APP_NAME', run]);
 
 }(angular.module('app', ['ui.router.default', 'fp.utils'])));

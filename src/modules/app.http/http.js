@@ -5,7 +5,6 @@
   'use strict';
 
   function config($httpProvider) {
-    $httpProvider.interceptors.push('requestInterceptor');
     $httpProvider.interceptors.push('loadingInterceptor');
   }
 

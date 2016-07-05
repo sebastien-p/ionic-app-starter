@@ -53,7 +53,7 @@ load(function tasksSettings(FOLDERS, PATTERNS) {
         smartphone: '**/smartphone/' + PATTERNS.jade,
         tablet: '**/tablet/' + PATTERNS.jade
       },
-      module: 'main'
+      module: 'app'
     },
     'styles': {
       src: FOLDERS.styles + '{shared,smartphone,tablet}.sass',
