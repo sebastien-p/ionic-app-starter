@@ -12,7 +12,7 @@ var del = require('del');
  */
 function gulpCleanCordova(gulp, plugins, config, done) {
   var task = config.TASKS['clean.cordova'];
-  var opt = { cwd: task.cwd, nomount: true, strict: true, mark: true };
+  var opt = { cwd: task.cwd || '', nomount: true, strict: true, mark: true };
 
   del(task.src, opt, done);
 }

@@ -12,7 +12,7 @@ var del = require('del');
  */
 function gulpBuildClean(gulp, plugins, config, done) {
   var task = config.TASKS['build.clean'];
-  var opt = { cwd: task.cwd, nomount: true, strict: true, mark: true };
+  var opt = { cwd: task.cwd || '', nomount: true, strict: true, mark: true };
 
   del(task.src, opt, done);
 }
