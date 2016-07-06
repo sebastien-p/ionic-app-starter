@@ -36,11 +36,6 @@
     "angular-i18n": {
       "ignore": true
     },
-    "angular-mocks": {
-      "main": {
-        "prod": null
-      }
-    },
     "angular-translate-interpolation-messageformat": {
       "main": {
         "dev": "angular-translate-interpolation-messageformat.js",
