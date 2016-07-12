@@ -1,6 +1,19 @@
 'use strict';
 
-var bowerFiles = require('main-bower-files');
+var mainBowerFiles = require('main-bower-files');
+var mergeStream = require('merge-stream');
+var reduce = require('lodash').reduce;
+
+/**
+ * Use Bower overrides feature to exclude a given lib.
+ * @param {Object} overrides
+ * @param {String} lib - Dependency name.
+ * @return {Object} Overrides.
+ */
+function excludeLib(overrides, lib) {
+  overrides[lib] = { ignore: true };
+  return overrides;
+}
 
 /**
  * Inject styles and scripts dependencies into the project targets html files.
@@ -12,14 +25,25 @@ var bowerFiles = require('main-bower-files');
  */
 function gulpInjectLib(gulp, plugins, config) {
   var task = config.TASKS['inject.lib'];
-  // Get regular or minified files depending on the requested build type.
-  var opt = { env: config.IS_PROD ? 'prod' : 'dev' };
-  var lib = gulp.src(bowerFiles(opt), { read: false });
+  var env = config.IS_PROD ? 'prod' : 'dev';
+  var targets = config.APP.targets || {};
 
-  return gulp.src(task.src, { cwd: task.cwd })
-    .pipe(plugins.inject(lib, { name: 'lib', relative: true }))
-    .pipe(gulp.dest(config.FOLDERS.same)
-  );
+  return reduce(task.src, function handleTargets(merged, src, target) {
+    var excluded = (targets[target] || {}).excludeLibs;
+    return merged.add(
+      gulp.src(src, { cwd: task.cwd })
+        .pipe(plugins.inject(
+          gulp.src(mainBowerFiles({
+            // Maybe exclude given dependencies for the given target.
+            overrides: reduce(excluded, excludeLib, {}),
+            // Get regular or minified files depending on the build type.
+            env: env
+          }), { read: false }),
+          { name: 'lib', relative: true }
+        ))
+        .pipe(gulp.dest(config.FOLDERS.same))
+    );
+  }, mergeStream());
 }
 
 module.exports = [['copy'], gulpInjectLib];

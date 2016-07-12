@@ -120,6 +120,15 @@
             "API_SERVER_URL": ""
           }
         }
+      },
+      // Optionnally exclude Bower libs per target.
+      "targets": {
+        "smartphone": {
+          "excludeLibs": []
+        },
+        "tablet": {
+          "excludeLibs": []
+        }
       }
     }
   }

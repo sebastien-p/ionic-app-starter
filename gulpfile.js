@@ -60,7 +60,11 @@ load(function tasksSettings(FOLDERS, PATTERNS) {
       dest: FOLDERS.www + 'css/'
     },
     'inject.lib': {
-      src: FOLDERS.www + '{smartphone,tablet}.html'
+      cwd: FOLDERS.www,
+      src: {
+        smartphone: 'smartphone.html',
+        tablet: 'tablet.html'
+      }
     },
     'inject.src': {
       cwd: FOLDERS.www,
