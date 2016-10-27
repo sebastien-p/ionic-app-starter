@@ -2,10 +2,10 @@
 /platforms/
 /plugins/
 /www/
-/test/e2e-report.json
 /config.xml
-npm-debug.log
+/test/reports
+/nbproject/
+*.log
 .sublime*
 .idea*
 .npmrc
-/nbproject/
