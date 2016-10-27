@@ -113,13 +113,14 @@ load(function tasksSettings(FOLDERS, PATTERNS) {
         PATTERNS.all,
         '!{css,fonts,images,lib,modules}/',
         '!css/*-*.min.css',
+        '!images/**/',
         '!images/' + PATTERNS.images,
         '!lib/lib-*.min.{css,js}',
         '!lib/{angular-i18n,ionic}/',
         '!lib/angular-i18n/' + LOCALES,
         '!lib/ionic/release/',
         '!lib/ionic/release/fonts/',
-        '!{fonts,lib/ionic/release/fonts}/' + PATTERNS.fonts, // TODO: check
+        '!{fonts,lib/ionic/release/fonts}/' + PATTERNS.fonts,
         '!modules/*-*.min.js',
         '!' + PATTERNS.json,
         '!' + PATTERNS.html,
@@ -177,7 +178,7 @@ load(function tasksSettings(FOLDERS, PATTERNS) {
       src: PATTERNS.spec,
       app: [
         FOLDERS.www + 'modules/' + PATTERNS.js,
-        '!' + FOLDERS.www + 'modules/**/{smartphone,tablet}/' + PATTERNS.js
+        '!' + FOLDERS.www + 'modules/**/{smartphone,tablet}/!(templates.js)'
       ]
     }
   };
