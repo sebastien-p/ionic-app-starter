@@ -32,12 +32,15 @@ function getPlatformTags(config) {
 /**
  * Transform Cordova plugins variables listed in package.json into XML tags.
  * @private
- * @param {Object} variables - Names as keys, values as values.
+ * @param {Object} config - Gulp config object passed to *gulp-load-tasks*.
+ * @param {Object} pluginDefinition - Plugin definition object.
  * @return {Array} May be empty.
  */
-function getVariableTags(variables) {
-  if (!_.isPlainObject(variables)) { return []; }
-  return _.map(variables, function map(value, name) {
+function getVariableTags(config, pluginDefinition) {
+  if (!_.isPlainObject(pluginDefinition.variables)) { return []; }
+  var prefix = pluginDefinition.constantPrefix || '';
+  return _.map(pluginDefinition.variables, function map(value, name) {
+    if (!value) { value = _.get(config.CONSTANTS, prefix + name); }
     return '<variable name="' + name + '" value="' + value + '"/>';
   });
 }
@@ -66,10 +69,21 @@ function getPluginTags(config) {
   }).map(function map(pluginDefinition) {
     var id = parseIdAndSpec(pluginDefinition);
     return '<plugin name="' + id[0] + '" spec="' + id[1] + '">'
-      + getVariableTags(pluginDefinition.variables).join('')
+      + getVariableTags(config, pluginDefinition).join('')
       + '</plugin>';
   // Get the result by lazily evaluating previous methods.
   }).value();
+}
+
+/**
+ * Build the access tag to whitelist the `API_SERVER_URL` target constant.
+ * @private
+ * @function getAccessTag
+ * @param {Object} config - Gulp config object passed to *gulp-load-tasks*.
+ * @return {String}
+ */
+function getAccessTag(config) {
+  return '<access origin="' + config.CONSTANTS.API_SERVER_URL + '"/>';
 }
 
 /**
@@ -146,6 +160,7 @@ function gulpSetupConfig(gulp, plugins, config) {
         $widget.find('description').text(config.INFOS.description);
         $widget.append(getPlatformTags(config));
         $widget.append(getPluginTags(config));
+        $widget.append(getAccessTag(config));
         $widget.find('icon,splash').each(function each(index, element) {
           var $element = $(element);
           var src = $element.attr('src');
