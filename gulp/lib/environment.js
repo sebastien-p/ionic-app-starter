@@ -27,12 +27,27 @@ function environment(extraEnvironment) {
   var build = utils.getValueOrDefault(infos.builds, env.build, 'dev');
   var app = utils.getValueOrDefault(infos.apps, env.app, 'default');
   var buildId = utils.findKeyForExactValue(infos.builds, build);
+  var target = app.builds[buildId];
+
+  var constants = _.merge(
+    // Define some default constants.
+    {
+      APP_NAME: target.name || app.name,
+      APP_VERSION: infos.version
+    },
+    // Merge common constants with build, app and target-related ones.
+    infos.common.constants,
+    build.constants,
+    app.constants,
+    target.constants
+  );
 
   return {
     APP_ID: utils.findKeyForExactValue(infos.apps, app),
     IS_PROD: build !== infos.builds.dev,
-    TARGET: app.builds[buildId],
+    CONSTANTS: constants,
     BUILD_ID: buildId,
+    TARGET: target,
     INFOS: infos,
     BUILD: build,
     APP: app,

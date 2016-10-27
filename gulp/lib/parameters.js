@@ -1,11 +1,11 @@
 'use strict';
 
-var plugins = require('gulp-load-plugins')();
-var extend = require('lodash').extend;
 var gulp = require('gulp');
+var extend = require('lodash').extend;
+var plugins = require('gulp-load-plugins')();
+var folders = require('./folders');
 var environment = require('./environment')(plugins.util.env);
 var patterns = require('./patterns')(environment.APP.constants.I18N.locales);
-var folders = require('./folders');
 
 /**
  * Build tasks parameters.

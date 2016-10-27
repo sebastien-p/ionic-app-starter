@@ -1,7 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
-
 /**
  * Add some app-level dynamic Angular constants.
  * @param {Object} gulp - Current Gulp instance.
@@ -21,18 +19,7 @@ function gulpConstants(gulp, plugins, config) {
     // Be careful, setting `wrap` to `true` using the default template
     // breaks further gulp-angular-filesort call after minification...
     wrap: false,
-    constants: _.merge(
-      // Define some default constants.
-      {
-        APP_NAME: config.TARGET.name || config.APP.name,
-        APP_VERSION: config.INFOS.version
-      },
-      // Merge common constants with build, app and target-related ones.
-      config.INFOS.common.constants,
-      config.BUILD.constants,
-      config.APP.constants,
-      config.TARGET.constants
-    )
+    constants: config.CONSTANTS
   })
     .pipe(plugins.rename(task.file || 'constants.js'))
     .pipe(plugins.if(config.IS_PROD, plugins.uglify()))
