@@ -1,6 +1,7 @@
 'use strict';
 
 var mainBowerFiles = require('main-bower-files');
+var isArray = require('lodash').isArray;
 var Server = require('karma').Server;
 
 /**
@@ -15,6 +16,7 @@ var Server = require('karma').Server;
 function gulpTestUnit(gulp, plugins, config, done) { // TODO: check paths on windows
   var task = config.TASKS['test.unit'];
   var cwd = process.cwd() + '/' + (task.cwd || '');
+  var extraLibs = isArray(task.extraLibs) ? task.extraLibs : [];
   var sortedAppFiles = [];
 
   gulp.src(task.app, { read: true })
@@ -24,12 +26,13 @@ function gulpTestUnit(gulp, plugins, config, done) { // TODO: check paths on win
       new Server({
         configFile: cwd + (task.conf || 'karma.conf.js'),
         singleRun: config.IS_PROD,
+        port: task.port || 9875,
         basePath: cwd,
-        files: mainBowerFiles({
+        files: extraLibs.concat(mainBowerFiles({
           filter: config.PATTERNS.js,
           includeDev: true,
           env: 'dev'
-        }).concat(sortedAppFiles, task.src)
+        }), sortedAppFiles, task.src)
       }, done).start();
     })
     .on('error', done);

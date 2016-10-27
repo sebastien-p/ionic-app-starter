@@ -9,7 +9,7 @@
  * @return {Stream}
  */
 function gulpCopyFavicons(gulp, plugins, config) {
-  var task = config.TASKS['copy.favicons'];
+  var task = config.TASKS['copy.favicon'];
 
   return gulp.src(task.src[config.APP_ID], { cwd: task.cwd })
     .pipe(plugins.rename({ basename: 'favicon' }))

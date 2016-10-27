@@ -1,6 +1,7 @@
 'use strict';
 
 var del = require('del');
+var ary = require('lodash').ary;
 
 /**
  * Remove unused directories after a build process.
@@ -14,7 +15,7 @@ function gulpBuildClean(gulp, plugins, config, done) {
   var task = config.TASKS['build.clean'];
   var opt = { cwd: task.cwd || '', nomount: true, strict: true, mark: true };
 
-  del(task.src, opt, done);
+  del(task.src, opt).then(ary(done, 0)).catch(done);
 }
 
 module.exports = [['build.rev.replace'], gulpBuildClean];

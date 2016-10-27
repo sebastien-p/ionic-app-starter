@@ -15,7 +15,7 @@ function gulpBuildUseref(gulp, plugins, config) {
     .pipe(plugins.useref())
     .pipe(plugins.if(
       config.IS_PROD && config.PATTERNS.css,
-      plugins.minifyCss({ keepSpecialComments: 0 })
+      plugins.cleanCss({ keepSpecialComments: 0 })
     ))
     .pipe(plugins.if(
       config.IS_PROD && config.PATTERNS.js,

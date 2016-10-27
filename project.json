@@ -29,7 +29,7 @@
   "apps": {
     "default": {
       "name": "App",
-      "id": "",
+      "id": "id.goes.here",
       "constants": {
         "I18N": {
           "locales": ["en-US"],
@@ -61,6 +61,14 @@
           "constants": {
             "API_SERVER_URL": ""
           }
+        }
+      },
+      "targets": {
+        "smartphone": {
+          "constants": {}
+        },
+        "tablet": {
+          "constants": {}
         }
       }
     }

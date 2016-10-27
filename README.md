@@ -121,13 +121,12 @@
           }
         }
       },
-      // Optionnally exclude Bower libs per target.
       "targets": {
         "smartphone": {
-          "excludeLibs": []
+          "constants": {}
         },
         "tablet": {
-          "excludeLibs": []
+          "constants": {}
         }
       }
     }

@@ -10,12 +10,13 @@
  */
 function gulpStyles(gulp, plugins, config) {
   var task = config.TASKS.styles;
+  var opt = { indentedSyntax: true };
 
   return gulp.src(task.src, { cwd: task.cwd })
-    .pipe(plugins.sass({ errLogToConsole: true, indentedSyntax: true }))
+    .pipe(plugins.sass(opt).on('error', plugins.sass.logError))
     .pipe(plugins.if(
       config.IS_PROD,
-      plugins.minifyCss({ keepSpecialComments: 0 })
+      plugins.cleanCss({ keepSpecialComments: 0 })
     ))
     .pipe(gulp.dest(task.dest));
 }
