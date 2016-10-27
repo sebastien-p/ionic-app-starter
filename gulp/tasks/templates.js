@@ -86,17 +86,15 @@ function gulpTemplates(gulp, plugins, config) {
   return _.reduce(task.src, function reduce(merged, src, target) {
     return merged.add(gulp.src(src, { cwd: task.cwd })
       // Search for config/<app>.json files in the same module directory
-      // than Jade files. Such files contain data to expose to templates.
+      // than Pug files. Such files contain data to expose to templates.
       .pipe(plugins.data(function data(file) {
         file = format(conf, file.relative.split(path.sep)[0]);
         return dataCache.maybeLoadJSON(file);
       }))
-      .pipe(plugins.jade({ doctype: 'html' }))
+      .pipe(plugins.pug({ doctype: 'html', locals: config.CONSTANTS }))
       .pipe(plugins.if(config.IS_PROD, plugins.htmlmin({
         removeStyleLinkTypeAttributes: true,
-        removeCDATASectionsFromCDATA: true,
         removeScriptTypeAttributes: true,
-        removeCommentsFromCDATA: true,
         collapseWhitespace: true,
         removeComments: true
       })))
@@ -112,7 +110,7 @@ function gulpTemplates(gulp, plugins, config) {
         || format(defaultDest, task.module, target)
       ))
     );
-  }, merge()).on('end', invalidateCache); // TODO: check
+  }, merge()).on('end', invalidateCache);
 }
 
 module.exports = [gulpTemplates];

@@ -50,8 +50,8 @@ load(function tasksSettings(FOLDERS, PATTERNS) {
     'templates': {
       cwd: FOLDERS.modules,
       src: {
-        smartphone: '**/smartphone/' + PATTERNS.jade,
-        tablet: '**/tablet/' + PATTERNS.jade
+        smartphone: '**/smartphone/' + PATTERNS.pug,
+        tablet: '**/tablet/' + PATTERNS.pug
       },
       module: 'app'
     },
@@ -151,7 +151,7 @@ load(function tasksSettings(FOLDERS, PATTERNS) {
       cwd: FOLDERS.modules,
       src: [
         '**/config/' + PATTERNS.json,
-        PATTERNS.jade
+        PATTERNS.pug
       ],
       tasks: ['templates']
     }, {
