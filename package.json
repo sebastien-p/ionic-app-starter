@@ -78,22 +78,22 @@
     "ios": "gulp && ionic run ios --device",
     "ios:emulator": "gulp && ionic run ios --emulator",
 
-    "build:prepare": "npm run test:once && gulp build",
-    "build:prepare:cordova": "npm run setup && npm run build:prepare",
+    "prepare:build": "npm run test:once && gulp build",
+    "prepare:build:cordova": "npm run setup && npm run prepare:build",
 
-    "build:web": "npm run restore && npm run build:prepare",
+    "build:web": "npm run restore && npm run prepare:build",
     "build:web:prod": "cross-env build=prod npm run build:web",
     "build:web:preprod": "cross-env build=preprod npm run build:web",
     "build:web:test": "cross-env build=test npm run build:web",
     "build:web:qa": "cross-env build=qa npm run build:web",
 
-    "build:android": "npm run build:prepare:cordova && cordova build android",
+    "build:android": "npm run prepare:build:cordova && cordova build android",
     "build:android:prod": "cross-env build=prod npm run build:android",
     "build:android:preprod": "cross-env build=preprod npm run build:android",
     "build:android:test": "cross-env build=test npm run build:android",
     "build:android:qa": "cross-env build=qa npm run build:android",
 
-    "build:ios": "npm run build:prepare:cordova && cordova build ios",
+    "build:ios": "npm run prepare:build:cordova && cordova build ios",
     "build:ios:prod": "cross-env build=prod npm run build:ios",
     "build:ios:preprod": "cross-env build=preprod npm run build:ios",
     "build:ios:test": "cross-env build=test npm run build:ios",
