@@ -1,9 +1,10 @@
 'use strict';
 
 exports.config = {
-  framework: 'jasmine2',
   allScriptsTimeout: 30 * 1000,
-  capabilities: { browserName: 'chrome' },
+  rootElement: '[ng-app]',
+  directConnect: true,
+  capabilities: { browserName: 'firefox' }, // FIXME: use chrome when the driver works...
   onPrepare: function () {
     browser.addMockModule('noAnimations', function () {
       function noAnimations($animate) { $animate.enabled(false); }

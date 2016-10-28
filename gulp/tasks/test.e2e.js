@@ -26,11 +26,11 @@ function gulpTestEndToEnd(gulp, plugins, config, done) {
 
     // Start a connect server to serve the application.
     plugins.connect.server(extend({
+      https: url.protocol === 'https:',
       root: config.FOLDERS.www,
       host: url.hostname,
       port: url.port
-    // Get around a gulp-connect bug: passing `false` doesn't work...
-    }, url.protocol === 'https:' ? { https: true } : null));
+    }));
 
     gulp.src(task.src, { cwd: task.cwd })
       .pipe(plugins.protractor.protractor({
