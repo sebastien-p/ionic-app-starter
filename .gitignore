@@ -1,6 +1,7 @@
 /node_modules/
 /platforms/
 /plugins/
+/res/
 /www/
 /config.xml
 /test/reports
