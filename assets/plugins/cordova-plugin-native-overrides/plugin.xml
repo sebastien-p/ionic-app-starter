@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  id="cordova-plugin-native-overrides"
+  version="1.0.0">
+  <name>Native overrides</name>
+  <description>Custom native code overrides</description>
+  <info>
+    This plugin should be removed at some point.
+    It's here just to override default Cordova behavior that shouldn't be overriden (and not commit the whole *platforms* directory).
+    Note that the hooks you see below are only used to get around a Cordova limitation.
+  </info>
+  <platform name="android">
+    <hook type="after_plugin_install" src="scripts/android/after-install.js"/>
+    <hook type="after_prepare" src="scripts/android/after-prepare.js"/>
+    <hook type="before_plugin_uninstall" src="scripts/android/before-uninstall.js"/>
+  </platform>
+  <platform name="ios">
+    <header-file src="src/ios/FPAppDelegate.h"/>
+    <source-file src="src/ios/FPAppDelegate.m"/>
+    <hook type="after_plugin_install" src="scripts/ios/after-install.js"/>
+    <hook type="after_prepare" src="scripts/ios/after-prepare.js"/>
+    <hook type="before_plugin_uninstall" src="scripts/ios/before-uninstall.js"/>
+  </platform>
+</plugin>
