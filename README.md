@@ -1,3 +1,6 @@
+JDK 1.8+
+Update Android SDK (API 24)
+
 {
   "common": {
     // Base Angular app constants.
