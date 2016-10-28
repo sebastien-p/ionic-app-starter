@@ -80,9 +80,10 @@ function getPluginTags(config) {
  * @private
  * @function getAccessTag
  * @param {Object} config - Gulp config object passed to *gulp-load-tasks*.
- * @return {String}
+ * @return {String|null}
  */
 function getAccessTag(config) {
+  if (!config.CONSTANTS.API_SERVER_URL) { return null; }
   return '<access origin="' + config.CONSTANTS.API_SERVER_URL + '"/>';
 }
 
