@@ -32,7 +32,7 @@ describe('[app]', function () {
     it('should have a FOLDERS property', function () {
       expect(_.isPlainObject(stateFolderProvider.FOLDERS)).toBe(true);
       expect(stateFolderProvider.FOLDERS.SMARTPHONE).toBe('smartphone');
-      expect(stateFolderProvider.FOLDERS.WEB).toBe('web');
+      expect(stateFolderProvider.FOLDERS.TABLET).toBe('tablet');
     });
 
     describe('stateFolderProvider.getFolder', function () {
@@ -55,38 +55,9 @@ describe('[app]', function () {
         var FOLDERS = stateFolderProvider.FOLDERS;
         stateFolderProvider.setFolder(FOLDERS.SMARTPHONE);
         expect(stateFolderProvider.getFolder()).toBe(FOLDERS.SMARTPHONE);
-        stateFolderProvider.setFolder(FOLDERS.WEB);
-        expect(stateFolderProvider.getFolder()).toBe(FOLDERS.WEB);
+        stateFolderProvider.setFolder(FOLDERS.TABLET);
+        expect(stateFolderProvider.getFolder()).toBe(FOLDERS.TABLET);
       });
-    });
-  });
-
-  describe('stateFolder', function () {
-    it('should have a FOLDERS property', function () {
-      expect(_.isPlainObject(stateFolder.FOLDERS)).toBe(true);
-      expect(stateFolder.FOLDERS).not.toBe(stateFolderProvider.FOLDERS);
-      expect(stateFolder.FOLDERS.SMARTPHONE).toBe('smartphone');
-      expect(stateFolder.FOLDERS.WEB).toBe('web');
-    });
-
-    it('should expose its provider getFolder method', function () {
-      expect(stateFolder.getFolder).toBe(stateFolderProvider.getFolder);
-    });
-
-    describe('stateFolder.isSmartphone', function () {
-      it('should be a function', function () {
-        expect(_.isFunction(stateFolder.isSmartphone)).toBe(true);
-      });
-
-      it('should return true if the app is running in smartphone way',
-        function () {
-          var FOLDERS = stateFolderProvider.FOLDERS;
-          stateFolderProvider.setFolder(FOLDERS.SMARTPHONE);
-          expect(stateFolder.isSmartphone()).toBe(true);
-          stateFolderProvider.setFolder(FOLDERS.WEB);
-          expect(stateFolder.isSmartphone()).toBe(false);
-        }
-      );
     });
   });
 });
