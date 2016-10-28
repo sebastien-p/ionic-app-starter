@@ -1,5 +1,14 @@
 env:
   node: true
   jasmine: true
+globals:
+  angular: false
+  inject: false
+  module: false
+  _: false
 rules:
   func-names: 0
+  init-declarations: 1
+  max-nested-callbacks: 0
+  max-params: 0
+  max-statements: 0
