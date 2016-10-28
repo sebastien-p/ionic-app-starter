@@ -50,7 +50,7 @@
 "lodash": "3.10.1",
     "main-bower-files": "2.13.1",
     "merge-stream": "1.0.0",
-    "phantomjs": "2.1.7",
+    "phantomjs-prebuilt": "2.1.13",
     "protractor": "4.0.10",
     "shelljs": "0.7.5"
   },
