@@ -3,7 +3,6 @@
 describe('[app]', function () {
   var $rootScope;
   var stateFolderProvider;
-  var stateFolder;
   var APP_NAME;
 
   beforeEach(module('app', function (
@@ -14,11 +13,9 @@ describe('[app]', function () {
 
   beforeEach(inject(function (
     _$rootScope_,
-    _stateFolder_,
     _APP_NAME_
   ) {
     $rootScope = _$rootScope_;
-    stateFolder = _stateFolder_;
     APP_NAME = _APP_NAME_;
   }));
 

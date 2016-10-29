@@ -13,10 +13,10 @@ var Server = require('karma').Server;
  * @param {Object} config - Gulp config object passed to *gulp-load-tasks*.
  * @param {Function} done - Function to call when asynchrounous stuff is done.
  */
-function gulpTestUnit(gulp, plugins, config, done) { // TODO: check paths on windows
+function gulpTestUnit(gulp, plugins, config, done) {
   var task = config.TASKS['test.unit'];
-  var cwd = process.cwd() + '/' + (task.cwd || '');
   var extraLibs = isArray(task.extraLibs) ? task.extraLibs : [];
+  var cwd = process.cwd() + '/' + (task.cwd || '');
   var sortedAppFiles = [];
 
   gulp.src(task.app, { read: true })
@@ -25,6 +25,7 @@ function gulpTestUnit(gulp, plugins, config, done) { // TODO: check paths on win
     .on('end', function onEnd() {
       new Server({
         configFile: cwd + (task.conf || 'karma.conf.js'),
+        gulp: { task: task, config: config },
         singleRun: config.IS_PROD,
         port: task.port || 9875,
         basePath: cwd,
