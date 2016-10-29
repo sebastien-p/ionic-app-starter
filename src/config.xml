@@ -9,7 +9,6 @@
   <name>$PACKAGE_NAME</name>
   <description>$PACKAGE_DESCRIPTION</description>
   <content src="smartphone.html"/>
-  <access origin="*"/>
   <access origin="tel:*" launch-external="yes"/>
   <preference name="BackupWebStorage" value="none"/>
   <preference name="DisallowOverscroll" value="true"/>
