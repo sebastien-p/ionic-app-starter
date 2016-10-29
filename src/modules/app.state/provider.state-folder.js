@@ -1,10 +1,10 @@
 /**
- * @memberOf app
+ * @memberOf app.state
  */
 (function (module) {
   'use strict';
 
-  // Provider to manage folder used by the state decorator.
+  // Provider to manage folder used by the $state views decorator.
   function StateFolderProvider() {
     var provider = this;
     var current = null;
@@ -13,7 +13,11 @@
      * Available folders.
      * @type {Object}
      */
-    provider.FOLDERS = { SMARTPHONE: 'smartphone', TABLET: 'tablet' };
+    provider.FOLDERS = {
+      SMARTPHONE: 'smartphone',
+      TABLET: 'tablet',
+      WEB: 'web'
+    };
 
     /**
      * Set the used folder.
@@ -46,4 +50,4 @@
 
   module.provider('stateFolder', [StateFolderProvider]);
 
-}(angular.module('app')));
+}(angular.module('app.state')));

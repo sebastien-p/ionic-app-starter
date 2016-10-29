@@ -75,7 +75,7 @@
      * @param {String} name
      */
     service.stopPolling = function (name) {
-      this.pausePolling(name);
+      service.pausePolling(name);
       pollingPool[name] = null;
       delete pollingPool[name];
     };
@@ -84,14 +84,14 @@
      * Pause all current polling tasks.
      */
     service.pausePollings = function () {
-      _.each(pollingPool, this.pausePolling, this);
+      _.each(pollingPool, service.pausePolling, service);
     };
 
     /**
      * Resume all current polling tasks.
      */
     service.resumePollings = function () {
-      _.each(pollingPool, this.startPolling, this);
+      _.each(pollingPool, service.startPolling, service);
     };
 
     /**
@@ -101,7 +101,8 @@
      * @return {Boolean}
      */
     service.isExternal = function (url) {
-      return /^http(:?s)?:\/\//.test(url);
+      return /^(:?http(:?s)?:)?\/\//.test(url)
+        && !_.startsWith(url, API_SERVER_URL);
     };
 
     /**
@@ -176,6 +177,18 @@
      * @return {Promise} - Passing the object with resolved values.
      */
     service.all = function (promises) { return $q.all(promises); };
+
+    /**
+     * Simulate an HTTP rejection so that it won't break interceptors.
+     * @param {Number} status - HTTP status code.
+     * @param {*} [data] - Response data.
+     * @param {Object} [config={}] - Request config.
+     * @return {Promise}
+     */
+    service.reject = function (status, data, config) {
+      config = _.extend({}, config);
+      return $q.reject({ status: status, data: data, config: config });
+    };
   }
 
   module.service('httpService', [

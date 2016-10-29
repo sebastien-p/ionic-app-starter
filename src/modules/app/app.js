@@ -4,17 +4,27 @@
 (function (module) {
   'use strict';
 
-  function config($compileProvider, $ionicConfigProvider) {
-    // https://medium.com/swlh/improving-angular-performance-with-1-line-of-code-a1fb814a6476
-    $compileProvider.debugInfoEnabled(false); // TODO: disable if IS_PROD
+  function config($compileProvider, $ionicConfigProvider, IS_PROD) {
+    // Should improve runtime performances.
+    $compileProvider.debugInfoEnabled(!IS_PROD);
     $ionicConfigProvider.scrolling.jsScrolling(ionic.Platform.isIOS()); // TODO: false?
+    // Disable Ionic template prefetch.
+    $ionicConfigProvider.templates.maxPrefetch(0);
   }
 
-  function run($rootScope, APP_NAME) { // TODO: add isCordova?
+  function run($rootScope, cordovaUtils, APP_VERSION, APP_NAME) {
+    $rootScope.IS_CORDOVA = cordovaUtils.isCordova();
+    $rootScope.APP_VERSION = APP_VERSION;
     $rootScope.APP_NAME = APP_NAME;
   }
 
-  module.config(['$compileProvider', '$ionicConfigProvider', config]);
-  module.run(['$rootScope', 'APP_NAME', run]);
+  module.config([
+    '$compileProvider',
+    '$ionicConfigProvider',
+    'IS_PROD',
+    config
+  ]);
 
-}(angular.module('app', ['ui.router.default', 'fp.utils'])));
+  module.run(['$rootScope', 'cordovaUtils', 'APP_VERSION', 'APP_NAME', run]);
+
+}(angular.module('app', ['fp.utils'])));
