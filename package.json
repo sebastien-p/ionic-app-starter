@@ -54,6 +54,10 @@
     "protractor": "4.0.10",
     "shelljs": "0.7.5"
   },
+  "optionalDependencies": {
+    "ios-deploy": "1.9.0",
+    "ios-sim": "5.0.10"
+  },
   "scripts": {
     "restore:web": "gulp install && gulp",
     "restore": "npm run restore:web && cordova prepare",
