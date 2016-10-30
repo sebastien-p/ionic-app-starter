@@ -4,8 +4,18 @@
 (function (module) {
   'use strict';
 
+  /**
+   * Angular locales location pattern.
+   * @constant
+   * @type {String}
+   */
   var I18N_PATTERN = 'lib/angular-i18n/angular-locale_{{locale}}.js';
 
+  /**
+   * Additional i18n units.
+   * @constant
+   * @type {Object}
+   */
   var I18N_UNITS = {
     'EN-US': { TEMPERATURE: { SYMBOL: '°F' } },
     'FR-FR': { TEMPERATURE: { SYMBOL: '°C' } }

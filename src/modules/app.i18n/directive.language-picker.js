@@ -8,11 +8,17 @@
     var TEMPLATE_URL = 'smartphone/language-picker';
     var LOCALES = i18nService.getLocales();
 
-    function preLink(scope) { scope.LOCALES = LOCALES; }
+    function preLink(scope) {
+      scope.LOCALES = LOCALES;
+
+      scope.syncLocale = function () {
+        i18nService.setLocale(scope.settings.language);
+      };
+    }
 
     return {
       templateUrl: templateUtils.getUrlFromModule(module, TEMPLATE_URL),
-      scope: { account: '=' },
+      scope: { settings: '=' },
       link: { pre: preLink },
       restrict: 'E'
     };

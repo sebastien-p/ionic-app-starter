@@ -12,3 +12,7 @@ rules:
   max-params: 0
   max-statements: 0
   padded-blocks: 0
+  no-param-reassign:
+    - 1
+    -
+      props: false

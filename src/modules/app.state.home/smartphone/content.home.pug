@@ -1,0 +1,7 @@
+h2= $app
+p(translate-value-greeter="{{ ::from }}", translate=".CONTENT")
+button.button(
+  on-tap="homeController.showPopup()",
+  translate=".BUTTON",
+  type="button")
+language-picker(settings="settings")

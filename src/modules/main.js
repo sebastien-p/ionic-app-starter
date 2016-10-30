@@ -2,7 +2,10 @@
  * @module main
  */
 angular.module('main', [
-  'app.native',
+  'app',
   'app.http',
-  'app.i18n'
+  'app.i18n',
+  'app.native',
+  'app.state',
+  'app.state.home'
 ]);

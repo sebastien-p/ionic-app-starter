@@ -4,11 +4,16 @@
 (function (module) {
   'use strict';
 
+  var STATE = 'state';
+
+  // Force loading of dynamic locale using the determined one.
+  function localeResolver(i18nService) { return i18nService.setLocale(); }
+
   function config(
     $stateProvider,
     $urlRouterProvider,
     stateFolderProvider,
-    templateUtils
+    templateUtilsProvider
   ) {
     // Update all states templateUrl to add device type (tablet/smartphone).
     $stateProvider.decorator('views', function (state, decorated) {
@@ -17,9 +22,17 @@
         var module = state.data && state.data.module;
         if (!module) { return; }
         var file = view.templateUrl ? folder + view.templateUrl : folder;
-        view.templateUrl = templateUtils.getUrlFromModule(module, file);
+        view.templateUrl = templateUtilsProvider.getUrlFromModule(module, file);
       });
     });
+
+    $stateProvider.state(STATE, {
+      resolve: { locale: ['i18nService', localeResolver] },
+      data: { module: module },
+      views: { root: {} },
+      abstract: true
+    });
+
     // Default route if none matching.
     $urlRouterProvider.otherwise('/home');
   }
@@ -49,7 +62,7 @@
     '$stateProvider',
     '$urlRouterProvider',
     'stateFolderProvider',
-    'templateUtils',
+    'templateUtilsProvider',
     config
   ]);
 
@@ -58,7 +71,8 @@
     '$state',
     '$ionicHistory',
     '$ionicNavBarDelegate',
-    'stateService'
-  ], run);
+    'stateService',
+    run
+  ]);
 
 }(angular.module('app.state', ['app.i18n'])));

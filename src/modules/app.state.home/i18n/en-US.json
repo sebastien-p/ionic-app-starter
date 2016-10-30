@@ -1,0 +1,7 @@
+{
+  "HOME": {
+    "TITLE": "Home view",
+    "CONTENT": "Hello from {{ greeter }}",
+    "BUTTON": "Show popup"
+  }
+}

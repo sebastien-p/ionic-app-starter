@@ -5,7 +5,7 @@
   'use strict';
 
   function config($cordovaInAppBrowserProvider) {
-    $cordovaInAppBrowserProvider.setDefaultOptions({ // TODO: what if plugin not installed or running outside cordova?
+    $cordovaInAppBrowserProvider.setDefaultOptions({
       mediaPlaybackRequiresUserAction: 'yes',
       enableViewportScale: 'yes',
       clearSessionCache: 'yes',
@@ -17,8 +17,8 @@
 
   function run(
     cordovaUtils,
-    $cordovaStatusbar,
     $cordovaKeyboard,
+    $cordovaStatusbar,
     $cordovaSplashscreen
   ) {
     cordovaUtils.callWhenReady(function () {
@@ -33,8 +33,8 @@
 
   module.run([
     'cordovaUtils',
-    '$cordovaStatusbar',
     '$cordovaKeyboard',
+    '$cordovaStatusbar',
     '$cordovaSplashscreen',
     run
   ]);

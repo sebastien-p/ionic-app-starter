@@ -1,9 +1,10 @@
-.row(ng-if="::LOCALES.length > 1", translate-namespace="I_18_N")
+.row(ng-if="::(LOCALES.length > 1)", translate-namespace="I_18_N")
   .col
     label.item.item-select
       span.input-label(translate=".LABEL")
       select.wlSettings__form__select(
         ng-options="locale as ('I_18_N.LANGUAGES.' + locale | translate) for locale in ::LOCALES",
-        e2e-test-field="account_language",
-        ng-model="account.language")
+        e2e-test-field="language-picker",
+        ng-model="settings.language",
+        ng-change="syncLocale()")
         option(translate=".PLACEHOLDER", value="", disabled)
