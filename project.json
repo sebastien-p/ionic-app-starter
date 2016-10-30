@@ -32,7 +32,7 @@
       "id": "id.goes.here",
       "constants": {
         "I18N": {
-          "locales": ["en-US"],
+          "locales": ["en-US", "fr-FR"],
           "default": "en-US"
         }
       },
