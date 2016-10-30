@@ -3,9 +3,7 @@
 
 'use strict';
 
-var load = require('./gulp/load');
-
-load(function tasksSettings(FOLDERS, PATTERNS) {
+require('./gulp/load')(function tasksSettings(FOLDERS, PATTERNS) {
   var LOCALES = 'angular-locale_' + PATTERNS.i18n.toLowerCase() + '.js';
 
   return {
@@ -44,7 +42,7 @@ load(function tasksSettings(FOLDERS, PATTERNS) {
       module: 'app'
     },
     'i18n': {
-      src: FOLDERS.modules + '**/i18n/**' + PATTERNS.i18n + '.json',
+      src: FOLDERS.modules + '**/i18n/**/' + PATTERNS.i18n + '.json',
       module: 'app.i18n'
     },
     'templates': {
@@ -146,7 +144,7 @@ load(function tasksSettings(FOLDERS, PATTERNS) {
       ],
       tasks: ['copy']
     }, {
-      src: FOLDERS.modules + '**/i18n/**' + PATTERNS.i18n + '.json',
+      src: FOLDERS.modules + '**/i18n/**/' + PATTERNS.i18n + '.json',
       tasks: ['i18n']
     }, {
       cwd: FOLDERS.modules,
