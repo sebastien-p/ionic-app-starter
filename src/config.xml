@@ -20,7 +20,7 @@
   <preference name="FadeSplashScreenDuration" value="250"/>
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
-  <preference name="deployment-target" value="8.0"/>
+  <preference name="deployment-target" value="9.0"/>
   <preference name="android-minSdkVersion" value="17"/>
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
