@@ -10,7 +10,7 @@
    * @type {Object}
    */
   var HTTP_EVENTS = {
-    ERROR: 'event.http.error'
+    ERROR: 'events.http.error'
   };
 
   module.constant('HTTP_EVENTS', HTTP_EVENTS);

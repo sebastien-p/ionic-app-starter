@@ -9,12 +9,12 @@
  * @return {Stream}
  */
 function gulpCopySrc(gulp, plugins, config) {
-  var task = config.TASKS['copy.src'];
+  var task = config.tasks['copy.src'];
 
   return gulp.src(task.src, { cwd: task.cwd })
     .pipe(plugins.changed(task.dest))
     .pipe(plugins.if(
-      config.PATTERNS.js,
+      config.PATTERNS.JS,
       // eslint-disable-next-line camelcase
       plugins.ngAnnotate({ single_quotes: true })
     ))

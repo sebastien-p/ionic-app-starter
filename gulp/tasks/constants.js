@@ -11,8 +11,8 @@ var set = require('lodash').set;
  * @return {Stream}
  */
 function gulpConstants(gulp, plugins, config) {
-  var task = config.TASKS.constants;
-  var defaultDest = config.FOLDERS.www + 'modules/' + task.module + '/';
+  var task = config.tasks.constants;
+  var defaultDest = config.FOLDERS.WWW + 'modules/' + task.module + '/';
 
   return plugins.ngConstant({
     constants: set(config.CONSTANTS, 'IS_PROD', config.IS_PROD),

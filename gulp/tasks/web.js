@@ -13,7 +13,7 @@ var sh = require('shelljs');
  * @param {Function} done - Function to call when asynchrounous stuff is done.
  */
 function gulpWeb(gulp, plugins, config, done) {
-  var task = config.TASKS.web;
+  var task = config.tasks.web;
 
   function addCwd(path) { return join(task.cwd, path); }
 

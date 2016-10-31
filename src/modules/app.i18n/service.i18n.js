@@ -20,13 +20,13 @@
      * Get a list of the application supported locales.
      * @return {Array} - Array of strings.
      */
-    service.getLocales = function () { return _.cloneDeep(I18N.locales); };
+    service.getLocales = function () { return _.cloneDeep(I18N.LOCALES); };
 
     /**
      * Get the application default locale.
      * @return {String}
      */
-    service.getDefaultLocale = function () { return I18N.default; };
+    service.getDefaultLocale = function () { return I18N.DEFAULT; };
 
     /**
      * Get a copy of the unit constants object for a given locale.
@@ -76,10 +76,8 @@
      * @param {Object} $locale - The $locale object to mutate.
      * @return {Object} - The mutated $locale object.
      */
-    service.addCustomUnitsAndStuff = function ($locale) {
+    service.addCustomUnitsAndFormats = function ($locale) {
       var UNITS = service.getUnits($locale.id);
-      var DATE = $locale.DATETIME_FORMATS;
-      DATE.wlWeather = 'EEEE ' + DATE.longDate + ' ' + DATE.shortTime;
       $locale.NUMBER_FORMATS.TEMPERATURE = UNITS.TEMPERATURE;
       return $locale;
     };
@@ -94,7 +92,7 @@
       locale = service.getLocaleOrDefault(locale);
       return dynamicLocale.set(locale.toLowerCase()).then(function ($locale) {
         moment.locale($locale.id);
-        service.addCustomUnitsAndStuff($locale);
+        service.addCustomUnitsAndFormats($locale);
         return $translate.use(locale);
       }).then(function (locale) {
         $document.children().attr('lang', locale);

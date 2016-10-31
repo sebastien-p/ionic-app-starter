@@ -12,7 +12,7 @@ var ary = require('lodash').ary;
  * @param {Function} done - Function to call when asynchrounous stuff is done.
  */
 function gulpBuildClean(gulp, plugins, config, done) {
-  var task = config.TASKS['build.clean'];
+  var task = config.tasks['build.clean'];
   var opt = { cwd: task.cwd || '', nomount: true, strict: true, mark: true };
 
   del(task.src, opt).then(ary(done, 0)).catch(done);

@@ -15,8 +15,8 @@
     $translateProvider.uniformLanguageTag('bcp47');
     $translateProvider.useLocalStorage();
     $translateProvider.addInterpolation('$translateMessageFormatInterpolation');
-    $translateProvider.registerAvailableLanguageKeys(I18N.locales);
-    $translateProvider.fallbackLanguage(I18N.default);
+    $translateProvider.registerAvailableLanguageKeys(I18N.LOCALES);
+    $translateProvider.fallbackLanguage(I18N.DEFAULT);
     $translateProvider.determinePreferredLanguage();
   }
 

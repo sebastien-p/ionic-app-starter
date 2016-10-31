@@ -9,17 +9,17 @@ var all = '**/*';
  */
 function patterns(locales) {
   return {
-    all: all,
-    css: all + '.css',
-    fonts: all + '.{ttf,eot,woff,svg}',
-    html: all + '.html',
-    images: all + '.{png,jpg,gif,svg,ico}',
-    pug: all + '.pug',
-    js: all + '.js',
-    json: all + '.json',
-    sass: all + '.sass',
-    spec: all + '.spec.js',
-    i18n: locales.length > 1 ? '{' + locales.join(',') + '}' : locales[0]
+    ALL: all,
+    CSS: all + '.css',
+    FONTS: all + '.{ttf,eot,woff,svg}',
+    HTML: all + '.html',
+    IMAGES: all + '.{png,jpg,gif,svg,ico}',
+    PUG: all + '.pug',
+    JS: all + '.js',
+    JSON: all + '.json',
+    SASS: all + '.sass',
+    SPEC: all + '.spec.js',
+    I18N: locales.length > 1 ? '{' + locales.join(',') + '}' : locales[0]
   };
 }
 

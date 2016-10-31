@@ -12,7 +12,7 @@ var ary = require('lodash').ary;
  * @param {Function} done - Function to call when asynchrounous stuff is done.
  */
 function gulpCleanCordova(gulp, plugins, config, done) {
-  var task = config.TASKS['clean.cordova'];
+  var task = config.tasks['clean.cordova'];
   var opt = { cwd: task.cwd || '', nomount: true, strict: true, mark: true };
 
   del(task.src, opt).then(ary(done, 0)).catch(done);

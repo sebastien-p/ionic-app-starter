@@ -15,16 +15,16 @@ function same(file) { return file.base; }
  * @type {Object}
  */
 module.exports = {
-  same: same,
-  root: root,
-  assets: root + 'assets/',
-  platforms: root + 'platforms/',
-  plugins: root + 'plugins/',
-  test: root + 'test/',
-  www: root + 'www/',
-  src: src,
-  images: src + 'images/',
-  modules: src + 'modules/',
-  resources: src + 'resources',
-  styles: src + 'styles/'
+  SAME: same,
+  ROOT: root,
+  ASSETS: root + 'assets/',
+  PLATFORMS: root + 'platforms/',
+  PLUGINS: root + 'plugins/',
+  TEST: root + 'test/',
+  WWW: root + 'www/',
+  SRC: src,
+  IMAGES: src + 'images/',
+  MODULES: src + 'modules/',
+  RESOURCES: src + 'resources',
+  STYLES: src + 'styles/'
 };

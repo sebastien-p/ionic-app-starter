@@ -13,7 +13,7 @@ var reduce = require('lodash').reduce;
  * @return {Stream}
  */
 function gulpInjectLib(gulp, plugins, config) {
-  var task = config.TASKS['inject.lib'];
+  var task = config.tasks['inject.lib'];
   var env = config.IS_PROD ? 'prod' : 'dev';
 
   return reduce(task.src, function handle(merged, src) {
@@ -24,7 +24,7 @@ function gulpInjectLib(gulp, plugins, config) {
           gulp.src(mainBowerFiles({ env: env }), { read: false }),
           { name: 'lib', relative: true }
         ))
-        .pipe(gulp.dest(config.FOLDERS.same))
+        .pipe(gulp.dest(config.FOLDERS.SAME))
     );
   }, mergeStream());
 }

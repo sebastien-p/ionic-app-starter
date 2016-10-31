@@ -18,8 +18,8 @@ var invalidateCache = _.bind(dataCache.invalidateCache, dataCache);
  * @return {Stream}
  */
 function gulpTemplates(gulp, plugins, config) {
-  var task = config.TASKS.templates;
-  var defaultDest = config.FOLDERS.www + 'modules/%s/%s/';
+  var task = config.tasks.templates;
+  var defaultDest = config.FOLDERS.WWW + 'modules/%s/%s/';
   var conf = path.join(process.cwd(), task.cwd, '%s', 'config', config.APP_ID);
 
   // Merge as many streams together as we have different targets.
@@ -29,7 +29,7 @@ function gulpTemplates(gulp, plugins, config) {
       // than Pug files. Such files contain data to expose to templates.
       .pipe(plugins.data(function data(file) {
         file = format(conf, file.relative.split(path.sep)[0]);
-        return dataCache.maybeLoadJSON(file);
+        return { config: dataCache.maybeLoadJSON(file) };
       }))
       .pipe(plugins.pug({ doctype: 'html', locals: config.CONSTANTS }))
       .pipe(plugins.if(config.IS_PROD, plugins.htmlmin({

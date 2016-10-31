@@ -144,7 +144,7 @@ function getName(config) {
  * @return {Stream}
  */
 function gulpSetupConfig(gulp, plugins, config) {
-  var task = config.TASKS['setup.config'];
+  var task = config.tasks['setup.config'];
   var id = getAppId(config);
 
   return gulp.src(task.src, { cwd: task.cwd })

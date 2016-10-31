@@ -11,16 +11,16 @@ var reduce = require('lodash').reduce;
  * @return {Stream}
  */
 function gulpInjectSrc(gulp, plugins, config) {
-  var task = config.TASKS['inject.src'];
+  var task = config.tasks['inject.src'];
 
   function src(files) { return gulp.src(files, { cwd: task.cwd }); }
 
   // Add as many injections as we have different sections.
   return reduce(task.sections, function reduce(stream, files, target) {
-    var sort = plugins.if(config.PATTERNS.js, plugins.angularFilesort());
+    var sort = plugins.if(config.PATTERNS.JS, plugins.angularFilesort());
     var opt = { name: target, relative: true };
     return stream.pipe(plugins.inject(src(files).pipe(sort), opt));
-  }, src(task.src)).pipe(gulp.dest(config.FOLDERS.same));
+  }, src(task.src)).pipe(gulp.dest(config.FOLDERS.SAME));
 }
 
 module.exports = [

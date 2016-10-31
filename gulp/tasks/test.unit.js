@@ -14,7 +14,7 @@ var Server = require('karma').Server;
  * @param {Function} done - Function to call when asynchrounous stuff is done.
  */
 function gulpTestUnit(gulp, plugins, config, done) {
-  var task = config.TASKS['test.unit'];
+  var task = config.tasks['test.unit'];
   var extraLibs = isArray(task.extraLibs) ? task.extraLibs : [];
   var cwd = process.cwd() + '/' + (task.cwd || '');
   var sortedAppFiles = [];
@@ -30,7 +30,7 @@ function gulpTestUnit(gulp, plugins, config, done) {
         port: task.port || 9875,
         basePath: cwd,
         files: extraLibs.concat(mainBowerFiles({
-          filter: config.PATTERNS.js,
+          filter: config.PATTERNS.JS,
           includeDev: true,
           env: 'dev'
         }), sortedAppFiles, task.src)

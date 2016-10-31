@@ -9,8 +9,8 @@
  * @return {Stream}
  */
 function gulpI18n(gulp, plugins, config) {
-  var task = config.TASKS.i18n;
-  var defaultDest = config.FOLDERS.www + 'modules/' + task.module + '/';
+  var task = config.tasks.i18n;
+  var defaultDest = config.FOLDERS.WWW + 'modules/' + task.module + '/';
   var opt = [{ module: task.module, standalone: false }];
   if (task.file) { opt.unshift(task.file); }
 

@@ -4,100 +4,100 @@
 'use strict';
 
 require('./gulp/load')(function tasksSettings(FOLDERS, PATTERNS) {
-  var LOCALES = 'angular-locale_' + PATTERNS.i18n.toLowerCase() + '.js';
+  var LOCALES = 'angular-locale_' + PATTERNS.I18N.toLowerCase() + '.js';
 
   return {
     'clean.cordova': {
       src: [
-        FOLDERS.root + 'config.xml',
-        FOLDERS.platforms,
-        FOLDERS.plugins,
-        FOLDERS.www
+        FOLDERS.ROOT + 'config.xml',
+        FOLDERS.PLATFORMS,
+        FOLDERS.PLUGINS,
+        FOLDERS.WWW
       ]
     },
     'setup.config': {
-      src: FOLDERS.src + 'config.xml',
-      dest: FOLDERS.root
+      src: FOLDERS.SRC + 'config.xml',
+      dest: FOLDERS.ROOT
     },
     'copy.src': {
-      cwd: FOLDERS.src,
+      cwd: FOLDERS.SRC,
       src: [
-        PATTERNS.images,
-        PATTERNS.fonts,
-        PATTERNS.html,
-        PATTERNS.json,
-        '!modules/**/{config,i18n}/' + PATTERNS.json,
-        PATTERNS.js
+        PATTERNS.IMAGES,
+        PATTERNS.FONTS,
+        PATTERNS.HTML,
+        PATTERNS.JSON,
+        '!modules/**/{config,i18n}/' + PATTERNS.JSON,
+        PATTERNS.JS
       ],
-      dest: FOLDERS.www
+      dest: FOLDERS.WWW
     },
     // 'copy.favicons': {
-    //   cwd: FOLDERS.images + 'favicons/',
+    //   cwd: FOLDERS.IMAGES + 'favicons/',
     //   src: {
     //     // TODO
     //   },
-    //   dest: FOLDERS.www
+    //   dest: FOLDERS.WWW
     // },
     'constants': {
       module: 'app'
     },
     'i18n': {
-      src: FOLDERS.modules + '**/i18n/**/' + PATTERNS.i18n + '.json',
+      src: FOLDERS.MODULES + '**/i18n/**/' + PATTERNS.I18N + '.json',
       module: 'app.i18n'
     },
     'templates': {
-      cwd: FOLDERS.modules,
+      cwd: FOLDERS.MODULES,
       src: {
-        smartphone: '**/smartphone/' + PATTERNS.pug,
-        tablet: '**/tablet/' + PATTERNS.pug
+        smartphone: '**/smartphone/' + PATTERNS.PUG,
+        tablet: '**/tablet/' + PATTERNS.PUG
       },
       module: 'app'
     },
     'styles': {
-      src: FOLDERS.styles + '{shared,smartphone,tablet}.sass',
-      dest: FOLDERS.www + 'css/'
+      src: FOLDERS.STYLES + '{shared,smartphone,tablet}.sass',
+      dest: FOLDERS.WWW + 'css/'
     },
     'inject.lib': {
-      cwd: FOLDERS.www,
+      cwd: FOLDERS.WWW,
       src: {
         smartphone: 'smartphone.html',
         tablet: 'tablet.html'
       }
     },
     'inject.src': {
-      cwd: FOLDERS.www,
+      cwd: FOLDERS.WWW,
       src: '{smartphone,tablet}.html',
       sections: {
         shared: [
           'css/shared.css',
-          'modules/' + PATTERNS.js,
-          '!modules/**/{smartphone,tablet}/' + PATTERNS.js
+          'modules/' + PATTERNS.JS,
+          '!modules/**/{smartphone,tablet}/' + PATTERNS.JS
         ],
         smartphone: [
           'css/smartphone.css',
-          'modules/**/smartphone/' + PATTERNS.js
+          'modules/**/smartphone/' + PATTERNS.JS
         ],
         tablet: [
           'css/tablet.css',
-          'modules/**/tablet/' + PATTERNS.js
+          'modules/**/tablet/' + PATTERNS.JS
         ]
       }
     },
     'build.useref': {
-      src: FOLDERS.www + '{smartphone,tablet}.html'
+      src: FOLDERS.WWW + '{smartphone,tablet}.html'
     },
     'build.rev': {
-      cwd: FOLDERS.www,
+      cwd: FOLDERS.WWW,
       src: [
-        'images/' + PATTERNS.images,
-        'fonts/' + PATTERNS.fonts,
+        'images/' + PATTERNS.IMAGES,
+        'fonts/' + PATTERNS.FONTS,
         'lib/lib.min.{css,js}',
         'modules/*.min.js',
         'css/*.min.css'
       ]
     },
     'build.rev.replace': {
-      cwd: FOLDERS.www,
+      cwd: FOLDERS.WWW,
       src: [
         '{smartphone,tablet}.html',
         'lib/lib-*.min.{css,js}',
@@ -106,28 +106,28 @@ require('./gulp/load')(function tasksSettings(FOLDERS, PATTERNS) {
       ]
     },
     'build.clean': {
-      cwd: FOLDERS.www,
+      cwd: FOLDERS.WWW,
       src: [
-        PATTERNS.all,
+        PATTERNS.ALL,
         '!{css,fonts,images,lib,modules}/',
         '!css/*-*.min.css',
         '!images/**/',
-        '!images/' + PATTERNS.images,
+        '!images/' + PATTERNS.IMAGES,
         '!lib/lib-*.min.{css,js}',
         '!lib/{angular-i18n,ionic}/',
         '!lib/angular-i18n/' + LOCALES,
         '!lib/ionic/release/',
         '!lib/ionic/release/fonts/',
-        '!{fonts,lib/ionic/release/fonts}/' + PATTERNS.fonts,
+        '!{fonts,lib/ionic/release/fonts}/' + PATTERNS.FONTS,
         '!modules/*-*.min.js',
-        '!' + PATTERNS.json,
-        '!' + PATTERNS.html,
+        '!' + PATTERNS.JSON,
+        '!' + PATTERNS.HTML,
         '!*.*',
         'rev-manifest.json'
       ]
     },
     // 'web': { // TODO
-    //   cwd: FOLDERS.www,
+    //   cwd: FOLDERS.WWW,
     //   index: 'tablet.html',
     //   remove: [
     //     'css/smartphone-*.min.css',
@@ -135,48 +135,48 @@ require('./gulp/load')(function tasksSettings(FOLDERS, PATTERNS) {
     //   ]
     // },
     'watch': [{
-      cwd: FOLDERS.src,
+      cwd: FOLDERS.SRC,
       src: [
-        PATTERNS.images,
-        PATTERNS.fonts,
-        PATTERNS.json,
-        '!modules/**/{config,i18n}/' + PATTERNS.json
+        PATTERNS.IMAGES,
+        PATTERNS.FONTS,
+        PATTERNS.JSON,
+        '!modules/**/{config,i18n}/' + PATTERNS.JSON
       ],
       tasks: ['copy']
     }, {
-      src: FOLDERS.modules + '**/i18n/**/' + PATTERNS.i18n + '.json',
+      src: FOLDERS.MODULES + '**/i18n/**/' + PATTERNS.I18N + '.json',
       tasks: ['i18n']
     }, {
-      cwd: FOLDERS.modules,
+      cwd: FOLDERS.MODULES,
       src: [
-        '**/config/' + PATTERNS.json,
-        PATTERNS.pug
+        '**/config/' + PATTERNS.JSON,
+        PATTERNS.PUG
       ],
       tasks: ['templates']
     }, {
-      src: FOLDERS.styles + PATTERNS.sass,
+      src: FOLDERS.STYLES + PATTERNS.SASS,
       tasks: ['styles']
-    }, {
-      src: FOLDERS.root + '{package,project}.json',
-      tasks: ['constants']
-    }, {
+    },/* {
+      src: FOLDERS.ROOT + '{package,project}.json',
+      tasks: ['constants'] // FIXME: does not refresh anymore
+    }, */{
       src: [
-        FOLDERS.modules + PATTERNS.js,
-        FOLDERS.src + PATTERNS.html,
-        FOLDERS.root + 'bower.json'
+        FOLDERS.MODULES + PATTERNS.JS,
+        FOLDERS.SRC + PATTERNS.HTML,
+        FOLDERS.ROOT + 'bower.json'
       ],
       tasks: ['inject']
     }],
     'test.e2e': {
-      cwd: FOLDERS.test + 'e2e/',
-      src: PATTERNS.spec
+      cwd: FOLDERS.TEST + 'e2e/',
+      src: PATTERNS.SPEC
     },
     'test.unit': {
-      cwd: FOLDERS.test + 'unit/',
-      src: PATTERNS.spec,
+      cwd: FOLDERS.TEST + 'unit/',
+      src: PATTERNS.SPEC,
       app: [
-        FOLDERS.www + 'modules/' + PATTERNS.js,
-        '!' + FOLDERS.www + 'modules/**/{smartphone,tablet}/!(templates.js)'
+        FOLDERS.WWW + 'modules/' + PATTERNS.JS,
+        '!' + FOLDERS.WWW + 'modules/**/{smartphone,tablet}/!(templates.js)'
       ]
     }
   };

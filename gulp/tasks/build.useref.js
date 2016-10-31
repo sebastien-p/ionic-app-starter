@@ -9,19 +9,19 @@
  * @return {Stream}
  */
 function gulpBuildUseref(gulp, plugins, config) {
-  var task = config.TASKS['build.useref'];
+  var task = config.tasks['build.useref'];
 
   return gulp.src(task.src, { cwd: task.cwd })
     .pipe(plugins.useref())
     .pipe(plugins.if(
-      config.IS_PROD && config.PATTERNS.css,
+      config.IS_PROD && config.PATTERNS.CSS,
       plugins.cleanCss({ keepSpecialComments: 0 })
     ))
     .pipe(plugins.if(
-      config.IS_PROD && config.PATTERNS.js,
+      config.IS_PROD && config.PATTERNS.JS,
       plugins.uglify()
     ))
-    .pipe(gulp.dest(config.FOLDERS.same));
+    .pipe(gulp.dest(config.FOLDERS.SAME));
 }
 
 module.exports = [['default'], gulpBuildUseref];

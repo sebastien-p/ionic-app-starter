@@ -9,14 +9,14 @@
  * @return {Stream}
  */
 function gulpBuildRev(gulp, plugins, config) {
-  var task = config.TASKS['build.rev'];
+  var task = config.tasks['build.rev'];
 
   return gulp.src(task.src, { cwd: task.cwd, base: task.cwd })
     .pipe(plugins.rev())
     // Append a dollar sign to avoid double hash bug
     // Be careful not to name file $.xxx!
     .pipe(plugins.revFormat({ suffix: '$' }))
-    .pipe(gulp.dest(config.FOLDERS.same))
+    .pipe(gulp.dest(config.FOLDERS.SAME))
     .pipe(plugins.revDeleteOriginal())
     .pipe(plugins.rev.manifest(task.manifest || 'rev-manifest.json'))
     .pipe(gulp.dest(task.cwd));

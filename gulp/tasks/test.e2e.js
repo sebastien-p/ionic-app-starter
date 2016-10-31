@@ -12,7 +12,7 @@ var parseUrl = require('url').parse;
  * @param {Function} done - Function to call when asynchrounous stuff is done.
  */
 function gulpTestEndToEnd(gulp, plugins, config, done) {
-  var task = config.TASKS['test.e2e'];
+  var task = config.tasks['test.e2e'];
 
   // Make sure to download the Selenuim Web driver.
   plugins.protractor.webdriver_update(function onUpdate() {
@@ -27,7 +27,7 @@ function gulpTestEndToEnd(gulp, plugins, config, done) {
     // Start a connect server to serve the application.
     plugins.connect.server(extend({
       https: url.protocol === 'https:',
-      root: config.FOLDERS.www,
+      root: config.FOLDERS.WWW, // TODO: task config?
       host: url.hostname,
       port: url.port
     }));

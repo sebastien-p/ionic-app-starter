@@ -10,7 +10,7 @@ var _ = require('lodash');
  * @param {Object} config - Gulp config object passed to *gulp-load-tasks*.
  */
 function gulpWatch(gulp, plugins, config) {
-  _.each(config.TASKS.watch, function each(watch) {
+  _.each(config.tasks.watch, function each(watch) {
     gulp.watch(watch.src, _.pick(watch, 'cwd'), watch.tasks);
   });
 }

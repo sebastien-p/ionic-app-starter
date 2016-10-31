@@ -9,7 +9,7 @@
  * @return {Stream}
  */
 function gulpStyles(gulp, plugins, config) {
-  var task = config.TASKS.styles;
+  var task = config.tasks.styles;
   var opt = { indentedSyntax: true };
 
   return gulp.src(task.src, { cwd: task.cwd })
