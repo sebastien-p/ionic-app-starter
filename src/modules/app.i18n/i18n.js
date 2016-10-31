@@ -11,7 +11,7 @@
     I18N
   ) {
     tmhDynamicLocaleProvider.localeLocationPattern(I18N_PATTERN);
-    $translateProvider.useSanitizeValueStrategy('sanitize');
+    $translateProvider.useSanitizeValueStrategy('escape');
     $translateProvider.uniformLanguageTag('bcp47');
     $translateProvider.useLocalStorage();
     $translateProvider.addInterpolation('$translateMessageFormatInterpolation');
