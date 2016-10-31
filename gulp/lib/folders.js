@@ -25,6 +25,5 @@ module.exports = {
   SRC: src,
   IMAGES: src + 'images/',
   MODULES: src + 'modules/',
-  RESOURCES: src + 'resources',
   STYLES: src + 'styles/'
 };

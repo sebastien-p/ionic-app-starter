@@ -31,13 +31,11 @@ require('./gulp/load')(function tasksSettings(FOLDERS, PATTERNS) {
       ],
       dest: FOLDERS.WWW
     },
-    // 'copy.favicons': {
-    //   cwd: FOLDERS.IMAGES + 'favicons/',
-    //   src: {
-    //     // TODO
-    //   },
-    //   dest: FOLDERS.WWW
-    // },
+    'copy.favicon': {
+      cwd: FOLDERS.ASSETS + 'resources/',
+      src: 'favicon.ico',
+      dest: FOLDERS.WWW
+    },
     'constants': {
       module: 'app'
     },
