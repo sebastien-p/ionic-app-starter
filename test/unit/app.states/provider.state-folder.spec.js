@@ -1,10 +1,10 @@
 'use strict';
 
-describe('[app.state] stateFolderProvider', function () {
+describe('[app.states] stateFolderProvider', function () {
   var stateFolderProvider;
   var stateFolder;
 
-  beforeEach(module('app.state', function (
+  beforeEach(module('app.states', function (
     _stateFolderProvider_
   ) {
     stateFolderProvider = _stateFolderProvider_;

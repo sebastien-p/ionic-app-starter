@@ -9,7 +9,7 @@
    * @constant
    * @type {String}
    */
-  var I18N_PATTERN = 'lib/angular-i18n/angular-locale_{{locale}}.js';
+  var I18N_PATTERN = 'lib/angular-i18n/angular-locale_{{ locale }}.js';
 
   /**
    * Additional i18n units.

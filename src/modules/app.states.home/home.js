@@ -1,10 +1,10 @@
 /**
- * @module app.state.home
+ * @module app.states.home
  */
 (function (module) {
   'use strict';
 
-  var STATE_HOME = 'state.home';
+  var STATE_HOME = 'states.home';
 
   function config($stateProvider) {
     var views = {};
@@ -25,4 +25,4 @@
   module.config(['$stateProvider', config]);
   module.run(['$rootScope', run]);
 
-}(angular.module('app.state.home', ['app.state'])));
+}(angular.module('app.states.home', ['app.states'])));

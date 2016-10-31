@@ -1,5 +1,5 @@
 /**
- * @memberOf app.state
+ * @memberOf app.states
  */
 (function (module) {
   'use strict';
@@ -61,7 +61,7 @@
         templateUrl: url,
         scope: scope,
         buttons: [{
-          text: $translate.instant('STATE.POPUP.CLOSE'),
+          text: $translate.instant('STATES.POPUP.CLOSE'),
           type: 'popup-buttons__close',
           onTap: onClose
         }]
@@ -85,4 +85,4 @@
     PopupService
   ]);
 
-}(angular.module('app.state')));
+}(angular.module('app.states')));

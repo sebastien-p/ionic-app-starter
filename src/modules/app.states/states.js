@@ -1,13 +1,14 @@
 /**
- * @module app.state
+ * @module app.states
  */
 (function (module) {
   'use strict';
 
-  var STATE = 'state';
+  var STATE = 'states';
 
-  // Force loading of dynamic locale using the determined one.
-  function localeResolver(i18nService) { return i18nService.setLocale(); }
+  function statesDataResolver(statesService) {
+    return statesService.resolveStatesData();
+  }
 
   function config(
     $stateProvider,
@@ -27,7 +28,7 @@
     });
 
     $stateProvider.state(STATE, {
-      resolve: { locale: ['i18nService', localeResolver] },
+      resolve: { statesData: ['statesService', statesDataResolver] },
       data: { module: module },
       views: { root: {} },
       abstract: true
@@ -42,14 +43,14 @@
     $state,
     $ionicHistory,
     $ionicNavBarDelegate,
-    stateService
+    statesService
   ) {
     $rootScope.$on('$ionicView.beforeEnter', function ($event) {
       // Update state resolved data.
       var globals = $state.$current.locals.globals;
       var scope = $event.targetScope.$parent;
       _.each(globals, function (value, key) {
-        var update = stateService.shouldUpdateResolved(globals, scope, key);
+        var update = statesService.shouldUpdateResolved(globals, scope, key);
         if (update) { scope[key] = globals[key]; } // TODO: prefix or suffix?
       });
       // Hide the nav bar if we don't need it.
@@ -71,8 +72,8 @@
     '$state',
     '$ionicHistory',
     '$ionicNavBarDelegate',
-    'stateService',
+    'statesService',
     run
   ]);
 
-}(angular.module('app.state', ['app.i18n'])));
+}(angular.module('app.states', ['app.http', 'app.i18n'])));

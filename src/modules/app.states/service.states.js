@@ -1,12 +1,12 @@
 /**
- * @memberOf app.state
+ * @memberOf app.states
  */
 (function (module) {
   'use strict';
 
   var type = _.bind(Object.prototype.toString.call, Object.prototype.toString);
 
-  function StateService($window) {
+  function StatesService($window, httpService, i18nService) {
     var service = this;
 
     /**
@@ -27,8 +27,24 @@
       locals = locals[key];
       return type(resolved) === type(locals) && resolved !== locals;
     };
+
+    /**
+     * Resolve states data.
+     * @return {Promise} Passing an object.
+     */
+    service.resolveStatesData = function () {
+      return httpService.all({
+        // Force loading of dynamic locale using the determined one.
+        locale: i18nService.setLocale()
+      });
+    };
   }
 
-  module.service('stateService', ['$window', StateService]);
+  module.service('statesService', [
+    '$window',
+    'httpService',
+    'i18nService',
+    StatesService
+  ]);
 
-}(angular.module('app.state')));
+}(angular.module('app.states')));

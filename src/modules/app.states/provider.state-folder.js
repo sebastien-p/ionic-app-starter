@@ -1,5 +1,5 @@
 /**
- * @memberOf app.state
+ * @memberOf app.states
  */
 (function (module) {
   'use strict';
@@ -50,4 +50,4 @@
 
   module.provider('stateFolder', [StateFolderProvider]);
 
-}(angular.module('app.state')));
+}(angular.module('app.states')));

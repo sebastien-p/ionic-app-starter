@@ -1,13 +1,13 @@
 /**
- * @memberOf app.state.home
+ * @memberOf app.states.home
  */
 (function (module) {
   'use strict';
 
-  function HomeController($scope, popupService, locale) {
+  function HomeController($scope, popupService, statesData) {
     var controller = this;
 
-    $scope.settings = { language: locale };
+    $scope.statesData = statesData;
 
     $scope.from = 'homeController';
 
@@ -24,8 +24,8 @@
   module.controller('homeController', [
     '$scope',
     'popupService',
-    'locale',
+    'statesData',
     HomeController
   ]);
 
-}(angular.module('app.state.home')));
+}(angular.module('app.states.home')));

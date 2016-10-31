@@ -6,6 +6,6 @@ angular.module('main', [
   'app.http',
   'app.i18n',
   'app.native',
-  'app.state',
-  'app.state.home'
+  'app.states',
+  'app.states.home'
 ]);
