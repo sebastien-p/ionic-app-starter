@@ -4,7 +4,7 @@
 'use strict';
 
 require('./gulp/load')(function tasksSettings(FOLDERS, PATTERNS) {
-  var LOCALES = 'angular-locale_' + PATTERNS.I18N.toLowerCase() + '.js';
+  var NG_LOCALES = 'angular-locale_' + PATTERNS.I18N.toLowerCase() + '.js';
 
   return {
     'clean.cordova': {
@@ -119,7 +119,7 @@ require('./gulp/load')(function tasksSettings(FOLDERS, PATTERNS) {
         '!images/' + PATTERNS.IMAGES,
         '!lib/lib-*.min.{css,js}',
         '!lib/{angular-i18n,ionic}/',
-        '!lib/angular-i18n/' + LOCALES,
+        '!lib/angular-i18n/' + NG_LOCALES,
         '!lib/ionic/release/',
         '!lib/ionic/release/fonts/',
         '!{fonts,lib/ionic/release/fonts}/' + PATTERNS.FONTS,
