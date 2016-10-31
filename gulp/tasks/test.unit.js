@@ -19,7 +19,7 @@ function gulpTestUnit(gulp, plugins, config, done) {
   var cwd = process.cwd() + '/' + (task.cwd || '');
   var sortedAppFiles = [];
 
-  gulp.src(task.app, { read: true })
+  gulp.src(task.app)
     .pipe(plugins.angularFilesort())
     .on('data', function onData(file) { sortedAppFiles.push(file.path); })
     .on('end', function onEnd() {
