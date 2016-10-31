@@ -26,8 +26,8 @@ require('./gulp/load')(function tasksSettings(FOLDERS, PATTERNS) {
         PATTERNS.FONTS,
         PATTERNS.HTML,
         PATTERNS.JSON,
-        '!modules/**/{config,i18n}/' + PATTERNS.JSON,
-        PATTERNS.JS
+        PATTERNS.JS,
+        '!modules/**/{config,i18n}/' + PATTERNS.JSON
       ],
       dest: FOLDERS.WWW
     },
@@ -49,29 +49,31 @@ require('./gulp/load')(function tasksSettings(FOLDERS, PATTERNS) {
       cwd: FOLDERS.MODULES,
       src: {
         smartphone: '**/smartphone/' + PATTERNS.PUG,
-        tablet: '**/tablet/' + PATTERNS.PUG
+        tablet: '**/tablet/' + PATTERNS.PUG,
+        web: '**/web/' + PATTERNS.PUG
       },
       module: 'app'
     },
     'styles': {
-      src: FOLDERS.STYLES + '{shared,smartphone,tablet}.sass',
+      src: FOLDERS.STYLES + '{shared,smartphone,tablet,web}.sass',
       dest: FOLDERS.WWW + 'css/'
     },
     'inject.lib': {
       cwd: FOLDERS.WWW,
       src: {
         smartphone: 'smartphone.html',
-        tablet: 'tablet.html'
+        tablet: 'tablet.html',
+        web: 'index.html'
       }
     },
     'inject.src': {
       cwd: FOLDERS.WWW,
-      src: '{smartphone,tablet}.html',
+      src: '{smartphone,tablet,index}.html',
       sections: {
         shared: [
           'css/shared.css',
           'modules/' + PATTERNS.JS,
-          '!modules/**/{smartphone,tablet}/' + PATTERNS.JS
+          '!modules/**/{smartphone,tablet,web}/' + PATTERNS.JS
         ],
         smartphone: [
           'css/smartphone.css',
@@ -80,11 +82,15 @@ require('./gulp/load')(function tasksSettings(FOLDERS, PATTERNS) {
         tablet: [
           'css/tablet.css',
           'modules/**/tablet/' + PATTERNS.JS
+        ],
+        web: [
+          'css/web.css',
+          'modules/**/web/' + PATTERNS.JS
         ]
       }
     },
     'build.useref': {
-      src: FOLDERS.WWW + '{smartphone,tablet}.html'
+      src: FOLDERS.WWW + '{smartphone,tablet,index}.html'
     },
     'build.rev': {
       cwd: FOLDERS.WWW,
@@ -99,7 +105,7 @@ require('./gulp/load')(function tasksSettings(FOLDERS, PATTERNS) {
     'build.rev.replace': {
       cwd: FOLDERS.WWW,
       src: [
-        '{smartphone,tablet}.html',
+        '{smartphone,tablet,index}.html',
         'lib/lib-*.min.{css,js}',
         'modules/*-*.min.js',
         'css/*-*.min.css'
@@ -126,14 +132,6 @@ require('./gulp/load')(function tasksSettings(FOLDERS, PATTERNS) {
         'rev-manifest.json'
       ]
     },
-    // 'web': { // TODO
-    //   cwd: FOLDERS.WWW,
-    //   index: 'tablet.html',
-    //   remove: [
-    //     'css/smartphone-*.min.css',
-    //     'smartphone.html'
-    //   ]
-    // },
     'watch': [{
       cwd: FOLDERS.SRC,
       src: [
@@ -176,7 +174,7 @@ require('./gulp/load')(function tasksSettings(FOLDERS, PATTERNS) {
       src: PATTERNS.SPEC,
       app: [
         FOLDERS.WWW + 'modules/' + PATTERNS.JS,
-        '!' + FOLDERS.WWW + 'modules/**/{smartphone,tablet}/!(templates.js)'
+        '!' + FOLDERS.WWW + 'modules/**/{smartphone,tablet,web}/!(templates.js)'
       ]
     }
   };
