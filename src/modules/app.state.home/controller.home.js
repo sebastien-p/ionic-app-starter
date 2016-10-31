@@ -15,6 +15,10 @@
       var scope = { from: $scope.from, title: 'Popup' };
       popupService.open(module, 'smartphone/popup', scope);
     };
+
+    controller.onLanguageChange = function (locale) {
+      console.debug(locale);
+    };
   }
 
   module.controller('homeController', [

@@ -8,6 +8,7 @@
     var controller = this;
 
     if (!controller.key) { controller.key = 'language'; }
+    if (!controller.onChange) { controller.onChange = _.noop; }
 
     /**
      * Available locales.
@@ -17,15 +18,19 @@
 
     /**
      * Set the application local in sync with this component.
+     * Call the `onChange` callback when successful, passing the new locale.
      */
     controller.syncLocale = function () {
-      i18nService.setLocale(controller.settings[controller.key]);
+      var locale = controller.settings[controller.key];
+      i18nService.setLocale(locale).then(function () {
+        controller.onChange({ locale: locale });
+      });
     };
   }
 
   module.component('languagePicker', {
-    bindings: { settings: '=', key: '@?' },
     controller: ['i18nService', LanguagePickerController],
+    bindings: { settings: '=', key: '@?', onChange: '&?' },
     templateUrl: ['templateUtils', function (templateUtils) {
       var template = 'smartphone/language-picker';
       return templateUtils.getUrlFromModule(module, template);

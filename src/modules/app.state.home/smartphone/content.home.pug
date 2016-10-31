@@ -4,4 +4,6 @@ button.button(
   on-tap="homeController.showPopup()",
   translate=".BUTTON",
   type="button")
-language-picker(settings="settings")
+language-picker(
+  on-change="homeController.onLanguageChange(locale)",
+  settings="settings")
