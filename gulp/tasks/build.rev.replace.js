@@ -15,7 +15,6 @@ var stripPath = _.ary(_.bind(path.basename, path), 1);
  */
 function gulpBuildRevReplace(gulp, plugins, config) {
   var task = config.tasks['build.rev.replace'];
-
   function src(files) { return gulp.src(files, { cwd: task.cwd }); }
 
   return src(task.src)

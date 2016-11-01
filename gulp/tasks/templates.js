@@ -23,7 +23,7 @@ function gulpTemplates(gulp, plugins, config) {
   var conf = path.join(process.cwd(), task.cwd, '%s', 'config', config.APP_ID);
 
   // Merge as many streams together as we have different targets.
-  return _.reduce(task.src, function reduce(merged, src, target) {
+  return _.reduce(task.src, function reducer(merged, src, target) {
     return merged.add(gulp.src(src, { cwd: task.cwd })
       // Search for config/<app>.json files in the same module directory
       // than Pug files. Such files contain data to expose to templates.

@@ -16,7 +16,7 @@ function gulpInjectLib(gulp, plugins, config) {
   var task = config.tasks['inject.lib'];
   var env = config.IS_PROD ? 'prod' : 'dev';
 
-  return reduce(task.src, function handle(merged, src) {
+  return reduce(task.src, function reducer(merged, src) {
     return merged.add(
       gulp.src(src, { cwd: task.cwd })
         .pipe(plugins.inject(

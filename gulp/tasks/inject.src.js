@@ -16,7 +16,7 @@ function gulpInjectSrc(gulp, plugins, config) {
   function src(files) { return gulp.src(files, { cwd: task.cwd }); }
 
   // Add as many injections as we have different sections.
-  return reduce(task.sections, function reduce(stream, files, target) {
+  return reduce(task.sections, function reducer(stream, files, target) {
     var sort = plugins.if(config.PATTERNS.JS, plugins.angularFilesort());
     var opt = { name: target, relative: true };
     return stream.pipe(plugins.inject(src(files).pipe(sort), opt));
