@@ -48,7 +48,6 @@ function getVariableTags(config, pluginDefinition) {
 /**
  * Transform Cordova plugins listed in package.json into Cordova XML tags.
  * @private
- * @function getPluginTags
  * @param {Object} config - Gulp config object passed to *gulp-load-tasks*.
  * @return {Array} May be empty.
  */
@@ -78,7 +77,6 @@ function getPluginTags(config) {
 /**
  * Build the access tag to whitelist the `API_SERVER_URL` target constant.
  * @private
- * @function getAccessTag
  * @param {Object} config - Gulp config object passed to *gulp-load-tasks*.
  * @return {String|null}
  */
@@ -90,8 +88,8 @@ function getAccessTag(config) {
 /**
  * Normalize the application id.
  * @private
- * @param {String|Object} id - If an object, must have an ios and an
- *                           android key and both values must be strings.
+ * @param {String|Object} id - If an object, must have an ios and
+ *   an android key and both values must be strings.
  * @return {Object} - With an ios and an android key.
  */
 function normalizeAppId(id) {
