@@ -27,7 +27,7 @@ require('./gulp/load')(function tasksSettings(FOLDERS, PATTERNS) {
         PATTERNS.HTML,
         PATTERNS.JSON,
         PATTERNS.JS,
-        '!modules/**/{config,i18n}/' + PATTERNS.JSON
+        '!modules/*/{config,i18n}/' + PATTERNS.JSON
       ],
       dest: FOLDERS.WWW
     },
@@ -40,15 +40,15 @@ require('./gulp/load')(function tasksSettings(FOLDERS, PATTERNS) {
       module: 'app'
     },
     'i18n': {
-      src: FOLDERS.MODULES + '**/i18n/**/' + PATTERNS.I18N + '.json',
+      src: FOLDERS.MODULES + '*/i18n/**/' + PATTERNS.I18N + '.json',
       module: 'app.i18n'
     },
     'templates': {
       cwd: FOLDERS.MODULES,
       src: {
-        smartphone: '**/smartphone/' + PATTERNS.PUG,
-        tablet: '**/tablet/' + PATTERNS.PUG,
-        web: '**/web/' + PATTERNS.PUG
+        smartphone: '*/smartphone/' + PATTERNS.PUG,
+        tablet: '*/tablet/' + PATTERNS.PUG,
+        web: '*/web/' + PATTERNS.PUG
       },
       module: 'app'
     },
@@ -71,19 +71,19 @@ require('./gulp/load')(function tasksSettings(FOLDERS, PATTERNS) {
         shared: [
           'css/shared.css',
           'modules/' + PATTERNS.JS,
-          '!modules/**/{smartphone,tablet,web}/' + PATTERNS.JS
+          '!modules/*/{smartphone,tablet,web}/' + PATTERNS.JS
         ],
         smartphone: [
           'css/smartphone.css',
-          'modules/**/smartphone/' + PATTERNS.JS
+          'modules/*/smartphone/' + PATTERNS.JS
         ],
         tablet: [
           'css/tablet.css',
-          'modules/**/tablet/' + PATTERNS.JS
+          'modules/*/tablet/' + PATTERNS.JS
         ],
         web: [
           'css/web.css',
-          'modules/**/web/' + PATTERNS.JS
+          'modules/*/web/' + PATTERNS.JS
         ]
       }
     },
@@ -136,16 +136,16 @@ require('./gulp/load')(function tasksSettings(FOLDERS, PATTERNS) {
         PATTERNS.IMAGES,
         PATTERNS.FONTS,
         PATTERNS.JSON,
-        '!modules/**/{config,i18n}/' + PATTERNS.JSON
+        '!modules/*/{config,i18n}/' + PATTERNS.JSON
       ],
       tasks: ['copy']
     }, {
-      src: FOLDERS.MODULES + '**/i18n/**/' + PATTERNS.I18N + '.json',
       tasks: ['i18n']
+      src: FOLDERS.MODULES + '*/i18n/**/' + PATTERNS.I18N + '.json',
     }, {
       cwd: FOLDERS.MODULES,
       src: [
-        '**/config/' + PATTERNS.JSON,
+        '*/config/' + PATTERNS.JSON,
         PATTERNS.PUG
       ],
       tasks: ['templates']
@@ -172,7 +172,7 @@ require('./gulp/load')(function tasksSettings(FOLDERS, PATTERNS) {
       src: PATTERNS.SPEC,
       app: [
         FOLDERS.WWW + 'modules/' + PATTERNS.JS,
-        '!' + FOLDERS.WWW + 'modules/**/{smartphone,tablet,web}/!(templates.js)'
+        '!' + FOLDERS.WWW + 'modules/*/{smartphone,tablet,web}/!(templates.js)'
       ]
     }
   };
