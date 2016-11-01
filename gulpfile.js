@@ -138,30 +138,30 @@ require('./gulp/load')(function tasksSettings(FOLDERS, PATTERNS) {
         PATTERNS.JSON,
         '!modules/*/{config,i18n}/' + PATTERNS.JSON
       ],
-      tasks: ['copy']
+      run: ['copy']
     }, {
-      tasks: ['i18n']
       src: FOLDERS.MODULES + '*/i18n/**/' + PATTERNS.I18N + '.json',
+      run: ['i18n']
     }, {
       cwd: FOLDERS.MODULES,
       src: [
         '*/config/' + PATTERNS.JSON,
         PATTERNS.PUG
       ],
-      tasks: ['templates']
+      run: ['templates']
     }, {
       src: FOLDERS.STYLES + PATTERNS.SASS,
-      tasks: ['styles']
+      run: ['styles']
     },/* {
       src: FOLDERS.ROOT + '{package,project}.json',
-      tasks: ['constants'] // FIXME: does not refresh anymore
+      run: ['constants'] // FIXME: does not refresh anymore
     }, */{
       src: [
         FOLDERS.MODULES + PATTERNS.JS,
         FOLDERS.SRC + PATTERNS.HTML,
         FOLDERS.ROOT + 'bower.json'
       ],
-      tasks: ['inject']
+      run: ['inject']
     }],
     'test.e2e': {
       cwd: FOLDERS.TEST + 'e2e/',
