@@ -4,13 +4,9 @@
 (function (module) {
   'use strict';
 
-  function config(
-    $translateProvider,
-    tmhDynamicLocaleProvider,
-    I18N_PATTERN,
-    I18N
-  ) {
-    tmhDynamicLocaleProvider.localeLocationPattern(I18N_PATTERN);
+  function config($translateProvider, tmhDynamicLocaleProvider, I18N) {
+    var locationPattern = 'lib/angular-i18n/angular-locale_{{ locale }}.js';
+    tmhDynamicLocaleProvider.localeLocationPattern(locationPattern);
     $translateProvider.useSanitizeValueStrategy('escape');
     $translateProvider.uniformLanguageTag('bcp47');
     $translateProvider.useLocalStorage();
@@ -23,7 +19,6 @@
   module.config([
     '$translateProvider',
     'tmhDynamicLocaleProvider',
-    'I18N_PATTERN',
     'I18N',
     config
   ]);

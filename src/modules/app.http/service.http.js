@@ -7,39 +7,39 @@
   function HttpService($q, $http, $timeout, API_SERVER_URL) {
     var service = this;
 
-    var pollingPool = {};
-
-    function Poller(options) {
+    var Poller = _.merge(function Poller(options) {
       if (!(this instanceof Poller)) { return new Poller(options); }
       _.bindAll(this, '_request', '_poll');
-      this.delay = options.delay || service.POLLING_INTERVAL.MEDIUM;
+      this.interval = options.interval || Poller.INTERVALS.MEDIUM;
       this.callback = options.callback;
       this.polled = options.polled;
       this.start();
-    }
-
-    _.extend(Poller.prototype, {
-      _request: function () {
-        // Recover from network errors like nothing wrong happened...
-        return this.polled().then(this._deferred.notify, $q.resolve);
-      },
-      _poll: function () {
-        this._timeout = $timeout(this._request, this.delay);
-        // Do it this way because chaining breaks `$timeout.cancel`...
-        this._timeout.then(this._poll);
-      },
-      stop: function () {
-        if (!this._timeout) { return; }
-        $timeout.cancel(this._timeout);
-        this._deferred.reject();
-        this._deferred = null;
-        this._timeout = null;
-      },
-      start: function () {
-        this.stop();
-        this._deferred = $q.defer();
-        this._deferred.promise.finally(null, this.callback);
-        this._poll();
+    }, {
+      INTERVALS: { SHORT: 5000, MEDIUM: 30000, LONG: 120000 },
+      pool: {},
+      prototype: {
+        _request: function () {
+          // Recover from network errors like nothing wrong happened...
+          return this.polled().then(this._deferred.notify, $q.resolve);
+        },
+        _poll: function () {
+          this._timeout = $timeout(this._request, this.interval);
+          // Do it this way because chaining breaks `$timeout.cancel`...
+          this._timeout.then(this._poll);
+        },
+        stop: function () {
+          if (!this._timeout) { return; }
+          $timeout.cancel(this._timeout);
+          this._deferred.reject();
+          this._deferred = null;
+          this._timeout = null;
+        },
+        start: function () {
+          this.stop();
+          this._deferred = $q.defer();
+          this._deferred.promise.finally(null, this.callback);
+          this._poll();
+        }
       }
     });
 
@@ -47,19 +47,19 @@
      * Stores common polling interval durations constants.
      * @type {Object}
      */
-    service.POLLING_INTERVAL = { SHORT: 5000, MEDIUM: 30000, LONG: 120000 };
+    service.POLLING_INTERVALS = _.clone(Poller.INTERVALS);
 
     /**
      * Start or restart a given named polling task.
      * @param {String} name
      * @param {Object} options
-     * @param {Number} [options.delay=MEDIUM] - Interval duration in ms.
+     * @param {Number} [options.interval=POLLING_INTERVALS.MEDIUM] - In ms.
      * @param {Function} options.callback - Passing the polled value.
      * @param {Function} options.polled - Must return a promise.
      */
     service.startPolling = function (name, options) {
-      if (_.has(pollingPool, name)) { pollingPool[name].start(); }
-      else { pollingPool[name] = new Poller(options); }
+      if (_.has(Poller.pool, name)) { Poller.pool[name].start(); }
+      else { Poller.pool[name] = new Poller(options); }
     };
 
     /**
@@ -67,7 +67,7 @@
      * @param {String} name
      */
     service.pausePolling = function (name) {
-      if (_.has(pollingPool, name)) { pollingPool[name].stop(); }
+      if (_.has(Poller.pool, name)) { Poller.pool[name].stop(); }
     };
 
     /**
@@ -76,22 +76,22 @@
      */
     service.stopPolling = function (name) {
       service.pausePolling(name);
-      pollingPool[name] = null;
-      delete pollingPool[name];
+      Poller.pool[name] = null;
+      delete Poller.pool[name];
     };
 
     /**
      * Pause all current polling tasks.
      */
     service.pausePollings = function () {
-      _.each(pollingPool, service.pausePolling, service);
+      _.each(Poller.pool, service.pausePolling, service);
     };
 
     /**
      * Resume all current polling tasks.
      */
     service.resumePollings = function () {
-      _.each(pollingPool, service.startPolling, service);
+      _.each(Poller.pool, service.startPolling, service);
     };
 
     /**
@@ -111,15 +111,12 @@
      * @param {String} url - Request url.
      * @param {Object} [params] - Request parameters.
      * @param {Object} [data] - Request data.
-     * @param {Object} [config] - Extra request config properties or by default
-     *                          `{ skipFPLoadingInterceptor: !!config }`.
+     * @param {Object} [config] - Extra request config properties.
      * @param {Boolean} [config.toData=true] - Pass `response.data` if `true`.
      * @returns {Promise} - Passing the response data.
      */
     service.request = function (method, url, params, data, config) {
-      if (!_.isPlainObject(config)) {
-        config = { skipFPLoadingInterceptor: !!config };
-      }
+      if (!_.isPlainObject(config)) { config = {}; }
       if (!service.isExternal(url)) { url = API_SERVER_URL + url; }
       var options = { url: url, method: method, params: params, data: data };
       var promise = $http(_.extend(options, config));

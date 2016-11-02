@@ -39,4 +39,4 @@
     run
   ]);
 
-}(angular.module('app.native', ['app'])));
+}(angular.module('app.native', ['app.i18n'])));

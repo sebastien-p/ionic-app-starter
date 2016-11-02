@@ -4,31 +4,31 @@
 (function (module) {
   'use strict';
 
-  function LoadingService($rootScope, $ionicLoading) {
+  function LoaderService($rootScope, $ionicLoading) {
     var service = this;
-    var loading = 0;
+    var retain = 0;
 
     /**
      * Show the Ionic loader.
      */
     service.show = function () {
-      if (0 === loading) { $ionicLoading.show(); }
-      loading += 1;
+      if (retain === 0) { $ionicLoading.show(); }
+      retain += 1;
     };
 
     /**
      * Hide the Ionic loader if nothing else needs it.
      */
     service.hide = function () {
-      loading -= 1;
-      if (0 === loading) { $ionicLoading.hide(); }
+      retain = Math.min(0, retain - 1);
+      if (retain === 0) { $ionicLoading.hide(); }
     };
   }
 
-  module.service('loadingService', [
+  module.service('loaderService', [
     '$rootScope',
     '$ionicLoading',
-    LoadingService
+    LoaderService
   ]);
 
 }(angular.module('app.http')));

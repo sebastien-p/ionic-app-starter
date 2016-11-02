@@ -76,4 +76,4 @@
     run
   ]);
 
-}(angular.module('app.states', ['app.http', 'app.i18n'])));
+}(angular.module('app.states', ['app.native', 'app.http'])));
