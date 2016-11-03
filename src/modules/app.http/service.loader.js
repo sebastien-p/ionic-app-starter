@@ -20,7 +20,7 @@
      * Hide the Ionic loader if nothing else needs it.
      */
     service.hide = function () {
-      retain = Math.min(0, retain - 1);
+      retain = Math.max(0, retain - 1);
       if (retain === 0) { $ionicLoading.hide(); }
     };
   }
