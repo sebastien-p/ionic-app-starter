@@ -1,5 +1,6 @@
 h2= config.app
 p(translate-value-greeter="{{ ::from }}", translate=".CONTENT")
+p {{ '2015-10-21' | moment:'fromNow' }}
 button.button(
   on-tap="homeController.showPopup()",
   translate=".BUTTON",

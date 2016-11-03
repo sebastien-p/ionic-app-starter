@@ -15,13 +15,15 @@ var reduce = require('lodash').reduce;
 function gulpInjectLib(gulp, plugins, config) {
   var task = config.tasks['inject.lib'];
   var env = config.IS_PROD ? 'prod' : 'dev';
+  var extra = task.extra || [];
 
   return reduce(task.src, function reducer(merged, src) {
+    // Get regular or minified files depending on the build type.
+    var lib = mainBowerFiles({ env: env }).concat(extra);
     return merged.add(
       gulp.src(src, { cwd: task.cwd })
         .pipe(plugins.inject(
-          // Get regular or minified files depending on the build type.
-          gulp.src(mainBowerFiles({ env: env }), { read: false }),
+          gulp.src(lib, { read: false }),
           { name: 'lib', relative: true }
         ))
         .pipe(gulp.dest(config.FOLDERS.SAME))

@@ -5,7 +5,7 @@ var extend = require('lodash').extend;
 var plugins = require('gulp-load-plugins')();
 var folders = require('./folders');
 var environment = require('./environment')(plugins.util.env);
-var patterns = require('./patterns')(environment.APP.constants.I18N.LOCALES);
+var patterns = require('./patterns')(environment.CONSTANTS.I18N.LOCALES);
 
 /**
  * Build tasks parameters.

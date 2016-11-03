@@ -8,6 +8,8 @@ var all = '**/*';
  * @return {Object}
  */
 function patterns(locales) {
+  var i18n = locales.join(',');
+
   return {
     ALL: all,
     CSS: all + '.css',
@@ -19,7 +21,8 @@ function patterns(locales) {
     JSON: all + '.json',
     SASS: all + '.sass',
     SPEC: all + '.spec.js',
-    I18N: locales.length > 1 ? '{' + locales.join(',') + '}' : locales[0]
+    I18N: locales.length > 1 ? '{' + i18n + '}' : locales[0],
+    I18N_EXTENDED: '{' + i18n.replace(/-(?:[^,]+)/g, '') + ',' + i18n + '}'
   };
 }
 

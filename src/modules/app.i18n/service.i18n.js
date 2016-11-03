@@ -14,7 +14,7 @@
   ) {
     var service = this;
 
-    var timezone = { abbr: null, name: null };
+    var timezone = { name: null, abbr: null, offset: null };
 
     /**
      * Get a list of the application supported locales.
@@ -78,7 +78,7 @@
      */
     service.addCustomUnitsAndFormats = function ($locale) {
       var UNITS = service.getUnits($locale.id);
-      $locale.NUMBER_FORMATS.TEMPERATURE = UNITS.TEMPERATURE;
+      if (UNITS) { $locale.NUMBER_FORMATS.TEMPERATURE = UNITS.TEMPERATURE; }
       return $locale;
     };
 
@@ -91,12 +91,10 @@
     service.setLocale = function (locale) {
       locale = service.getLocaleOrDefault(locale);
       return dynamicLocale.set(locale.toLowerCase()).then(function ($locale) {
-        moment.locale($locale.id);
-        service.addCustomUnitsAndFormats($locale);
-        return $translate.use(locale);
-      }).then(function (locale) {
         $document.children().attr('lang', locale);
-        return locale;
+        service.addCustomUnitsAndFormats($locale);
+        moment.locale($locale.id);
+        return $translate.use(locale);
       });
     };
 
@@ -108,8 +106,10 @@
       if (!name) { name = moment.tz.guess(); }
       if (name === timezone.name) { return; }
       moment.tz.setDefault(name);
-      timezone.abbr = moment().format('z');
+      var now = moment();
       timezone.name = name;
+      timezone.abbr = now.format('z');
+      timezone.offset = now.format('ZZ');
     };
 
     /**

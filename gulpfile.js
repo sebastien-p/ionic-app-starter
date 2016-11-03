@@ -5,6 +5,7 @@
 
 require('./gulp/load')(function tasksSettings(FOLDERS, PATTERNS) {
   var NG_LOCALES = 'angular-locale_' + PATTERNS.I18N.toLowerCase() + '.js';
+  var MOMENT_LOCALES = PATTERNS.I18N_EXTENDED.toLowerCase() + '.js';
 
   return {
     'clean.cordova': {
@@ -62,7 +63,8 @@ require('./gulp/load')(function tasksSettings(FOLDERS, PATTERNS) {
         smartphone: 'smartphone.html',
         tablet: 'tablet.html',
         web: 'index.html'
-      }
+      },
+      extra: FOLDERS.WWW + 'lib/moment/locale/' + MOMENT_LOCALES
     },
     'inject.src': {
       cwd: FOLDERS.WWW,
