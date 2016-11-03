@@ -2,7 +2,7 @@
   .col
     label.item.item-select
       span.input-label(translate=".LABEL")
-      select.wlSettings__form__select(
+      select(
         ng-options="locale as ('I_18_N.LANGUAGES.' + locale | translate) for locale in ::$ctrl.LOCALES",
         ng-model="$ctrl.settings[$ctrl.key]",
         e2e-test-field="language-picker",
