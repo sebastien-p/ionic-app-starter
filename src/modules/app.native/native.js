@@ -16,11 +16,14 @@
   }
 
   function run(
-    cordovaUtils,
+    $rootScope,
     $cordovaKeyboard,
     $cordovaStatusbar,
-    $cordovaSplashscreen
+    $cordovaSplashscreen,
+    cordovaUtils
   ) {
+    $rootScope.IS_CORDOVA = cordovaUtils.isCordova();
+
     cordovaUtils.callWhenReady(function () {
       $cordovaStatusbar.style($cordovaStatusbar.STYLES.DEFAULT);
       $cordovaKeyboard.hideAccessoryBar(false);
@@ -32,10 +35,11 @@
   module.config(['$cordovaInAppBrowserProvider', config]);
 
   module.run([
-    'cordovaUtils',
+    '$rootScope',
     '$cordovaKeyboard',
     '$cordovaStatusbar',
     '$cordovaSplashscreen',
+    'cordovaUtils',
     run
   ]);
 
