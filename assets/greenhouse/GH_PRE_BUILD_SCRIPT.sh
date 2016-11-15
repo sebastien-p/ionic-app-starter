@@ -2,4 +2,4 @@
 
 set -e
 
-npm run build:web
+npm run prepare:build:web
