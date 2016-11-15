@@ -1,3 +1,3 @@
 'use strict';
 
-module.exports = [['copy.favicon', 'copy.src']];
+module.exports = [['copy.src']];

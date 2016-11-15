@@ -27,14 +27,10 @@ require('./gulp/load')(function tasksSettings(FOLDERS, PATTERNS) {
         PATTERNS.FONTS,
         PATTERNS.HTML,
         PATTERNS.JSON,
+        '!modules/*/{config,i18n}/' + PATTERNS.JSON,
         PATTERNS.JS,
-        '!modules/*/{config,i18n}/' + PATTERNS.JSON
+        PATTERNS.CSS
       ],
-      dest: FOLDERS.WWW
-    },
-    'copy.favicon': {
-      cwd: FOLDERS.ASSETS + 'resources/',
-      src: 'favicon.ico',
       dest: FOLDERS.WWW
     },
     'constants': {
@@ -47,22 +43,14 @@ require('./gulp/load')(function tasksSettings(FOLDERS, PATTERNS) {
     'templates': {
       cwd: FOLDERS.MODULES,
       src: {
-        smartphone: '*/smartphone/' + PATTERNS.PUG,
-        tablet: '*/tablet/' + PATTERNS.PUG,
-        web: '*/web/' + PATTERNS.PUG
+        smartphone: '*/smartphone/' + PATTERNS.PUG
       },
       module: 'app'
-    },
-    'styles': {
-      src: FOLDERS.STYLES + '{shared,smartphone,tablet,web}.sass',
-      dest: FOLDERS.WWW + 'css/'
     },
     'inject.lib': {
       cwd: FOLDERS.WWW,
       src: {
-        smartphone: 'smartphone.html',
-        tablet: 'tablet.html',
-        web: 'index.html'
+        smartphone: 'smartphone.html'
       },
       extra: FOLDERS.WWW + 'lib/moment/locale/' + MOMENT_LOCALES
     },
@@ -71,21 +59,12 @@ require('./gulp/load')(function tasksSettings(FOLDERS, PATTERNS) {
       src: '{smartphone,tablet,index}.html',
       sections: {
         shared: [
-          'css/shared.css',
           'modules/' + PATTERNS.JS,
           '!modules/*/{smartphone,tablet,web}/' + PATTERNS.JS
         ],
         smartphone: [
           'css/smartphone.css',
           'modules/*/smartphone/' + PATTERNS.JS
-        ],
-        tablet: [
-          'css/tablet.css',
-          'modules/*/tablet/' + PATTERNS.JS
-        ],
-        web: [
-          'css/web.css',
-          'modules/*/web/' + PATTERNS.JS
         ]
       }
     },
@@ -138,7 +117,8 @@ require('./gulp/load')(function tasksSettings(FOLDERS, PATTERNS) {
         PATTERNS.IMAGES,
         PATTERNS.FONTS,
         PATTERNS.JSON,
-        '!modules/*/{config,i18n}/' + PATTERNS.JSON
+        '!modules/*/{config,i18n}/' + PATTERNS.JSON,
+        PATTERNS.CSS
       ],
       run: ['copy']
     }, {
@@ -152,30 +132,12 @@ require('./gulp/load')(function tasksSettings(FOLDERS, PATTERNS) {
       ],
       run: ['templates']
     }, {
-      src: FOLDERS.STYLES + PATTERNS.SASS,
-      run: ['styles']
-    },/* {
-      src: FOLDERS.ROOT + '{package,project}.json',
-      run: ['constants'] // FIXME: does not refresh anymore
-    }, */{
       src: [
         FOLDERS.MODULES + PATTERNS.JS,
         FOLDERS.SRC + PATTERNS.HTML,
         FOLDERS.ROOT + 'bower.json'
       ],
       run: ['inject']
-    }],
-    'test.e2e': {
-      cwd: FOLDERS.TEST + 'e2e/',
-      src: PATTERNS.SPEC
-    },
-    'test.unit': {
-      cwd: FOLDERS.TEST + 'unit/',
-      src: PATTERNS.SPEC,
-      app: [
-        FOLDERS.WWW + 'modules/' + PATTERNS.JS,
-        '!' + FOLDERS.WWW + 'modules/*/{smartphone,tablet,web}/!(templates.js)'
-      ]
-    }
+    }]
   };
 });

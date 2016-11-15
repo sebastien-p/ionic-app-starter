@@ -7,15 +7,14 @@
   var STATE_HOME = 'states.home';
 
   function config($stateProvider) {
-    var views = {};
-    var controller = 'homeController as homeController';
-    views['content-smartphone'] = { controller: controller };
-    views['content-tablet'] = { controller: controller };
-
     $stateProvider.state(STATE_HOME, {
       data: { module: module, navBar: true },
       url: '/home',
-      views: views
+      views: {
+        'content-smartphone': {
+          controller: 'homeController as homeController'
+        }
+      }
     });
   }
 

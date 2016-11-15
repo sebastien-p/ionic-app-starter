@@ -19,4 +19,4 @@
   module.config(['$httpProvider', config]);
   module.run(['$rootScope', 'loaderService', 'httpService', run]);
 
-}(angular.module('app.http', ['app'])));
+}(angular.module('app.http', ['app.i18n'])));

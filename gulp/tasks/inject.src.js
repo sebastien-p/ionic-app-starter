@@ -24,6 +24,6 @@ function gulpInjectSrc(gulp, plugins, config) {
 }
 
 module.exports = [
-  ['inject.lib', 'templates', 'styles', 'constants', 'i18n'],
+  ['inject.lib', 'templates', 'constants', 'i18n'],
   gulpInjectSrc
 ];

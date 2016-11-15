@@ -14,9 +14,7 @@
      * @type {Object}
      */
     provider.FOLDERS = {
-      SMARTPHONE: 'smartphone',
-      TABLET: 'tablet',
-      WEB: 'web'
+      SMARTPHONE: 'smartphone'
     };
 
     /**

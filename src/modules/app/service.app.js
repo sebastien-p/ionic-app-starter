@@ -10,11 +10,6 @@
     var service = this;
 
     /**
-     * Scroll back to top of scroll views.
-     */
-    service.scrollToTop = function () { $window.scrollTo(0, 0); }; // FIXME: use $ionicScrollDelegate + decorator
-
-    /**
      * Check if resolved data should be updated.
      * @param {Object} resolved
      * @param {Object} locals - Should be an Angular scope object.

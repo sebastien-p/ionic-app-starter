@@ -62,14 +62,6 @@
             "API_SERVER_URL": ""
           }
         }
-      },
-      "targets": {
-        "smartphone": {
-          "constants": {}
-        },
-        "tablet": {
-          "constants": {}
-        }
       }
     }
   }

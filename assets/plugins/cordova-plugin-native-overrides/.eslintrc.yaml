@@ -1,9 +1,0 @@
-env:
-  node: true
-rules:
-  dot-notation:
-    - 1
-    - allowKeywords: true
-  max-params:
-    - 2
-    - 4
