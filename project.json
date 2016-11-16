@@ -1,0 +1,68 @@
+{
+  "common": {
+    "constants": {}
+  },
+  "builds": {
+    "dev": {
+      "excludePlugins": [],
+      "constants": {}
+    },
+    "test": {
+      "excludePlugins": [],
+      "constants": {}
+    },
+    "preprod": {
+      "excludePlugins": [],
+      "constants": {}
+    },
+    "qa": {
+      "excludePlugins": [],
+      "constants": {}
+    },
+    "prod": {
+      "excludePlugins": [
+        "cordova-plugin-console"
+      ],
+      "constants": {}
+    }
+  },
+  "apps": {
+    "default": {
+      "name": "App",
+      "id": "id.goes.here",
+      "constants": {
+        "I18N": {
+          "LOCALES": ["en-US", "fr-FR"],
+          "DEFAULT": "en-US"
+        }
+      },
+      "builds": {
+        "dev": {
+          "constants": {
+            "API_SERVER_URL": ""
+          }
+        },
+        "test": {
+          "constants": {
+            "API_SERVER_URL": ""
+          }
+        },
+        "preprod": {
+          "constants": {
+            "API_SERVER_URL": ""
+          }
+        },
+        "qa": {
+          "constants": {
+            "API_SERVER_URL": ""
+          }
+        },
+        "prod": {
+          "constants": {
+            "API_SERVER_URL": ""
+          }
+        }
+      }
+    }
+  }
+}

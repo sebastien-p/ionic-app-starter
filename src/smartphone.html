@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html ng-app="main" ng-strict-di>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, user-scalable=no, width=device-width">
+    <title>{{ ::APP_NAME }}</title>
+    <!-- build:css lib/lib.min.css -->
+      <!-- lib:css -->
+      <!-- endinject -->
+    <!-- endbuild -->
+    <!-- build:css css/smartphone.min.css -->
+      <!-- smartphone:css -->
+      <!-- endinject -->
+    <!-- endbuild -->
+  </head>
+  <body class="app" fp-open-links-in-iab>
+    <ion-nav-bar class="bar-royal">
+      <ion-nav-back-button></ion-nav-back-button>
+    </ion-nav-bar>
+    <div class="app__root" ui-view="root"></div>
+    <!-- build:js lib/lib.min.js -->
+      <!-- lib:js -->
+      <!-- endinject -->
+    <!-- endbuild -->
+    <script src="cordova.js"></script>
+    <!-- build:js modules/shared.min.js -->
+      <!-- shared:js -->
+      <!-- endinject -->
+    <!-- endbuild -->
+    <!-- build:js modules/smartphone.min.js -->
+      <!-- smartphone:js -->
+      <!-- endinject -->
+    <!-- endbuild -->
+  </body>
+</html>

@@ -69,22 +69,27 @@ if (rootdir) {
 
   // go through each of the platform directories that have been prepared
   var platforms = (process.env.CORDOVA_PLATFORMS ? process.env.CORDOVA_PLATFORMS.split(',') : []);
+  // go through each of the application targets for every prepared platform
+  var targets = ['index', 'smartphone', 'tablet'];
 
   for(var x=0; x<platforms.length; x++) {
     // open up the index.html file at the www root
     try {
       var platform = platforms[x].trim().toLowerCase();
-      var indexPath;
 
-      if(platform == 'android') {
-        indexPath = path.join('platforms', platform, 'assets', 'www', 'index.html');
-      } else {
-        indexPath = path.join('platforms', platform, 'www', 'index.html');
-      }
+      targets.forEach(function (target) {
+        var indexPath;
 
-      if(fs.existsSync(indexPath)) {
-        addPlatformBodyTag(indexPath, platform);
-      }
+        if(platform == 'android') {
+          indexPath = path.join('platforms', platform, 'assets', 'www', target + '.html');
+        } else {
+          indexPath = path.join('platforms', platform, 'www', target + '.html');
+        }
+
+        if(fs.existsSync(indexPath)) {
+          addPlatformBodyTag(indexPath, platform);
+        }
+      });
 
     } catch(e) {
       process.stdout.write(e);

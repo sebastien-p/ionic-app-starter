@@ -1,111 +1,143 @@
 /*eslint-env node */
-/*eslint no-var:0, quote-props: 0, strict:[2,"global"] */
+/*eslint quote-props: 0 */
 
 'use strict';
 
-var gulp = require('gulp');
-var PACKAGE = require('./package.json');
-var loadTasks = require('gulp-load-tasks');
-var plugins = require('gulp-load-plugins')();
+require('./gulp/load')(function tasksSettings(FOLDERS, PATTERNS) {
+  var NG_LOCALES = 'angular-locale_' + PATTERNS.I18N.toLowerCase() + '.js';
+  var MOMENT_LOCALES = PATTERNS.I18N_EXTENDED.toLowerCase() + '.js';
 
-var FOLDERS = {
-  build: './build/',
-  modules: './www/modules/',
-  resources: './resources/',
-  sass: './scss/',
-  www: './www/'
-};
-
-var PATTERNS = {
-  all: '**/*',
-  css: '**/*.css',
-  jade: '**/*.jade',
-  js: '**/*.js',
-  sass: '**/*.sass',
-  images: '**/*.{png,jpg,gif,svg}',
-  pgbomit: '**/.pgbomit'
-};
-
-var TASKS = {
-  'build.clean': {
-    src: FOLDERS.build
-  },
-  'build.clean.unused': {
-    cwd: FOLDERS.build,
-    src: [
-      'lib/' + PATTERNS.all,
-      '!lib/ionic/',
-      '!lib/ionic/release/',
-      '!lib/ionic/release/fonts/',
-      '!lib/ionic/release/fonts/' + PATTERNS.all,
-      'modules/' + PATTERNS.all,
-      '!modules/*/',
-      '!modules/*/' + PATTERNS.images
-    ]
-  },
-  'build.config': {
-    src: FOLDERS.build
-  },
-  'build.copy.config': {
-    src: './config.xml',
-    dest: FOLDERS.build
-  },
-  'build.copy': {
-    src: FOLDERS.www + PATTERNS.all,
-    dest: FOLDERS.build
-  },
-  'build.copy.resources': {
-    src: [
-      FOLDERS.resources + PATTERNS.images,
-      FOLDERS.resources + PATTERNS.pgbomit
-    ],
-    dest: FOLDERS.build + '/resources/'
-  },
-  'build.phonegap-build': {
-    src: FOLDERS.build,
-    dest: 'phonegap-build',
-    cache: './.build.cache/',
-    commit: 'New build'
-  },
-  'build.useref': {
-    src: FOLDERS.build + 'index.html',
-    dest: FOLDERS.build,
-    css: PATTERNS.css,
-    js: PATTERNS.js
-  },
-  'inject': {
-    src: FOLDERS.www + 'index.html',
-    dest: FOLDERS.www,
-    js: FOLDERS.modules + PATTERNS.js
-  },
-  'jade': {
-    src: FOLDERS.modules + PATTERNS.jade,
-    dest: FOLDERS.modules + 'app/',
-    file: 'app.templates.js',
-    root: 'modules/',
-    module: 'app'
-  },
-  'sass': {
-    src: FOLDERS.sass + 'ionic.app.sass',
-    dest: FOLDERS.www + 'css/'
-  },
-  'watch': [{
-    src: [
-      FOLDERS.modules + PATTERNS.jade,
-      FOLDERS.modules + PATTERNS.js,
-      './bower.json'
-    ],
-    tasks: ['inject']
-  }, {
-    src: FOLDERS.sass + PATTERNS.sass,
-    tasks: ['sass']
-  }]
-};
-
-loadTasks('gulp/', gulp, plugins, {
-  ENV: plugins.util.env.type || 'development',
-  PATTERNS: PATTERNS,
-  FOLDERS: FOLDERS,
-  PACKAGE: PACKAGE,
-  TASKS: TASKS
+  return {
+    'clean.cordova': {
+      src: [
+        FOLDERS.ROOT + 'config.xml',
+        FOLDERS.PLATFORMS,
+        FOLDERS.PLUGINS,
+        FOLDERS.WWW
+      ]
+    },
+    'setup.config': {
+      src: FOLDERS.SRC + 'config.xml',
+      dest: FOLDERS.ROOT
+    },
+    'copy.src': {
+      cwd: FOLDERS.SRC,
+      src: [
+        PATTERNS.IMAGES,
+        PATTERNS.FONTS,
+        PATTERNS.HTML,
+        PATTERNS.JSON,
+        '!modules/*/{config,i18n}/' + PATTERNS.JSON,
+        PATTERNS.JS,
+        PATTERNS.CSS
+      ],
+      dest: FOLDERS.WWW
+    },
+    'constants': {
+      module: 'app'
+    },
+    'i18n': {
+      src: FOLDERS.MODULES + '*/i18n/**/' + PATTERNS.I18N + '.json',
+      module: 'app.i18n'
+    },
+    'templates': {
+      cwd: FOLDERS.MODULES,
+      src: {
+        smartphone: '*/smartphone/' + PATTERNS.PUG
+      },
+      module: 'app'
+    },
+    'inject.lib': {
+      cwd: FOLDERS.WWW,
+      src: {
+        smartphone: 'smartphone.html'
+      },
+      extra: FOLDERS.WWW + 'lib/moment/locale/' + MOMENT_LOCALES
+    },
+    'inject.src': {
+      cwd: FOLDERS.WWW,
+      src: '{smartphone,tablet,index}.html',
+      sections: {
+        shared: [
+          'modules/' + PATTERNS.JS,
+          '!modules/*/{smartphone,tablet,web}/' + PATTERNS.JS
+        ],
+        smartphone: [
+          'css/smartphone.css',
+          'modules/*/smartphone/' + PATTERNS.JS
+        ]
+      }
+    },
+    'build.useref': {
+      src: FOLDERS.WWW + '{smartphone,tablet,index}.html'
+    },
+    'build.rev': {
+      cwd: FOLDERS.WWW,
+      src: [
+        'images/' + PATTERNS.IMAGES,
+        'fonts/' + PATTERNS.FONTS,
+        'lib/lib.min.{css,js}',
+        'modules/*.min.js',
+        'css/*.min.css'
+      ]
+    },
+    'build.rev.replace': {
+      cwd: FOLDERS.WWW,
+      src: [
+        '{smartphone,tablet,index}.html',
+        'lib/lib-*.min.{css,js}',
+        'modules/*-*.min.js',
+        'css/*-*.min.css'
+      ]
+    },
+    'build.clean': {
+      cwd: FOLDERS.WWW,
+      src: [
+        PATTERNS.ALL,
+        '!{css,fonts,images,lib,modules}/',
+        '!css/*-*.min.css',
+        '!images/**/',
+        '!images/' + PATTERNS.IMAGES,
+        '!lib/lib-*.min.{css,js}',
+        '!lib/{angular-i18n,ionic}/',
+        '!lib/angular-i18n/' + NG_LOCALES,
+        '!lib/ionic/release/',
+        '!lib/ionic/release/fonts/',
+        '!{fonts,lib/ionic/release/fonts}/' + PATTERNS.FONTS,
+        '!modules/*-*.min.js',
+        '!' + PATTERNS.JSON,
+        '!' + PATTERNS.HTML,
+        '!*.*',
+        'rev-manifest.json'
+      ]
+    },
+    'watch': [{
+      cwd: FOLDERS.SRC,
+      src: [
+        PATTERNS.IMAGES,
+        PATTERNS.FONTS,
+        PATTERNS.JSON,
+        '!modules/*/{config,i18n}/' + PATTERNS.JSON,
+        PATTERNS.CSS
+      ],
+      run: ['copy']
+    }, {
+      src: FOLDERS.MODULES + '*/i18n/**/' + PATTERNS.I18N + '.json',
+      run: ['i18n']
+    }, {
+      cwd: FOLDERS.MODULES,
+      src: [
+        '*/config/' + PATTERNS.JSON,
+        PATTERNS.PUG
+      ],
+      run: ['templates']
+    }, {
+      src: [
+        FOLDERS.MODULES + PATTERNS.JS,
+        FOLDERS.SRC + PATTERNS.HTML,
+        FOLDERS.ROOT + 'bower.json'
+      ],
+      run: ['inject']
+    }]
+  };
 });

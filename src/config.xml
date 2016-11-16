@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<widget
+  xmlns="http://www.w3.org/ns/widgets"
+  xmlns:cdv="http://cordova.apache.org/ns/1.0"
+  android-packageName="$ANDROID_PACKAGE_ID"
+  ios-CFBundleIdentifier="$IOS_PACKAGE_ID"
+  id="$PACKAGE_ID"
+  version="$PACKAGE_VERSION">
+  <name>$PACKAGE_NAME</name>
+  <description>$PACKAGE_DESCRIPTION</description>
+  <content src="smartphone.html"/>
+  <access origin="tel:*" launch-external="yes"/>
+  <preference name="BackupWebStorage" value="none"/>
+  <preference name="DisallowOverscroll" value="true"/>
+  <preference name="HideKeyboardFormAccessoryBar" value="true"/>
+  <preference name="SplashScreen" value="screen"/>
+  <preference name="AutoHideSplashScreen" value="false"/>
+  <preference name="ShowSplashScreenSpinner" value="false"/>
+  <preference name="FadeSplashScreen" value="true"/>
+  <preference name="FadeSplashScreenDuration" value="250"/>
+  <preference name="webviewbounce" value="false"/>
+  <preference name="UIWebViewBounce" value="false"/>
+  <preference name="deployment-target" value="9.0"/>
+  <preference name="android-minSdkVersion" value="17"/>
+  <feature name="StatusBar">
+    <param name="ios-package" value="CDVStatusBar" onload="true"/>
+  </feature>
+  <platform name="android">
+    <icon src="assets/resources/$APP/android/icon/icon-ldpi.png" density="ldpi"/>
+    <icon src="assets/resources/$APP/android/icon/icon-mdpi.png" density="mdpi"/>
+    <icon src="assets/resources/$APP/android/icon/icon-hdpi.png" density="hdpi"/>
+    <icon src="assets/resources/$APP/android/icon/icon-xhdpi.png" density="xhdpi"/>
+    <splash src="assets/resources/$APP/android/splash/splash-port-ldpi.png" density="port-ldpi"/>
+    <splash src="assets/resources/$APP/android/splash/splash-port-mdpi.png" density="port-mdpi"/>
+    <splash src="assets/resources/$APP/android/splash/splash-port-hdpi.png" density="port-hdpi"/>
+    <splash src="assets/resources/$APP/android/splash/splash-port-xhdpi.png" density="port-xhdpi"/>
+    <splash src="assets/resources/$APP/android/splash/splash-land-ldpi.png" density="land-ldpi"/>
+    <splash src="assets/resources/$APP/android/splash/splash-land-mdpi.png" density="land-mdpi"/>
+    <splash src="assets/resources/$APP/android/splash/splash-land-hdpi.png" density="land-hdpi"/>
+    <splash src="assets/resources/$APP/android/splash/splash-land-xhdpi.png" density="land-xhdpi"/>
+  </platform>
+</widget>

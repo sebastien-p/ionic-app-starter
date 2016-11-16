@@ -1,0 +1,10 @@
+.row(ng-if="::($ctrl.LOCALES.length > 1)", translate-namespace="I_18_N")
+  .col
+    label.item.item-select
+      span.input-label(translate=".LABEL")
+      select(
+        ng-options="locale as ('I_18_N.LANGUAGES.' + locale | translate) for locale in ::$ctrl.LOCALES",
+        ng-model="$ctrl.settings[$ctrl.key]",
+        e2e-test-field="language-picker",
+        ng-change="$ctrl.syncLocale()")
+        option(translate=".PLACEHOLDER", value="", disabled)

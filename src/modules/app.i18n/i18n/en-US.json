@@ -1,0 +1,10 @@
+{
+  "I_18_N": {
+    "LABEL": "Language",
+    "PLACEHOLDER": "Please choose a language",
+    "LANGUAGES": {
+      "EN_US": "English (US)",
+      "FR_FR": "Français"
+    }
+  }
+}
