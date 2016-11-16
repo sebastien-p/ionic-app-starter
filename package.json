@@ -70,7 +70,7 @@
     "build:android:qa": "cross-env build=qa npm run build:android"
   },
   "cordovaPlatforms": [
-    "android@6.0.0"
+    "android@6.1.0"
   ],
   "cordovaPlugins": [
     "cordova-plugin-console@1.0.4",
