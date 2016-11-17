@@ -1,5 +1,5 @@
 JDK 1.8+
-Update Android SDK (API 24)
+Update Android SDK (API 25)
 
 {
   "common": {
