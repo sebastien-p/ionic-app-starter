@@ -1,7 +1,0 @@
-{
-  "STATES.HOME": {
-    "TITLE": "Page d'accueil",
-    "CONTENT": "Bonjour depuis {{ greeter }}",
-    "BUTTON": "Afficher la popup"
-  }
-}

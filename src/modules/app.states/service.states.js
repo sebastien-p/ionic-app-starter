@@ -4,9 +4,24 @@
 (function (module) {
   'use strict';
 
-  function StatesService(httpService, i18nService) {
+  function StatesService($q,httpService, i18nService) {
     var service = this;
+//service ->funvtion httpSer,....1）在其中写函数
 
+    service.search =function(query){
+      console.log(query);//montrez
+      return $q.resolve([
+      {titre: 'Jaws?!',id :1},
+      {titre: 'Jaw2', id :2}
+      ]);//list javascript->table   {},{}
+      //http.enqute->promese
+    };
+
+    service.getMovie = function (id){//id from url !
+      return $q.resolve(
+        { titre: 'Jaw2', id: id}
+        );
+    };
     /**
      * Resolve states data.
      * @return {Promise} Passing an object.
