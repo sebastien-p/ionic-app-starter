@@ -6,8 +6,8 @@
 
   var STATE_DETAILS = 'states.details';
 
-  function moieDtaResolve($stateParams,statesSvervice){//:id-----url
-    return statesSvervice.getMovie($stateParams);//id =1
+  function movieDataResolver($stateParams,statesService){//:id-----url
+    return statesService.getMovie($stateParams);//id =1
   }
 
   function config($stateProvider) {
@@ -20,7 +20,7 @@
         }
       },
       resolve: {//protect ecran,when none result
-        movieData: ['$stateParams','statesSvervice',moieDtaResolve]
+        movieData: ['$stateParams','statesService',movieDataResolver]
       }
     });
   }
