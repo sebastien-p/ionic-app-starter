@@ -11,8 +11,8 @@
 //2）调用函数 去 服务
 
     controller.search = function (){//after  cliclk button
-       $scope.results = statesService.search('Jaw?!2048').then(function (results){//when not ,show in Chorme info(alaways 2048?)
-       $scope.search.results = results;
+      statesService.search($scope.search.query).then(function (results){//when not ,show in Chorme info(alaways 2048?)
+        $scope.search.results = results;
       });
     };
 
@@ -20,7 +20,7 @@
     //  $scope.search.results = results;
     //});
 
-    //debugge zuihouyewujiaguoxianshi(synchone)
+    //debugger zuihouyewujiaguoxianshi(synchone)
   }
 
   module.controller('homeController', [
