@@ -35,6 +35,7 @@
   }
 
   module.service('statesService', [
+    '$q',
     'httpService',
     'i18nService',
     StatesService
