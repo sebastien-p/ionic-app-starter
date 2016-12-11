@@ -4,7 +4,7 @@
 (function (module) {
   'use strict';
 
-  function StatesService(httpService, i18nService, $q) {
+  function StatesService($q, httpService, i18nService) {
     var service = this;
 
     service.search = function(query) {
