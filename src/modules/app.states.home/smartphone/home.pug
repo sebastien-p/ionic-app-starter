@@ -1,12 +1,12 @@
 ion-view.view-home(view-title="Accueil")
-  ion-header.bar-subheader.item-input-inset
+  ion-header-bar.bar-subheader.item-input-inset
     label.item-input-wrapper
       i.icon.ion-ios-search.placeholder-icon
       input(type='search', placeholder='Rechercher', ng-model='search.query')
     button.button.button-clear.button-positive(
       ng-disabled="search.query.length < 3",
       on-tap="homeController.search()") OK
-  ion-content.has-subheader
+  ion-content
     ion-list
       ion-item(ng-if="!search.result.length")
         | Pas de résultats
