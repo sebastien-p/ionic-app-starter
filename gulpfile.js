@@ -20,6 +20,10 @@ require('./gulp/load')(function tasksSettings(FOLDERS, PATTERNS) {
       src: FOLDERS.SRC + 'config.xml',
       dest: FOLDERS.ROOT
     },
+    'setup.build.json': {
+      src: FOLDERS.SRC + 'build.json',
+      dest: FOLDERS.ROOT
+    },
     'copy.src': {
       cwd: FOLDERS.SRC,
       src: [

@@ -4,6 +4,7 @@
 /www/
 /test/reports/
 /config.xml
+/build.json
 /nbproject/
 *.log
 .sublime*
