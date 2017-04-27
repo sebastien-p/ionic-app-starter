@@ -106,7 +106,7 @@ Now that you know what you're doing, here is a detailed explanation of the avail
 
 Please note that you should execute a `restore` script at least once before using the scripts that allow you to run the application (meaning all scripts except `build` ones).
 Please also note that after using a setup task for a specific environment, you are not supposed to run a build task on a different environment, because app ids are specific to environment and are set on setup task only.
-Please also not that Android build for prod environnement will sign app using generated build.json properties (from project.json prod build info + .keystore file in /assets/packaging/default)
+Please also not that Android build for prod environnement will sign app using generated build.json properties (from project.json prod build info + .keystore file in /assets/packaging/default), find help to generate keystore [on Ionic doc](http://ionicframework.com/docs/v1/guide/publishing.html)
 
 ## Configuration
 
