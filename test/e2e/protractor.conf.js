@@ -1,7 +1,7 @@
 'use strict';
 
 exports.config = {
-  capabilities: { browserName: 'firefox' }, // FIXME: use chrome when the driver works...
+  capabilities: { browserName: 'chrome' },
   allScriptsTimeout: 30 * 1000,
   rootElement: '[ng-app]',
   directConnect: true,
