@@ -28,8 +28,11 @@
   },
   "apps": {
     "default": {
-      "name": "App",
-      "id": "id.goes.here",
+      "name": "Ionic Starter App",
+      "id": {
+        "ios": "id.goes.here",
+        "android": "id.goes.here"
+      },
       "constants": {
         "I18N": {
           "LOCALES": ["en-US", "fr-FR"],
@@ -38,26 +41,61 @@
       },
       "builds": {
         "dev": {
+          "name": "Ionic Starter App dev",
+          "id": {
+            "ios": "id.goes.here",
+            "android": "id.goes.here"
+          },
           "constants": {
             "API_SERVER_URL": ""
           }
         },
         "test": {
+          "name": "Ionic Starter App test",
+          "id": {
+            "ios": "id.goes.here",
+            "android": "id.goes.here"
+          },
           "constants": {
             "API_SERVER_URL": ""
           }
         },
         "preprod": {
+          "name": "Ionic Starter App preprod",
+          "id": {
+            "ios": "id.goes.here",
+            "android": "id.goes.here"
+          },
           "constants": {
             "API_SERVER_URL": ""
           }
         },
         "qa": {
+          "name": "Ionic Starter App qa",
+          "id": {
+            "ios": "id.goes.here",
+            "android": "id.goes.here"
+          },
           "constants": {
             "API_SERVER_URL": ""
           }
         },
         "prod": {
+          "name": "Ionic Starter App",
+          "id": {
+            "ios": "id.goes.here",
+            "android": "id.goes.here"
+          },
+          "build": {
+            "android": {
+              "release": {
+                "keystore": "PATH TO KEY STORE",
+                "storePassword": "TODO",
+                "alias": "TODO",
+                "password" : "TODO"
+              }
+            }
+          },
           "constants": {
             "API_SERVER_URL": ""
           }

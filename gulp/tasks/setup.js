@@ -1,3 +1,3 @@
 'use strict';
 
-module.exports = [['setup.config']];
+module.exports = [['setup.config', 'setup.build.json']];

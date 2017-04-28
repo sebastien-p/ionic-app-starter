@@ -33,6 +33,7 @@
     "gulp-ng-constant": "2.0.0-2",
     "gulp-protractor": "3.0.0",
     "gulp-rename": "1.2.2",
+    "gulp-replace": "0.5.4",
     "gulp-rev": "7.1.2",
     "gulp-rev-delete-original": "0.2.2",
     "gulp-rev-format": "1.0.4",
@@ -90,7 +91,7 @@
 
     "build:android": "npm run prepare:build && cordova build android",
     "build:android:preprod": "cross-env build=preprod npm run build:android",
-    "build:android:prod": "cross-env build=prod npm run build:android",
+    "build:android:prod": "cross-env build=prod npm run prepare:build && cordova build android --release --buildConfig=build.json --prod",
     "build:android:test": "cross-env build=test npm run build:android",
     "build:android:qa": "cross-env build=qa npm run build:android",
 

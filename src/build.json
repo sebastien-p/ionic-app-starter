@@ -1,0 +1,10 @@
+{
+  "android": {
+    "release": {
+      "keystore": "RELEASE_PATH_TO_KEYSTORE",
+      "storePassword": "RELEASE_STORE_PASSWORD",
+      "alias": "RELEASE_ALIAS",
+      "password" : "RELEASE_PASSWORD"
+    }
+  }
+}
