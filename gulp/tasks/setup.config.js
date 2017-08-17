@@ -3,13 +3,22 @@
 var _ = require('lodash');
 
 /**
- * Parse `'id@spec'` formatted strings (handle "locator" objects objects too).
+ * Get "locator" values from platform and plugin objects.
  * @private
- * @param {String|Object} id - May be a "locator" object.
+ * @param {Object|String} object - Cordova platform/plugin object or a string.
+ * @return {String} `'id@spec'` formatted string.
+ */
+function getLocator(object) {
+  return _.isPlainObject(object) ? object.locator : object;
+}
+
+/**
+ * Parse `'id@spec'` and `'path/id'` formatted strings.
+ * @private
+ * @param {String} id - The plugin id or path.
  * @return {Array} First item being the id and second one being the spec.
  */
 function parseIdAndSpec(id) {
-  if (_.isPlainObject(id)) { id = id.locator; }
   if (/@/.test(id)) { return _.take(id.split('@'), 2); }
   // Remove path and extension (if any) to only keep the plugin name.
   return [id.split('/').pop().split('.')[0], id];
@@ -23,9 +32,9 @@ function parseIdAndSpec(id) {
  */
 function getPlatformTags(config) {
   // Transform platform ids into Cordova XML tags.
-  return _.map(config.INFOS.cordovaPlatforms, function map(id) {
-    id = parseIdAndSpec(id);
-    return '<engine name="' + id[0] + '" spec="' + id[1] + '"/>';
+  return _.map(config.INFOS.cordovaPlatforms, function map(platform) {
+    var parsed = parseIdAndSpec(getLocator(platform));
+    return '<engine name="' + parsed[0] + '" spec="' + parsed[1] + '"/>';
   });
 }
 
@@ -33,13 +42,13 @@ function getPlatformTags(config) {
  * Transform Cordova plugins variables listed in package.json into XML tags.
  * @private
  * @param {Object} config - Gulp config object passed to *gulp-load-tasks*.
- * @param {Object} pluginDefinition - Plugin definition object.
+ * @param {Object} plugin - Plugin definition object.
  * @return {Array} May be empty.
  */
-function getVariableTags(config, pluginDefinition) {
-  if (!_.isPlainObject(pluginDefinition.variables)) { return []; }
-  var prefix = pluginDefinition.constantPrefix || '';
-  return _.map(pluginDefinition.variables, function map(value, name) {
+function getVariableTags(config, plugin) {
+  if (!_.isPlainObject(plugin.variables)) { return []; }
+  var prefix = plugin.constantPrefix || '';
+  return _.map(plugin.variables, function map(value, name) {
     if (!value) { value = _.get(config.CONSTANTS, prefix + name); }
     return '<variable name="' + name + '" value="' + value + '"/>';
   });
@@ -52,23 +61,28 @@ function getVariableTags(config, pluginDefinition) {
  * @return {Array} May be empty.
  */
 function getPluginTags(config) {
-  var excluded = config.BUILD.excludePlugins;
   var plugins = config.INFOS.cordovaPlugins;
+  // Allow to define exclusions at build, app and target levels.
+  var exclusions = _.chain().union(
+    config.BUILD.excludePlugins,
+    config.APP.excludePlugins,
+    config.TARGET.excludePlugins
+  ).map(function map(id) {
+    // Extract plugin ids as regular expressions.
+    return new RegExp('^' + _.escapeRegExp(id) + '(?:@|$)', 'i');
+  }).value();
 
   // Maybe exclude some plugins.
-  return _.chain(plugins).filter(function filter(current) {
-    if (_.isPlainObject(current)) { current = current.locator; }
+  return _.chain(plugins).mapKeys(getLocator).pick(function pick(plugin, id) {
     // Keep the plugin if it's not matching any exclusion rule.
-    return !_.some(excluded, function some(id) {
-      // Check if the given id matches the one of the current plugin.
-      var exclusion = new RegExp('^' + _.escapeRegExp(id) + '(?:@|$)', 'i');
-      return exclusion.test(current);
+    return !_.some(exclusions, function some(exclusion) {
+      return exclusion.test(id);
     });
   // Transform remaining plugin ids into Cordova XML tags.
-  }).map(function map(pluginDefinition) {
-    var id = parseIdAndSpec(pluginDefinition);
-    return '<plugin name="' + id[0] + '" spec="' + id[1] + '">'
-      + getVariableTags(config, pluginDefinition).join('')
+  }).map(function map(plugin, id) {
+    var parsed = parseIdAndSpec(id);
+    return '<plugin name="' + parsed[0] + '" spec="' + parsed[1] + '">'
+      + getVariableTags(config, plugin).join('')
       + '</plugin>';
   // Get the result by lazily evaluating previous methods.
   }).value();
