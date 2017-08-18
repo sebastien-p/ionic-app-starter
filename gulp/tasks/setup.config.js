@@ -110,7 +110,7 @@ function normalizeAppId(id) {
   // eslint-disable-next-line max-statements-per-line
   if (_.isString(id)) { id = { ios: id, android: id }; }
   if (_.isPlainObject(id) && id.ios && id.android) { return id; }
-  throw new Error('The application id is missing!');
+  throw new Error('The app id is missing!');
 }
 
 /**
@@ -140,7 +140,7 @@ function getName(config) {
   // Use the target name by default.
   if (config.TARGET.name) { return config.TARGET.name; }
   // If no target name provided, try to use the global app name value.
-  if (!config.APP.name) { throw new Error('The application is missing!'); }
+  if (!config.APP.name) { throw new Error('The app name is missing!'); }
   if (config.BUILD_ID === 'prod') { return config.APP.name; }
   // If the build isn't prod, append its id to the global name so
   // that the app will be easier to find on the device springboard.
