@@ -3,25 +3,16 @@
 var _ = require('lodash');
 
 /**
- * Get "locator" values from platform and plugin objects.
+ * Parse `'id@spec'` formatted strings (handle locator objects objects too).
  * @private
- * @param {Object|String} object - Cordova platform/plugin object or a string.
- * @return {String} `'id@spec'` formatted string.
- */
-function getLocator(object) {
-  return _.isPlainObject(object) ? object.locator : object;
-}
-
-/**
- * Parse `'id@spec'` and `'path/id'` formatted strings.
- * @private
- * @param {String} id - The plugin id or path.
+ * @param {String|Object} value - A string or a locator object.
  * @return {Array} First item being the id and second one being the spec.
  */
-function parseIdAndSpec(id) {
-  if (/@/.test(id)) { return _.take(id.split('@'), 2); }
-  // Remove path and extension (if any) to only keep the plugin name.
-  return [id.split('/').pop().split('.')[0], id];
+function parseIdAndSpec(value) {
+  if (_.isPlainObject(value)) { value = value.locator; }
+  if (/@/.test(value)) { return _.take(value.split('@'), 2); }
+  // Remove path and extension (if any) to only keep the name part.
+  return [value.split('/').pop().split('.')[0], value];
 }
 
 /**
@@ -33,7 +24,7 @@ function parseIdAndSpec(id) {
 function getPlatformTags(config) {
   // Transform platform ids into Cordova XML tags.
   return _.map(config.INFOS.cordovaPlatforms, function map(platform) {
-    var parsed = parseIdAndSpec(getLocator(platform));
+    var parsed = parseIdAndSpec(platform);
     return '<engine name="' + parsed[0] + '" spec="' + parsed[1] + '"/>';
   });
 }
@@ -61,7 +52,6 @@ function getVariableTags(config, plugin) {
  * @return {Array} May be empty.
  */
 function getPluginTags(config) {
-  var plugins = config.INFOS.cordovaPlugins;
   // Allow to define exclusions at build, app and target levels.
   var exclusions = _.chain().union(
     config.BUILD.excludePlugins,
@@ -73,16 +63,18 @@ function getPluginTags(config) {
   }).value();
 
   // Maybe exclude some plugins.
-  return _.chain(plugins).mapKeys(getLocator).pick(function pick(plugin, id) {
+  return _.chain(config.INFOS.cordovaPlugins).map(function (plugin) {
+    var parsed = parseIdAndSpec(plugin);
+    return { id: parsed[0], spec: parsed[1], object: plugin };
+  }).filter(function filter(plugin) {
     // Keep the plugin if it's not matching any exclusion rule.
     return !_.some(exclusions, function some(exclusion) {
-      return exclusion.test(id);
+      return exclusion.test(plugin.id);
     });
   // Transform remaining plugin ids into Cordova XML tags.
-  }).map(function map(plugin, id) {
-    var parsed = parseIdAndSpec(id);
-    return '<plugin name="' + parsed[0] + '" spec="' + parsed[1] + '">'
-      + getVariableTags(config, plugin).join('')
+  }).map(function map(plugin) {
+    return '<plugin name="' + plugin.id + '" spec="' + plugin.spec + '">'
+      + getVariableTags(config, plugin.object).join('')
       + '</plugin>';
   // Get the result by lazily evaluating previous methods.
   }).value();
