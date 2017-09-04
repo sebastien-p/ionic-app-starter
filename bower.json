@@ -3,6 +3,7 @@
   "name": "ionic-app-starter",
   "description": "Easily start a complex Ionic 1 application",
   "dependencies": {
+    "tslib": "1.7.1",
     "lodash": "3.10.1",
     "moment": "2.15.2",
     "moment-timezone": "0.5.7",

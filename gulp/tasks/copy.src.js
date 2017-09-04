@@ -1,5 +1,8 @@
 'use strict';
 
+var ts = require('gulp-typescript');
+var tsProject = ts.createProject('tsconfig.json'); // TODO: dynamic?
+
 /**
  * Copy application sources to the Cordova *www* directory.
  * @param {Object} gulp - Current Gulp instance.
@@ -14,9 +17,24 @@ function gulpCopySrc(gulp, plugins, config) {
   return gulp.src(task.src, { cwd: task.cwd })
     .pipe(plugins.changed(task.dest))
     .pipe(plugins.if(
+      !config.IS_PROD && config.PATTERNS.TS,
+      plugins.sourcemaps.init() // TODO: sass
+    ))
+    .pipe(plugins.if(
+      config.PATTERNS.TS,
+      tsProject(ts.reporter.longReporter())
+    ))
+    .pipe(plugins.if(
       config.PATTERNS.JS,
       // eslint-disable-next-line camelcase
       plugins.ngAnnotate({ single_quotes: true })
+    ))
+    .pipe(plugins.if(
+      !config.IS_PROD && config.PATTERNS.JS,
+      plugins.sourcemaps.write('./', { // TODO: generic
+        includeContent: true,
+        destPath: './modules'
+      })
     ))
     .pipe(gulp.dest(task.dest));
 }

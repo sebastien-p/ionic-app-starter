@@ -32,6 +32,7 @@ require('./gulp/load')(function tasksSettings(FOLDERS, PATTERNS) {
         PATTERNS.HTML,
         PATTERNS.JSON,
         PATTERNS.JS,
+        PATTERNS.TS,
         '!modules/*/{config,i18n}/' + PATTERNS.JSON
       ],
       dest: FOLDERS.WWW
@@ -158,12 +159,13 @@ require('./gulp/load')(function tasksSettings(FOLDERS, PATTERNS) {
     }, {
       src: FOLDERS.STYLES + PATTERNS.SASS,
       run: ['styles']
-    },/* {
+    }, /* {
       src: FOLDERS.ROOT + '{package,project}.json',
       run: ['constants'] // FIXME: does not refresh anymore
     }, */{
       src: [
         FOLDERS.MODULES + PATTERNS.JS,
+        FOLDERS.MODULES + PATTERNS.TS,
         FOLDERS.SRC + PATTERNS.HTML,
         FOLDERS.ROOT + 'bower.json'
       ],

@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "none",
+    "lib": ["es6", "dom"],
+    "noEmitHelpers": true,
+    "noImplicitAny": true,
+    "alwaysStrict": true // Parse in strict mode and emit "use strict" for each source file
+  }
+}

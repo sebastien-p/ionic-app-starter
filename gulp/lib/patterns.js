@@ -18,6 +18,7 @@ function patterns(locales) {
     IMAGES: all + '.{png,jpg,gif,svg,ico}',
     PUG: all + '.pug',
     JS: all + '.js',
+    TS: all + '.ts',
     JSON: all + '.json',
     SASS: all + '.sass',
     SPEC: all + '.spec.js',
