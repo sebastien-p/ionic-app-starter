@@ -1,14 +1,20 @@
 /**
  * @module app.states.home
  */
-(function (module) {
+namespace app {
   'use strict';
 
-  var STATE_HOME = 'states.home';
+  const module = angular.module('app.states.home', [
+    'app.states'
+  ]);
 
-  function config($stateProvider) {
-    var views = {};
-    var controller = 'homeController as homeController';
+  const STATE_HOME = 'states.home';
+
+  function config(
+    $stateProvider: ng.ui.IStateProvider
+  ) {
+    const views: any = {};
+    const controller = 'homeController as homeController';
     views['content-smartphone'] = { controller: controller };
     views['content-tablet'] = { controller: controller };
 
@@ -19,10 +25,21 @@
     });
   }
 
-  function run($rootScope) { $rootScope.STATE_HOME = STATE_HOME; }
+  function run(
+    $rootScope: ng.IRootScopeService
+  ) {
+    $rootScope.STATE_HOME = STATE_HOME;
+  }
 
   module.constant('STATE_HOME', STATE_HOME);
-  module.config(['$stateProvider', config]);
-  module.run(['$rootScope', run]);
 
-}(angular.module('app.states.home', ['app.states'])));
+  module.config([
+    '$stateProvider',
+    config
+  ]);
+
+  module.run([
+    '$rootScope',
+    run
+  ]);
+}

@@ -1,24 +1,31 @@
 /**
  * @memberOf app.states.home
  */
-(function (module) {
+namespace app {
   'use strict';
 
-  function HomeController($scope: ng.IScope, popupService, statesData) {
-    var controller = this;
+  const module = angular.module('app.states.home');
 
-    $scope.statesData = statesData;
+  class HomeController implements ng.IController {
+    constructor(
+      private $scope: ng.IScope,
+      private popupService: any,
+      private statesData: any
+    ) {}
 
-    $scope.from = 'homeController';
+    $onInit() {
+      this.$scope.statesData = this.statesData;
+      this.$scope.from = 'homeController';
+    }
 
-    controller.showPopup = function () {
-      var scope = { from: $scope.from, title: 'Popup' };
-      popupService.open(module, 'smartphone/popup', scope);
-    };
+    showPopup() {
+      const scope = { from: this.$scope.from, title: 'Popup' };
+      this.popupService.open(module, 'smartphone/popup', scope);
+    }
 
-    controller.onLanguageChange = function (locale) {
+    onLanguageChange(locale: string) {
       console.debug(locale);
-    };
+    }
   }
 
   module.controller('homeController', [
@@ -27,5 +34,4 @@
     'statesData',
     HomeController
   ]);
-
-}(angular.module('app.states.home')));
+}
