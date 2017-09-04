@@ -4,7 +4,7 @@
 (function (module) {
   'use strict';
 
-  function HomeController($scope, popupService, statesData) {
+  function HomeController($scope: ng.IScope, popupService, statesData) {
     var controller = this;
 
     $scope.statesData = statesData;
