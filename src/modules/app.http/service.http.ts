@@ -1,7 +1,7 @@
 /**
  * @memberOf app.http
  */
-namespace app {
+namespace app.http {
   "use strict";
 
   const module: ng.IModule = angular.module("app.http");
