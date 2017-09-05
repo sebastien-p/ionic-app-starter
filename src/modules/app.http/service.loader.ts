@@ -2,9 +2,9 @@
  * @memberOf app.http
  */
 namespace app.http {
-  "use strict";
+  'use strict';
 
-  const module: ng.IModule = angular.module("app.http");
+  const module: ng.IModule = angular.module('app.http');
 
   export interface ILoaderService {
     /**
@@ -22,9 +22,9 @@ namespace app.http {
     constructor(
       private $rootScope: ng.IRootScopeService,
       private $ionicLoading: ionic.loading.IonicLoadingService
-    ) {}
+    ) { }
 
-    retain: number = 0;
+    private retain: number = 0;
 
     show() {
       if (this.retain === 0) {
@@ -41,9 +41,9 @@ namespace app.http {
     }
   }
 
-  module.service("loaderService", [
-    "$rootScope",
-    "$ionicLoading",
+  module.service('loaderService', [
+    '$rootScope',
+    '$ionicLoading',
     LoaderService
   ]);
 }

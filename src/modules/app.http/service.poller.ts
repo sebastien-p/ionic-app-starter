@@ -2,9 +2,9 @@
  * @memberOf app.http
  */
 namespace app.http {
-  "use strict";
+  'use strict';
 
-  const module: ng.IModule = angular.module("app.http");
+  const module: ng.IModule = angular.module('app.http');
 
   export enum PollerInterval {
     SHORT = 5000,
@@ -14,30 +14,29 @@ namespace app.http {
 
   export interface IPollerOptions {
     interval: number | PollerInterval;
-    callback: () => any;
+    callback: (...args: any[]) => void;
     polled: () => ng.IPromise<any>;
   }
 
-  export interface IPoller {
+  interface IPoller {
     stop(): void;
     start(): void;
   }
 
   class Poller implements IPoller {
     constructor(
-      private options: IPollerOptions,
+      options: IPollerOptions,
       private $timeout: ng.ITimeoutService,
       private $q: ng.IQService
     ) {
       this.interval = options.interval || PollerInterval.MEDIUM;
       this.callback = options.callback;
       this.polled = options.polled;
-
       this.start();
     }
 
     private interval: number;
-    private callback: () => void;
+    private callback: (...args: any[]) => void;
     private polled: () => ng.IPromise<any>;
 
     private deferred: ng.IDeferred<any>; // TODO: typing
@@ -49,9 +48,9 @@ namespace app.http {
     }
 
     private poll() {
-      this.timeout = this.$timeout(this.request, this.interval);
+      this.timeout = this.$timeout(() => this.request, this.interval);
       // Do it this way because chaining breaks `$timeout.cancel`...
-      this.timeout.then(this.poll);
+      this.timeout.then(() => this.poll);
     }
 
     stop() {
@@ -67,7 +66,7 @@ namespace app.http {
     start() {
       this.stop();
       this.deferred = this.$q.defer();
-      this.deferred.promise.finally(this.callback); // TODO: .bind(this) ?
+      this.deferred.promise.finally(this.callback);
       this.poll();
     }
   }
@@ -75,9 +74,9 @@ namespace app.http {
   export interface IPollerService {
     /**
       * Start or restart a given named polling task.
-      * @param {String} name
+      * @param {string} name
       * @param {IPollerOptions} options
-      * @param {Number} [options.interval=POLLING_INTERVALS.MEDIUM] - In ms.
+      * @param {number} [options.interval=POLLING_INTERVALS.MEDIUM] - In ms.
       * @param {Function} options.callback - Passing the polled value.
       * @param {Function} options.polled - Must return a promise.
       */
@@ -110,7 +109,7 @@ namespace app.http {
     constructor(
       private $timeout: ng.ITimeoutService,
       private $q: ng.IQService
-    ) {}
+    ) { }
 
     private pool: { [key: string]: IPoller } = {};
 
@@ -135,13 +134,14 @@ namespace app.http {
     }
 
     pausePollings(): void {
-      _.each(this.pool, this.pausePolling, this); // TODO: .bind(this) ?
+      _.each(this.pool, this.pausePolling, this);
     }
 
     resumePollings(): void {
-      _.each(this.pool, this.startPolling as any, this); // TODO: .bind(this) ? remove any
+      _.each(this.pool, this.startPolling as any, this); // TODO: remove any
     }
   }
 
-  module.service("pollerService", ["$timeout", "$q", PollerService]);
+  module.service('pollerService', ['$timeout', '$q', PollerService]);
+
 }
