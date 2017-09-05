@@ -1,12 +1,23 @@
 /**
  * @module app.i18n
  */
-(function (module) {
+namespace app.i18n {
   'use strict';
 
-  function config($translateProvider, tmhDynamicLocaleProvider, I18N) {
-    var locationPattern = 'lib/angular-i18n/angular-locale_{{ locale }}.js';
-    tmhDynamicLocaleProvider.localeLocationPattern(locationPattern);
+  const module: ng.IModule = angular.module('app.i18n', [
+    'pascalprecht.translate',
+    'tmh.dynamicLocale',
+    'ngCookies',
+    'app'
+  ]);
+
+  function config(
+    $translateProvider: ng.translate.ITranslateProvider,
+    tmhDynamicLocaleProvider: ng.dynamicLocale.tmhDynamicLocaleProvider,
+    I18N: ILocales
+  ): void {
+    const pattern: string = 'lib/angular-i18n/angular-locale_{{ locale }}.js';
+    tmhDynamicLocaleProvider.localeLocationPattern(pattern);
     $translateProvider.useSanitizeValueStrategy('escape');
     $translateProvider.uniformLanguageTag('bcp47');
     $translateProvider.useLocalStorage();
@@ -22,10 +33,4 @@
     'I18N',
     config
   ]);
-
-}(angular.module('app.i18n', [
-  'pascalprecht.translate',
-  'tmh.dynamicLocale',
-  'ngCookies',
-  'app'
-])));
+}
