@@ -4,7 +4,7 @@
 (function (module) {
   'use strict';
 
-  function StatesService(httpService, i18nService) {
+  function StatesService($q, i18nService) {
     var service = this;
 
     /**
@@ -12,7 +12,7 @@
      * @return {Promise} Passing an object.
      */
     service.resolveStatesData = function () {
-      return httpService.all({
+      return $q.all({
         // Force loading of dynamic locale using the determined one.
         locale: i18nService.setLocale()
       });
@@ -20,7 +20,7 @@
   }
 
   module.service('statesService', [
-    'httpService',
+    '$q',
     'i18nService',
     StatesService
   ]);
