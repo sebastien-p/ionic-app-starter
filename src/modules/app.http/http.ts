@@ -4,7 +4,9 @@
 namespace app.http {
   'use strict';
 
-  const module: ng.IModule = angular.module('app.http', ['app']);
+  const module: ng.IModule = angular.module('app.http', [
+    'app'
+  ]);
 
   function config(
     $httpProvider: ng.IHttpProvider
