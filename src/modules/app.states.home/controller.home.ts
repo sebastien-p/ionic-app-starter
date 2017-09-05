@@ -1,7 +1,7 @@
 /**
  * @memberOf app.states.home
  */
-namespace app {
+namespace app.states.home {
   'use strict';
 
   const module = angular.module('app.states.home');
@@ -9,9 +9,9 @@ namespace app {
   class HomeController implements ng.IController {
     constructor(
       private $scope: ng.IScope,
-      private popupService: any,
+      private popupService: app.states.IPopupService,
       private statesData: any
-    ) {}
+    ) { }
 
     $onInit() {
       this.$scope.statesData = this.statesData;
@@ -34,4 +34,5 @@ namespace app {
     'statesData',
     HomeController
   ]);
+
 }
