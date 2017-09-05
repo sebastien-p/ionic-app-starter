@@ -6,8 +6,13 @@ namespace app.http {
 
   const module: ng.IModule = angular.module('app.http');
 
-  export interface ICustomRequestConfig extends ng.IRequestShortcutConfig {
+  export interface ICustomRequestConfig extends ng.IRequestConfig {
     toData?: boolean;
+    skipErrorsInterceptor?: boolean | number[];
+  }
+
+  export interface ICustomHttpPromiseCallbackArg<T> extends ng.IHttpPromiseCallbackArg<T> {
+    config?: ICustomRequestConfig;
   }
 
   export interface IHttpService {
@@ -24,82 +29,82 @@ namespace app.http {
      * @param {string} url - Request url.
      * @param {any} [query] - Request parameters.
      * @param {any} [body] - Request data.
-     * @param {ICustomRequestConfig} [config] - Extra request config properties.
+     * @param {Partial<ICustomRequestConfig>} [config] - Extra request config properties.
      * @param {boolean} [config.toData=true] - Pass `response.data` if `true`.
-     * @returns {ng.IPromise<T | ng.IHttpPromiseCallbackArg<T>>} - Passing the response data.
+     * @returns {ng.IPromise<T | ICustomHttpPromiseCallbackArg<T>>} - Passing the response data.
      */
     request<T>(
       method: string,
       url: string,
       query?: any,
       body?: any,
-      config?: ICustomRequestConfig
-    ): ng.IPromise<T | ng.IHttpPromiseCallbackArg<T>>;
+      config?: Partial<ICustomRequestConfig>
+    ): ng.IPromise<T | ICustomHttpPromiseCallbackArg<T>>;
 
     /**
      * Make a get request to given url.
      * @param {string} url - Request url.
      * @param {any} [query] - Request parameters.
-     * @param {ICustomRequestConfig} [config] - See the request method.
-     * @returns {ng.IPromise<T | ng.IHttpPromiseCallbackArg<T>>} - Passing the response data.
+     * @param {Partial<ICustomRequestConfig>} [config] - See the request method.
+     * @returns {ng.IPromise<T | ICustomHttpPromiseCallbackArg<T>>} - Passing the response data.
      */
     get<T>(
       url: string,
       query?: any,
-      config?: ICustomRequestConfig
-    ): ng.IPromise<T | ng.IHttpPromiseCallbackArg<T>>;
+      config?: Partial<ICustomRequestConfig>
+    ): ng.IPromise<T | ICustomHttpPromiseCallbackArg<T>>;
 
     /**
      * Make a post request to given url.
      * @param {string} url - Request url.
      * @param {any} [body] - Request data.
-     * @param {ICustomRequestConfig} [config] - See the request method.
-     * @returns {ng.IPromise<T | ng.IHttpPromiseCallbackArg<T>>} - Passing the response data.
+     * @param {Partial<ICustomRequestConfig>} [config] - See the request method.
+     * @returns {ng.IPromise<T | ICustomHttpPromiseCallbackArg<T>>} - Passing the response data.
      */
     post<T>(
       url: string,
       body?: any,
-      config?: ICustomRequestConfig
-    ): ng.IPromise<T | ng.IHttpPromiseCallbackArg<T>>;
+      config?: Partial<ICustomRequestConfig>
+    ): ng.IPromise<T | ICustomHttpPromiseCallbackArg<T>>;
 
     /**
      * Make a put request to given url.
      * @param {string} url - Request url.
      * @param {any} [data] - Request parameters.
-     * @param {ICustomRequestConfig} [config] - See the request method.
-     * @returns {ng.IPromise<T | ng.IHttpPromiseCallbackArg<T>>} - Passing the response data.
+     * @param {Partial<ICustomRequestConfig>} [config] - See the request method.
+     * @returns {ng.IPromise<T | ICustomHttpPromiseCallbackArg<T>>} - Passing the response data.
      */
     put<T>(
       url: string,
       body?: any,
-      config?: ICustomRequestConfig
-    ): ng.IPromise<T | ng.IHttpPromiseCallbackArg<T>>;
+      config?: Partial<ICustomRequestConfig>
+    ): ng.IPromise<T | ICustomHttpPromiseCallbackArg<T>>;
 
     /**
      * Make a delete request to given url.
      * @param {string} url - Request url.
      * @param {any} [body] - Request parameters.
-     * @param {ICustomRequestConfig} [config] - See the request method.
-     * @returns {ng.IPromise<T | ng.IHttpPromiseCallbackArg<T>>} - Passing the response data.
+     * @param {Partial<ICustomRequestConfig>} [config] - See the request method.
+     * @returns {ng.IPromise<T | ICustomHttpPromiseCallbackArg<T>>} - Passing the response data.
      */
     delete<T>(
       url: string,
       body?: any,
-      config?: ICustomRequestConfig
-    ): ng.IPromise<T | ng.IHttpPromiseCallbackArg<T>>;
+      config?: Partial<ICustomRequestConfig>
+    ): ng.IPromise<T | ICustomHttpPromiseCallbackArg<T>>;
 
     /**
      * Simulate an HTTP rejection so that it won't break interceptors.
      * @param {number} status - HTTP status code.
      * @param {T} [body] - Response data.
-     * @param {ICustomRequestConfig} [config={}] - Request config.
+     * @param {Partial<ICustomRequestConfig>} [config={}] - Request config.
      * @return {ng.IHttpPromise<T>}
      */
     reject<T>(
       status: number,
       body?: T,
-      config?: ICustomRequestConfig
-    ): ng.IPromise<T | ng.IHttpPromiseCallbackArg<T>>;
+      config?: Partial<ICustomRequestConfig>
+    ): ng.IPromise<T | ICustomHttpPromiseCallbackArg<T>>;
   }
 
   class HttpService implements IHttpService {
@@ -122,8 +127,8 @@ namespace app.http {
       url: string,
       query?: any,
       body?: any,
-      config: ICustomRequestConfig = {}
-    ): ng.IPromise<T | ng.IHttpPromiseCallbackArg<T>> {
+      config: Partial<ICustomRequestConfig> = {}
+    ): ng.IPromise<T | ICustomHttpPromiseCallbackArg<T>> {
       if (!this.isExternal(url)) {
         url = this.API_SERVER_URL + url;
       }
@@ -138,36 +143,40 @@ namespace app.http {
     get<T>(
       url: string,
       query?: any,
-      config?: ICustomRequestConfig
-    ): ng.IPromise<T | ng.IHttpPromiseCallbackArg<T>> {
+      config?: Partial<ICustomRequestConfig>
+    ): ng.IPromise<T | ICustomHttpPromiseCallbackArg<T>> {
       return this.request<T>('GET', url, query, null, config);
     }
 
     post<T>(
       url: string,
       body?: any,
-      config?: ICustomRequestConfig
-    ): ng.IPromise<T | ng.IHttpPromiseCallbackArg<T>> {
+      config?: Partial<ICustomRequestConfig>
+    ): ng.IPromise<T | ICustomHttpPromiseCallbackArg<T>> {
       return this.request<T>('POST', url, null, body, config);
     }
 
     put<T>(
       url: string,
       body?: any,
-      config?: ICustomRequestConfig
-    ): ng.IPromise<T | ng.IHttpPromiseCallbackArg<T>> {
+      config?: Partial<ICustomRequestConfig>
+    ): ng.IPromise<T | ICustomHttpPromiseCallbackArg<T>> {
       return this.request<T>('PUT', url, null, body, config);
     }
 
     delete<T>(
       url: string,
       body?: any,
-      config?: ICustomRequestConfig
-    ): ng.IPromise<T | ng.IHttpPromiseCallbackArg<T>> {
+      config?: Partial<ICustomRequestConfig>
+    ): ng.IPromise<T | ICustomHttpPromiseCallbackArg<T>> {
       return this.request<T>('DELETE', url, null, body, config);
     }
 
-    reject<T>(status: number, data?: T, config: ICustomRequestConfig = {}): ng.IHttpPromise<T> {
+    reject<T>(
+      status: number,
+      data?: T,
+      config: Partial<ICustomRequestConfig> = {}
+    ): ng.IHttpPromise<T> {
       return this.$q.reject({ status, data, config });
     }
   }

@@ -1,7 +1,7 @@
 /**
  * @module app.states.home
  */
-namespace app {
+namespace app.states.home {
   'use strict';
 
   const module = angular.module('app.states.home', [
@@ -42,4 +42,5 @@ namespace app {
     '$rootScope',
     run
   ]);
+
 }
