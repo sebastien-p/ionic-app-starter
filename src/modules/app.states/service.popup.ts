@@ -112,5 +112,4 @@ namespace app.states {
     'templateUtils',
     PopupService
   ]);
-
 }

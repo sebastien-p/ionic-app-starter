@@ -22,13 +22,12 @@ namespace app.http {
      * @return {boolean}
      */
     isExternal(url: string): boolean;
-
     /**
      * Make a request to given url.
      * @param {string} method - Request method.
      * @param {string} url - Request url.
      * @param {any} [query] - Request parameters.
-     * @param {any} [body] - Request data.
+     * @param {any} [body] - Request body.
      * @param {Partial<ICustomRequestConfig>} [config] - Extra request config properties.
      * @param {boolean} [config.toData=true] - Pass `response.data` if `true`.
      * @returns {ng.IPromise<T | ICustomHttpPromiseCallbackArg<T>>} - Passing the response data.
@@ -40,7 +39,6 @@ namespace app.http {
       body?: any,
       config?: Partial<ICustomRequestConfig>
     ): ng.IPromise<T | ICustomHttpPromiseCallbackArg<T>>;
-
     /**
      * Make a get request to given url.
      * @param {string} url - Request url.
@@ -53,11 +51,10 @@ namespace app.http {
       query?: any,
       config?: Partial<ICustomRequestConfig>
     ): ng.IPromise<T | ICustomHttpPromiseCallbackArg<T>>;
-
     /**
      * Make a post request to given url.
      * @param {string} url - Request url.
-     * @param {any} [body] - Request data.
+     * @param {any} [body] - Request body.
      * @param {Partial<ICustomRequestConfig>} [config] - See the request method.
      * @returns {ng.IPromise<T | ICustomHttpPromiseCallbackArg<T>>} - Passing the response data.
      */
@@ -66,11 +63,10 @@ namespace app.http {
       body?: any,
       config?: Partial<ICustomRequestConfig>
     ): ng.IPromise<T | ICustomHttpPromiseCallbackArg<T>>;
-
     /**
      * Make a put request to given url.
      * @param {string} url - Request url.
-     * @param {any} [data] - Request parameters.
+     * @param {any} [body] - Request body.
      * @param {Partial<ICustomRequestConfig>} [config] - See the request method.
      * @returns {ng.IPromise<T | ICustomHttpPromiseCallbackArg<T>>} - Passing the response data.
      */
@@ -79,7 +75,6 @@ namespace app.http {
       body?: any,
       config?: Partial<ICustomRequestConfig>
     ): ng.IPromise<T | ICustomHttpPromiseCallbackArg<T>>;
-
     /**
      * Make a delete request to given url.
      * @param {string} url - Request url.
@@ -92,34 +87,30 @@ namespace app.http {
       body?: any,
       config?: Partial<ICustomRequestConfig>
     ): ng.IPromise<T | ICustomHttpPromiseCallbackArg<T>>;
-
     /**
      * Simulate an HTTP rejection so that it won't break interceptors.
      * @param {number} status - HTTP status code.
      * @param {T} [body] - Response data.
      * @param {Partial<ICustomRequestConfig>} [config={}] - Request config.
-     * @return {ng.IHttpPromise<T>}
+     * @return {ng.IPromise<ICustomHttpPromiseCallbackArg<T>>}
      */
     reject<T>(
       status: number,
       body?: T,
       config?: Partial<ICustomRequestConfig>
-    ): ng.IPromise<T | ICustomHttpPromiseCallbackArg<T>>;
+    ): ng.IPromise<ICustomHttpPromiseCallbackArg<T>>;
   }
 
   class HttpService implements IHttpService {
     constructor(
       private $q: ng.IQService,
       private $http: ng.IHttpService,
-      private $timeout: ng.ITimeoutService,
       private API_SERVER_URL: string
     ) { }
 
     isExternal(url: string): boolean {
-      return (
-        /^(:?http(:?s)?:)?\/\//.test(url) &&
-        !_.startsWith(url, this.API_SERVER_URL)
-      );
+      return /^(:?http(:?s)?:)?\/\//.test(url)
+        && !_.startsWith(url, this.API_SERVER_URL);
     }
 
     request<T>(
@@ -132,12 +123,13 @@ namespace app.http {
       if (!this.isExternal(url)) {
         url = this.API_SERVER_URL + url;
       }
-      const options = { url, method, params: query, data: body };
-      const promise = this.$http<T>(_.extend(options, config));
+      const options: ICustomRequestConfig = { url, method, params: query, data: body };
+      const promise: ng.IPromise<ICustomHttpPromiseCallbackArg<T>> =
+        this.$http<T>(_.extend(options, config));
       if (config.toData === false) {
         return promise;
       }
-      return promise.then(response => response.data);
+      return promise.then((response) => response.data);
     }
 
     get<T>(
@@ -176,7 +168,7 @@ namespace app.http {
       status: number,
       data?: T,
       config: Partial<ICustomRequestConfig> = {}
-    ): ng.IHttpPromise<T> {
+    ): ng.IPromise<ICustomHttpPromiseCallbackArg<T>> {
       return this.$q.reject({ status, data, config });
     }
   }
@@ -184,7 +176,6 @@ namespace app.http {
   module.service('httpService', [
     '$q',
     '$http',
-    '$timeout',
     'API_SERVER_URL',
     HttpService
   ]);

@@ -6,19 +6,16 @@ namespace app.http {
 
   const module: ng.IModule = angular.module('app.http');
 
-  export interface IHttpEvents {
-    ERROR: string;
-  }
-
   /**
    * Events triggered from http service.
    * @constant
    * @type {Object}
    */
-  const HTTP_EVENTS: IHttpEvents = {
-    ERROR: 'events.http.error'
-  };
+  export enum HttpEvent {
+    ERROR = 'events.http.error'
+  }
 
-  module.constant('HTTP_EVENTS', HTTP_EVENTS);
+  export type HttpEvents = typeof HttpEvent;
 
+  module.constant('HTTP_EVENTS', HttpEvent);
 }
