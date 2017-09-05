@@ -7,9 +7,10 @@ namespace app {
   const module: ng.IModule = angular.module('app');
 
   function config(
-    stateFolderServiceProvider: IStateFolderServiceProvider
+    stateFolderServiceProvider: IStateFolderServiceProvider,
+    STATE_FOLDERS: Folders
   ): void {
-    stateFolderServiceProvider.folder = Folder.TABLET;
+    stateFolderServiceProvider.folder = STATE_FOLDERS.TABLET;
   }
 
   function run(
@@ -21,6 +22,7 @@ namespace app {
 
   module.config([
     'stateFolderServiceProvider',
+    'STATE_FOLDERS',
     config
   ]);
 

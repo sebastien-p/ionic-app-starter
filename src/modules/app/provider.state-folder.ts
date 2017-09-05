@@ -6,15 +6,6 @@ namespace app {
 
   const module: ng.IModule = angular.module('app');
 
-  /**
-   * Available folders.
-   */
-  export enum Folder {
-    SMARTPHONE = 'smartphone',
-    TABLET = 'tablet',
-    WEB = 'web'
-  }
-
   export interface IStateFolderService {
     /**
      * The currently used folder.
@@ -36,9 +27,11 @@ namespace app {
 
   class StateFolderServiceProvider
     implements ng.IServiceProvider, IStateFolderServiceProvider {
-    constructor() {
+    constructor(
+      STATE_FOLDERS: Folders
+    ) {
       // Set the default folder.
-      this.folder = Folder.SMARTPHONE;
+      this.folder = STATE_FOLDERS.SMARTPHONE;
     }
 
     private current: Folder;
@@ -57,6 +50,7 @@ namespace app {
   }
 
   module.provider('stateFolderService', [
+    'STATE_FOLDERS',
     StateFolderServiceProvider
   ]);
 }
