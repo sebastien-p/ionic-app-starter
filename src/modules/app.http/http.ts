@@ -20,10 +20,10 @@ namespace app.http {
     loaderService: app.http.ILoaderService,
     pollerService: app.http.IPollerService
   ) {
-    $rootScope.$on('fpUtils.loading.show', loaderService.show);
-    $rootScope.$on('fpUtils.loading.hide', loaderService.hide);
-    $rootScope.$on('fpUtils.cordova.paused', pollerService.pausePollings);
-    $rootScope.$on('fpUtils.cordova.resumed', pollerService.resumePollings);
+    $rootScope.$on('fpUtils.loading.show', () => loaderService.show());
+    $rootScope.$on('fpUtils.loading.hide', () => loaderService.hide());
+    $rootScope.$on('fpUtils.cordova.paused', () => pollerService.pausePollings());
+    $rootScope.$on('fpUtils.cordova.resumed', () => pollerService.resumePollings());
   }
 
   module.config([

@@ -10,7 +10,7 @@ namespace app.http {
     constructor(
       private $rootScope: ng.IRootScopeService,
       private $q: ng.IQService,
-      private HTTP_EVENTS: IHttpEvents
+      private HTTP_EVENTS: HttpEvents
     ) { }
 
     /**
