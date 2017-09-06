@@ -4,26 +4,31 @@
 namespace app.states.home {
   'use strict';
 
-  const module = angular.module('app.states.home');
+  const module: ng.IModule = angular.module('app.states.home');
 
   class HomeController implements ng.IController {
     constructor(
       private $scope: ng.IScope,
       private popupService: app.states.IPopupService,
       private statesData: any
-    ) { }
-
-    $onInit() {
+    ) {
       this.$scope.statesData = this.statesData;
       this.$scope.from = 'homeController';
     }
 
-    showPopup() {
-      const scope = { from: this.$scope.from, title: 'Popup' };
+    /**
+     * To be used with new angularjs version.
+     * We have to keep it to comply with `ng.IController` interface
+     * even tho it's never called.
+     */
+    $onInit(): void { }
+
+    showPopup(): void {
+      const scope: IMap<any> = { from: this.$scope.from, title: 'Popup' };
       this.popupService.open(module, 'smartphone/popup', scope);
     }
 
-    onLanguageChange(locale: string) {
+    onLanguageChange(locale: string): void {
       console.debug(locale);
     }
   }
@@ -34,5 +39,4 @@ namespace app.states.home {
     'statesData',
     HomeController
   ]);
-
 }

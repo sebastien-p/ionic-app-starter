@@ -4,17 +4,17 @@
 namespace app.states.home {
   'use strict';
 
-  const module = angular.module('app.states.home', [
+  const module: ng.IModule = angular.module('app.states.home', [
     'app.states'
   ]);
 
-  const STATE_HOME = 'states.home';
+  const STATE_HOME: string = 'states.home';
 
   function config(
     $stateProvider: ng.ui.IStateProvider
-  ) {
-    const views: any = {};
-    const controller = 'homeController as homeController';
+  ): void {
+    const views: IMap<ng.ui.IState> = {};
+    const controller: string = 'homeController as homeController';
     views['content-smartphone'] = { controller: controller };
     views['content-tablet'] = { controller: controller };
 
@@ -27,7 +27,7 @@ namespace app.states.home {
 
   function run(
     $rootScope: ng.IRootScopeService
-  ) {
+  ): void {
     $rootScope.STATE_HOME = STATE_HOME;
   }
 
@@ -42,5 +42,4 @@ namespace app.states.home {
     '$rootScope',
     run
   ]);
-
 }

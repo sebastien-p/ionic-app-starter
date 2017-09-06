@@ -67,16 +67,16 @@ namespace app.states {
     }
 
     open<T extends ng.IScope>(
-      module?: angular.IModule,
+      aModule?: angular.IModule,
       url?: string,
       scope?: T | any,
       classes?: string | string[]
     ): angular.IPromise<any> {
-      if (module) { url = this.templateUtils.getUrlFromModule(module, url); }
+      if (aModule) { url = this.templateUtils.getUrlFromModule(aModule, url); }
 
-      // TODO: remove 2 next lines ? (we ask for a valid scope in arg)
-      if (scope instanceof this.$rootScope.constructor) { scope = scope.$new(); }
-      else { scope = _.extend(this.$rootScope.$new(), scope); }
+      scope = scope instanceof this.$rootScope.constructor
+        ? scope.$new()
+        : _.extend(this.$rootScope.$new(), scope);
 
       this.close();
       this.popupPromise = _.extend(
@@ -100,6 +100,7 @@ namespace app.states {
       this.deferred = this.$q.defer();
       // Handle Android hardware back button.
       this.popupPromise.then(() => this.close).catch(this.deferred.reject);
+
       return this.deferred.promise;
     }
   }

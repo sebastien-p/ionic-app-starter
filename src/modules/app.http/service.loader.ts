@@ -26,14 +26,14 @@ namespace app.http {
 
     private retain: number = 0;
 
-    show() {
+    show(): void {
       if (this.retain === 0) {
         this.$ionicLoading.show();
       }
       this.retain += 1;
     }
 
-    hide() {
+    hide(): void {
       this.retain = Math.max(0, this.retain - 1);
       if (this.retain === 0) {
         this.$ionicLoading.hide();

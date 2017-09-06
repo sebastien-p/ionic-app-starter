@@ -20,9 +20,9 @@ namespace app.http {
      * @param {Boolean|Number[]} response.config.skipErrorsInterceptor
      * @returns {Boolean}
      */
-    private shouldSkipInterceptor(response: ICustomHttpPromiseCallbackArg<any>) {
-      const status = response.status;
-      const skip = response.config.skipErrorsInterceptor;
+    private shouldSkipInterceptor(response: ICustomHttpPromiseCallbackArg<any>): boolean {
+      const status: number = response.status;
+      const skip: boolean | number[] = response.config.skipErrorsInterceptor;
       return skip === true
         || !_.isNumber(status)
         || _.isArray(skip) && _.contains(skip, status)
@@ -34,8 +34,10 @@ namespace app.http {
      * @param {ICustomHttpPromiseCallbackArg} response - Angular $http response object.
      * @return {Promise} Rejected promise.
      */
-    responseError(response: ICustomHttpPromiseCallbackArg<any>) {
-      const ok = !this.shouldSkipInterceptor(response);
+    responseError(
+      response: ICustomHttpPromiseCallbackArg<any>
+    ): ng.IPromise<ICustomHttpPromiseCallbackArg<any>> {
+      const ok: boolean = !this.shouldSkipInterceptor(response);
       if (ok) { this.$rootScope.$broadcast(this.HTTP_EVENTS.ERROR, response); }
       return this.$q.reject(response);
     }
@@ -47,5 +49,4 @@ namespace app.http {
     'HTTP_EVENTS',
     ErrorsInterceptor
   ]);
-
 }

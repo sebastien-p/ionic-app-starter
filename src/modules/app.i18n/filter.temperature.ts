@@ -23,9 +23,12 @@ namespace app.i18n {
      * @param {number|string} value
      * @return {string}
      */
-    return _.extend(function (value: number | string): string {
-      return numberFilter(value, 0) + ' ' + temp.SYMBOL;
-    }, { $stateful: true });
+    return _.extend(
+      (value: number | string): string => {
+        return numberFilter(value, 0) + ' ' + temp.SYMBOL;
+      },
+      { $stateful: true }
+    );
   }
 
   module.filter('temperature', [

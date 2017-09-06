@@ -73,5 +73,4 @@ namespace app.http {
   }
 
   module.service('offlineService', ['cacheUtils', OfflineService]);
-
 }

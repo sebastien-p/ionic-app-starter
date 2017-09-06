@@ -26,7 +26,7 @@ namespace app.http {
      * Make a request to given url.
      * @param {string} method - Request method.
      * @param {string} url - Request url.
-     * @param {any} [query] - Request parameters.
+     * @param {IMap<string>} [query] - Request parameters.
      * @param {any} [body] - Request body.
      * @param {Partial<ICustomRequestConfig>} [config] - Extra request config properties.
      * @param {boolean} [config.toData=true] - Pass `response.data` if `true`.
@@ -35,20 +35,20 @@ namespace app.http {
     request<T>(
       method: string,
       url: string,
-      query?: any,
+      query?: IMap<string>,
       body?: any,
       config?: Partial<ICustomRequestConfig>
     ): ng.IPromise<T | ICustomHttpPromiseCallbackArg<T>>;
     /**
      * Make a get request to given url.
      * @param {string} url - Request url.
-     * @param {any} [query] - Request parameters.
+     * @param {IMap<string>} [query] - Request parameters.
      * @param {Partial<ICustomRequestConfig>} [config] - See the request method.
      * @returns {ng.IPromise<T | ICustomHttpPromiseCallbackArg<T>>} - Passing the response data.
      */
     get<T>(
       url: string,
-      query?: any,
+      query?: IMap<string>,
       config?: Partial<ICustomRequestConfig>
     ): ng.IPromise<T | ICustomHttpPromiseCallbackArg<T>>;
     /**
@@ -116,7 +116,7 @@ namespace app.http {
     request<T>(
       method: string,
       url: string,
-      query?: any,
+      query?: IMap<string>,
       body?: any,
       config: Partial<ICustomRequestConfig> = {}
     ): ng.IPromise<T | ICustomHttpPromiseCallbackArg<T>> {
@@ -134,7 +134,7 @@ namespace app.http {
 
     get<T>(
       url: string,
-      query?: any,
+      query?: IMap<string>,
       config?: Partial<ICustomRequestConfig>
     ): ng.IPromise<T | ICustomHttpPromiseCallbackArg<T>> {
       return this.request<T>('GET', url, query, null, config);

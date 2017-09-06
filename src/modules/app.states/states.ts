@@ -9,16 +9,16 @@ namespace app.states {
     'app.http'
   ]);
 
-  const STATE = 'states';
+  const STATE: string = 'states';
 
-  function statesDataResolver(statesService: IStatesService) {
+  function statesDataResolver(statesService: IStatesService): ng.IPromise<IStateDataResolve> {
     return statesService.resolveStatesData();
   }
 
   function config(
     $stateProvider: ng.ui.IStateProvider,
     $urlRouterProvider: ng.ui.IUrlRouterProvider
-  ) {
+  ): void {
     $stateProvider.state(STATE, {
       resolve: {
         statesData: ['statesService', statesDataResolver]
@@ -41,5 +41,4 @@ namespace app.states {
     '$urlRouterProvider',
     config
   ]);
-
 }

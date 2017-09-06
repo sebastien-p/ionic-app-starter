@@ -14,8 +14,8 @@ namespace app.http {
 
   export interface IPollerOptions {
     interval: number | PollerInterval;
-    callback: (...args: any[]) => void;
-    polled: () => ng.IPromise<any>;
+    callback(...args: any[]): void;
+    polled(): ng.IPromise<any>;
   }
 
   interface IPoller {
@@ -42,18 +42,18 @@ namespace app.http {
     private deferred: ng.IDeferred<any>; // TODO: typing
     private timeout: ng.IPromise<any>; // TODO: typing
 
-    private request() {
+    private request(): ng.IPromise<any> { // TODO: typing
       // Recover from network errors like nothing wrong happened...
       return this.polled().then(this.deferred.notify, this.$q.resolve);
     }
 
-    private poll() {
+    private poll(): void {
       this.timeout = this.$timeout(() => this.request, this.interval);
       // Do it this way because chaining breaks `$timeout.cancel`...
       this.timeout.then(() => this.poll);
     }
 
-    stop() {
+    stop(): void {
       if (!this.timeout) {
         return;
       }
@@ -63,7 +63,7 @@ namespace app.http {
       this.timeout = null;
     }
 
-    start() {
+    start(): void {
       this.stop();
       this.deferred = this.$q.defer();
       this.deferred.promise.finally(this.callback);
@@ -143,5 +143,4 @@ namespace app.http {
   }
 
   module.service('pollerService', ['$timeout', '$q', PollerService]);
-
 }
