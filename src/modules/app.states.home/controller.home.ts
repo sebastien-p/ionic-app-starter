@@ -9,8 +9,9 @@ namespace app.states.home {
   class HomeController implements ng.IController {
     constructor(
       private $scope: ng.IScope,
-      private popupService: app.states.IPopupService,
-      private statesData: any
+      private $log: ng.ILogService,
+      private popupService: IPopupService,
+      private statesData: IStateData
     ) {
       this.$scope.statesData = this.statesData;
       this.$scope.from = 'homeController';
@@ -29,12 +30,13 @@ namespace app.states.home {
     }
 
     onLanguageChange(locale: string): void {
-      console.debug(locale);
+      this.$log.debug(locale);
     }
   }
 
   module.controller('homeController', [
     '$scope',
+    '$log',
     'popupService',
     'statesData',
     HomeController

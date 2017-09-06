@@ -9,9 +9,7 @@ namespace app.i18n {
   class LanguagePickerController implements ng.IController {
     constructor(
       private i18nService: II18nService
-    ) {
-      this.LOCALES = this.i18nService.getLocales();
-    }
+    ) { }
 
     /**
      * Available locales.
@@ -35,12 +33,9 @@ namespace app.i18n {
      */
     onChange: IFunction<void> = _.noop;
 
-    /**
-     * To be used with new angularjs version.
-     * We have to keep it to comply with `ng.IController` interface
-     * even tho it's never called.
-     */
-    $onInit(): void { }
+    $onInit(): void {
+      this.LOCALES = this.i18nService.getLocales();
+    }
 
     /**
      * Set the application local in sync with this component.
@@ -48,8 +43,8 @@ namespace app.i18n {
      */
     syncLocale(): void {
       const locale: string = this.settings[this.key];
-      this.i18nService.setLocale(locale).
-        then((): void => this.onChange({ locale: locale }));
+      this.i18nService.setLocale(locale)
+        .then(() => this.onChange({ locale }));
     }
   }
 

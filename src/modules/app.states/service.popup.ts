@@ -26,14 +26,14 @@ namespace app.states {
      *   Optionnal only if module is passed, then relative to the given module.
      *   If no module is passed, must be an absolute path to the template.
      * @param {Object} [scope] - Popup scope.
-     * @param {string|string[]} [classes] - Extra CSS class names.
+     * @param {OneOrMany<string>} [classes] - Extra CSS class names.
      * @return {Promise}
      */
     open<T extends ng.IScope>(
       module?: ng.IModule,
       url?: string,
-      scope?: T | any,
-      classes?: string | string[]
+      scope?: T | IMap<any>,
+      classes?: OneOrMany<string>
     ): ng.IPromise<any>;
   }
 
@@ -69,8 +69,8 @@ namespace app.states {
     open<T extends ng.IScope>(
       aModule?: angular.IModule,
       url?: string,
-      scope?: T | any,
-      classes?: string | string[]
+      scope?: T | IMap<any>,
+      classes?: OneOrMany<string>
     ): angular.IPromise<any> {
       if (aModule) { url = this.templateUtils.getUrlFromModule(aModule, url); }
 

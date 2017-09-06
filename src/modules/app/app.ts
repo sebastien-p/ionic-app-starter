@@ -42,7 +42,7 @@ namespace app {
     $state: ng.ui.IStateService,
     $ionicHistory: ionic.navigation.IonicHistoryService,
     $ionicNavBarDelegate: ionic.navigation.IonicNavBarDelegate,
-    appService: app.IAppService,
+    appService: IAppService,
     APP_VERSION: string,
     APP_NAME: string
   ): void {
@@ -51,7 +51,7 @@ namespace app {
 
     $rootScope.$on('$ionicView.beforeEnter', ($e: ng.IAngularEvent): void => {
       // Update state resolved data.
-      const globals: app.IMap<any> = $state.$current.locals.globals;
+      const globals: IMap<any> = $state.$current.locals.globals;
       const scope: ng.IScope = $e.targetScope.$parent;
       _.each(globals, (value: any, key: string): void => {
         const update: boolean = appService.shouldUpdate(globals, scope, key);

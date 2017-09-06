@@ -17,8 +17,8 @@ namespace app.http {
 
   function run(
     $rootScope: ng.IRootScopeService,
-    loaderService: app.http.ILoaderService,
-    pollerService: app.http.IPollerService
+    loaderService: ILoaderService,
+    pollerService: IPollerService
   ): void {
     $rootScope.$on('fpUtils.loading.show', () => loaderService.show());
     $rootScope.$on('fpUtils.loading.hide', () => loaderService.hide());

@@ -18,7 +18,7 @@ namespace app {
   class StateFolderService implements IStateFolderService {
     constructor(
       private stateFolderServiceProvider: StateFolderServiceProvider
-    ) {}
+    ) { }
 
     get folder(): Folder {
       return this.stateFolderServiceProvider.folder;

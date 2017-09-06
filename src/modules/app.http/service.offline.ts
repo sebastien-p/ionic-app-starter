@@ -8,15 +8,20 @@ namespace app.http {
 
   export interface IStore {
     /**
+     * Associated Angular cache instance.
+     * @type {Object}
+     */
+    cache: ng.ICacheObject;
+    /**
      * Get cached or fetch data.
      * @param {string} key - Cache data key.
-     * @param {() => ng.IPromise<T>} fetch - How to fetch data, must return a promise.
-     * @param {boolean} [sync] - Force server sync if `true`.
+     * @param {IFunction<ng.IPromise<T>>} fetch - How to fetch data, must return a promise.
+     * @param {boolean} [sync=false] - Force server sync if `true`.
      * @return {ng.IPromise<T>}
      */
     getCachedOrFetch<T>(
       key: string,
-      fetch: () => ng.IPromise<T>,
+      fetch: IFunction<ng.IPromise<T>>,
       sync?: boolean
     ): ng.IPromise<T>;
   }
@@ -24,21 +29,17 @@ namespace app.http {
   class Store implements IStore {
     constructor(
       name: string,
-      options: any, // TODO: typedef
+      options: IMap<any> | number, // TODO: typedef
       private cacheUtils: any // TODO: typedef
     ) {
       this.cache = this.cacheUtils.getCache(name, options);
     }
 
-    /**
-     * Associated Angular cache instance.
-     * @type {Object}
-     */
-    private cache: ng.ICacheObject;
+    cache: ng.ICacheObject;
 
     getCachedOrFetch<T>(
       key: string,
-      fetch: () => ng.IPromise<T>,
+      fetch: IFunction<ng.IPromise<T>>,
       sync: boolean = false
     ): ng.IPromise<T> {
       return sync && this.cacheUtils.resolveCachedValue(this.cache, key)
@@ -50,12 +51,12 @@ namespace app.http {
     /**
      * Create a Store instance.
      * @param {string} name - Angular cache name.
-     * @param {Object|Number} [options] - See FP Utils' `cacheUtils` service.
+     * @param {IMap<any>|number} [options] - See FP Utils' `cacheUtils` service.
      * @return {IStore}
      */
     createStore(
       name: string,
-      options: any
+      options: IMap<any> | number // TODO: typedef
     ): IStore;
   }
 
@@ -66,7 +67,7 @@ namespace app.http {
 
     createStore(
       name: string,
-      options: any
+      options: IMap<any> | number // TODO: typedef
     ): IStore {
       return new Store(name, options, this.cacheUtils);
     }

@@ -17,8 +17,8 @@ namespace app.http {
      * Check if the interceptor should be skipped.
      * @private
      * @param {ICustomHttpPromiseCallbackArg} response - Angular $http response object.
-     * @param {Boolean|Number[]} response.config.skipErrorsInterceptor
-     * @returns {Boolean}
+     * @param {boolean|number[]} response.config.skipErrorsInterceptor
+     * @return {boolean}
      */
     private shouldSkipInterceptor(response: ICustomHttpPromiseCallbackArg<any>): boolean {
       const status: number = response.status;
@@ -32,7 +32,7 @@ namespace app.http {
     /**
      * To be called when a response is an error.
      * @param {ICustomHttpPromiseCallbackArg} response - Angular $http response object.
-     * @return {Promise} Rejected promise.
+     * @return {ng.IPromise<ICustomHttpPromiseCallbackArg<any>>} Rejected promise.
      */
     responseError(
       response: ICustomHttpPromiseCallbackArg<any>

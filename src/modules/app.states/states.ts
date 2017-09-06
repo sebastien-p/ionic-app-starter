@@ -11,7 +11,9 @@ namespace app.states {
 
   const STATE: string = 'states';
 
-  function statesDataResolver(statesService: IStatesService): ng.IPromise<IStateDataResolve> {
+  function statesDataResolver(
+    statesService: IStatesService
+  ): ng.IPromise<IStateData> {
     return statesService.resolveStatesData();
   }
 
@@ -21,7 +23,10 @@ namespace app.states {
   ): void {
     $stateProvider.state(STATE, {
       resolve: {
-        statesData: ['statesService', statesDataResolver]
+        statesData: [
+          'statesService',
+          statesDataResolver
+        ]
       },
       data: {
         module: module

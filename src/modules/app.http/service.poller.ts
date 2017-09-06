@@ -14,13 +14,13 @@ namespace app.http {
 
   export interface IPollerOptions {
     interval: number | PollerInterval;
-    callback(...args: any[]): void;
-    polled(): ng.IPromise<any>;
+    callback: IFunction<void>;
+    polled: IFunction<ng.IPromise<any>>;
   }
 
   interface IPoller {
-    stop(): void;
     start(): void;
+    stop(): void;
   }
 
   class Poller implements IPoller {
@@ -36,13 +36,13 @@ namespace app.http {
     }
 
     private interval: number;
-    private callback: (...args: any[]) => void;
-    private polled: () => ng.IPromise<any>;
+    private callback: IFunction<void>;
+    private polled: IFunction<ng.IPromise<any>>;
 
-    private deferred: ng.IDeferred<any>; // TODO: typing
-    private timeout: ng.IPromise<any>; // TODO: typing
+    private deferred: ng.IDeferred<never>;
+    private timeout: ng.IPromise<any>;
 
-    private request(): ng.IPromise<any> { // TODO: typing
+    private request(): ng.IPromise<void> {
       // Recover from network errors like nothing wrong happened...
       return this.polled().then(this.deferred.notify, this.$q.resolve);
     }
@@ -112,7 +112,7 @@ namespace app.http {
       private $q: ng.IQService
     ) { }
 
-    private pool: { [key: string]: IPoller } = {};
+    private pool: IMap<IPoller> = {};
 
     startPolling(name: string, options: IPollerOptions): void {
       if (_.has(this.pool, name)) {

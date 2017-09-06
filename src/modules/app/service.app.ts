@@ -14,6 +14,8 @@ namespace app {
     (...args: any[]): T;
   }
 
+  export type OneOrMany<T> = T | T[];
+
   const toString: IFunction<string> = _.bind(
     Object.prototype.toString.call,
     Object.prototype.toString
@@ -26,8 +28,8 @@ namespace app {
     scrollToTop(): void;
     /**
      * Check if resolved data should be updated.
-     * @param {TODO} resolved
-     * @param {TODO} locals - Should be an Angular scope object.
+     * @param {IMap<any>} resolved
+     * @param {ng.IScope} locals - Should be an Angular scope object.
      * @param {string} key - Name of resolved data to check for.
      * @return {boolean}
      */
@@ -41,7 +43,7 @@ namespace app {
   class AppService implements IAppService {
     constructor(
       private $window: ng.IWindowService
-    ) {}
+    ) { }
 
     scrollToTop(): void { // FIXME: use $ionicScrollDelegate + decorator
       this.$window.scrollTo(0, 0);

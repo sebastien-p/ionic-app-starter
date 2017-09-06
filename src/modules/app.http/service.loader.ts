@@ -11,7 +11,6 @@ namespace app.http {
      * Show the Ionic loader.
      */
     show(): void;
-
     /**
      * Hide the Ionic loader if nothing else needs it.
      */
