@@ -135,11 +135,11 @@ namespace app.http {
     }
 
     pausePollings(): void {
-      _.each(this.pool, this.pausePolling, this);
+      _.each(this.pool, (poller, name) => this.pausePolling(name));
     }
 
     resumePollings(): void {
-      _.each(this.pool, this.startPolling as any, this); // TODO: remove any
+      _.each(this.pool, (poller, name) => this.startPolling(name, null));
     }
   }
 
