@@ -99,7 +99,7 @@ namespace app.states {
       );
       this.deferred = this.$q.defer();
       // Handle Android hardware back button.
-      this.popupPromise.then(() => this.close).catch(this.deferred.reject);
+      this.popupPromise.then(() => this.close()).catch(this.deferred.reject);
 
       return this.deferred.promise;
     }

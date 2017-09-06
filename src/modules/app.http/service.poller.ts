@@ -48,9 +48,9 @@ namespace app.http {
     }
 
     private poll(): void {
-      this.timeout = this.$timeout(() => this.request, this.interval);
+      this.timeout = this.$timeout(() => this.request(), this.interval);
       // Do it this way because chaining breaks `$timeout.cancel`...
-      this.timeout.then(() => this.poll);
+      this.timeout.then(() => this.poll());
     }
 
     stop(): void {
