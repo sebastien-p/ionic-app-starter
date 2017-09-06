@@ -66,7 +66,8 @@ namespace app.http {
     start(): void {
       this.stop();
       this.deferred = this.$q.defer();
-      this.deferred.promise.finally(this.callback);
+      // Incomplete typings = cast as any.
+      (<any>this.deferred.promise).finally(null, this.callback);
       this.poll();
     }
   }
