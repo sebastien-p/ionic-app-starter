@@ -17,7 +17,7 @@ namespace app {
     $rootScope: ng.IRootScopeService,
     appService: IAppService
   ): void {
-    $rootScope.$on('$stateChangeSuccess', () => appService.scrollToTop);
+    $rootScope.$on('$stateChangeSuccess', () => appService.scrollToTop());
   }
 
   module.config([

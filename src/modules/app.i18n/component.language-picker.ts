@@ -9,7 +9,7 @@ namespace app.i18n {
   class LanguagePickerController implements ng.IController {
     constructor(
       private i18nService: II18nService
-    ) {}
+    ) { }
 
     /**
      * Available locales.
@@ -43,8 +43,8 @@ namespace app.i18n {
      */
     syncLocale(): void {
       const locale: string = this.settings[this.key];
-      this.i18nService.setLocale(locale).
-        then((): void => this.onChange({ locale: locale }));
+      this.i18nService.setLocale(locale)
+        .then(() => this.onChange({ locale }));
     }
   }
 
