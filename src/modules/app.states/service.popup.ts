@@ -36,7 +36,7 @@ namespace app.states {
   }
 
   interface ICustomIonicPopupPromise extends ionic.popup.IonicPopupPromise {
-    off(): () => void;
+    off(): void;
   }
 
   class PopupService implements IPopupService {
