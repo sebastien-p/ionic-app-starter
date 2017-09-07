@@ -55,7 +55,7 @@ namespace app.states {
       return !!this.popupPromise && !!this.deferred;
     }
 
-    close(resolve: boolean = false): void {
+    close(resolve?: boolean): void {
       if (!this.isOpen()) { return; }
       if (resolve === true) { this.deferred.resolve(); }
       else { this.deferred.reject(); }
@@ -72,9 +72,8 @@ namespace app.states {
     ): angular.IPromise<any> {
       if (module) { url = this.templateUtils.getUrlFromModule(module, url); }
 
-      scope = scope instanceof this.$rootScope.constructor
-        ? scope.$new()
-        : _.extend(this.$rootScope.$new(), scope);
+      scope = scope instanceof this.$rootScope.constructor ?
+        scope.$new() : _.extend(this.$rootScope.$new(), scope);
 
       this.close();
       this.popupPromise = _.extend(
