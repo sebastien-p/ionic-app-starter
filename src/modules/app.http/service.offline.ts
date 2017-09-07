@@ -63,7 +63,7 @@ namespace app.http {
   class OfflineService {
     constructor(
       private cacheUtils: any // TODO: typedef
-    ) { }
+    ) {}
 
     createStore(
       name: string,

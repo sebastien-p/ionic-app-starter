@@ -22,7 +22,7 @@ namespace app.states.home {
      * We have to keep it to comply with `ng.IController` interface
      * even tho it's never called.
      */
-    $onInit(): void { }
+    $onInit(): void {}
 
     showPopup(): void {
       const scope: IMap<any> = { from: this.$scope.from, title: 'Popup' };

@@ -21,7 +21,7 @@ namespace app.http {
     constructor(
       private $rootScope: ng.IRootScopeService,
       private $ionicLoading: ionic.loading.IonicLoadingService
-    ) { }
+    ) {}
 
     private retain: number = 0;
 

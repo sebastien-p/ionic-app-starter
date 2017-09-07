@@ -43,7 +43,7 @@ namespace app {
   class AppService implements IAppService {
     constructor(
       private $window: ng.IWindowService
-    ) { }
+    ) {}
 
     scrollToTop(): void { // FIXME: use $ionicScrollDelegate + decorator
       this.$window.scrollTo(0, 0);

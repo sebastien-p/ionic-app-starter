@@ -106,7 +106,7 @@ namespace app.http {
       private $q: ng.IQService,
       private $http: ng.IHttpService,
       private API_SERVER_URL: string
-    ) { }
+    ) {}
 
     isExternal(url: string): boolean {
       return /^(:?http(:?s)?:)?\/\//.test(url)

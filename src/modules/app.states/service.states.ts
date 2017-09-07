@@ -22,7 +22,7 @@ namespace app.states {
     constructor(
       private $q: ng.IQService,
       private i18nService: i18n.II18nService
-    ) { }
+    ) {}
 
     resolveStatesData(): ng.IPromise<IStateData> {
       return this.$q.all<IStateData>({

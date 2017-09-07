@@ -12,13 +12,11 @@ namespace app.states {
      * @return {boolean}
      */
     isOpen(): boolean;
-
     /**
      * Close open popup if any.
      * @param {boolean} [resolve=false] - Resolve the popup promise.
      */
     close(resolve?: boolean): void;
-
     /**
      * Open a popup view.
      * @param {ng.IModule} [module] - Angular module.
@@ -48,7 +46,7 @@ namespace app.states {
       private $translate: ng.translate.ITranslateService,
       private $ionicPopup: ionic.popup.IonicPopupService,
       private templateUtils: any // TODO: type this
-    ) { }
+    ) {}
 
     private deferred: ng.IDeferred<any> = null;
     private popupPromise: ICustomIonicPopupPromise = null;

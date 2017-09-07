@@ -9,7 +9,7 @@ namespace app.i18n {
   class LanguagePickerController implements ng.IController {
     constructor(
       private i18nService: II18nService
-    ) { }
+    ) {}
 
     /**
      * Available locales.

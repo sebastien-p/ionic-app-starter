@@ -11,7 +11,7 @@ namespace app.http {
       private $rootScope: ng.IRootScopeService,
       private $q: ng.IQService,
       private HTTP_EVENTS: HttpEvents
-    ) { }
+    ) {}
 
     /**
      * Check if the interceptor should be skipped.

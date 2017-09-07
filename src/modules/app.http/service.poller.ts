@@ -38,7 +38,6 @@ namespace app.http {
     private interval: number;
     private callback: IFunction<void>;
     private polled: IFunction<ng.IPromise<any>>;
-
     private deferred: ng.IDeferred<never>;
     private timeout: ng.IPromise<any>;
 
@@ -82,24 +81,20 @@ namespace app.http {
       * @param {Function} options.polled - Must return a promise.
       */
     startPolling(name: string, options: IPollerOptions): void;
-
     /**
       * Stop a given named polling task without removing it from the pool.
       * @param {String} name
       */
     pausePolling(name: string): void;
-
     /**
       * Stop a given named polling task and remove it from the pool.
       * @param {String} name
       */
     stopPolling(name: string): void;
-
     /**
       * Pause all current polling tasks.
       */
     pausePollings(): void;
-
     /**
       * Resume all current polling tasks.
       */
@@ -110,7 +105,7 @@ namespace app.http {
     constructor(
       private $timeout: ng.ITimeoutService,
       private $q: ng.IQService
-    ) { }
+    ) {}
 
     private pool: IMap<IPoller> = {};
 
