@@ -31,9 +31,9 @@ function gulpCopySrc(gulp, plugins, config) {
     ))
     .pipe(plugins.if(
       !config.IS_PROD && config.PATTERNS.JS,
-      plugins.sourcemaps.write('./', { // TODO: generic
-        includeContent: true,
-        destPath: './modules'
+      plugins.sourcemaps.write('.', {
+        sourceRoot: task.cwd,
+        destPath: task.dest
       })
     ))
     .pipe(gulp.dest(task.dest));
