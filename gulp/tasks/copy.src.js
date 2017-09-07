@@ -18,7 +18,7 @@ function gulpCopySrc(gulp, plugins, config) {
     .pipe(plugins.changed(task.dest))
     .pipe(plugins.if(
       !config.IS_PROD && config.PATTERNS.TS,
-      plugins.sourcemaps.init() // TODO: sass
+      plugins.sourcemaps.init()
     ))
     .pipe(plugins.if(
       config.PATTERNS.TS,

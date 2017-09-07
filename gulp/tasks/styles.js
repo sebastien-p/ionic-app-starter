@@ -13,10 +13,15 @@ function gulpStyles(gulp, plugins, config) {
   var opt = { indentedSyntax: true };
 
   return gulp.src(task.src, { cwd: task.cwd })
+    .pipe(plugins.if(!config.IS_PROD, plugins.sourcemaps.init()))
     .pipe(plugins.sass(opt).on('error', plugins.sass.logError))
     .pipe(plugins.if(
       config.IS_PROD,
-      plugins.cleanCss({ keepSpecialComments: 0 })
+      plugins.cleanCss({ keepSpecialComments: 0 }),
+      plugins.sourcemaps.write('.', {
+        sourceRoot: task.cwd,
+        destPath: task.dest
+      })
     ))
     .pipe(gulp.dest(task.dest));
 }
