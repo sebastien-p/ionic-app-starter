@@ -29,10 +29,10 @@ namespace app {
     ): IMap<ng.ui.IState> => {
       const root: string = stateFolderServiceProvider.folder + '/';
       return _.each(decorated(state), (view: ng.ui.IState): void => {
-        const aModule: ng.IModule = state.data && state.data.module;
-        if (!aModule) { return; }
+        const module: ng.IModule = state.data && state.data.module;
+        if (!module) { return; }
         const file: string = view.templateUrl ? root + view.templateUrl : root;
-        view.templateUrl = templateUtilsProvider.getUrlFromModule(aModule, file);
+        view.templateUrl = templateUtilsProvider.getUrlFromModule(module, file);
       });
     });
   }

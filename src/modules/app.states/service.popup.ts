@@ -65,12 +65,12 @@ namespace app.states {
     }
 
     open<T extends ng.IScope>(
-      aModule?: angular.IModule,
+      module?: angular.IModule,
       url?: string,
       scope?: T | IMap<any>,
       classes?: OneOrMany<string>
     ): angular.IPromise<any> {
-      if (aModule) { url = this.templateUtils.getUrlFromModule(aModule, url); }
+      if (module) { url = this.templateUtils.getUrlFromModule(module, url); }
 
       scope = scope instanceof this.$rootScope.constructor
         ? scope.$new()
