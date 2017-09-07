@@ -48,7 +48,7 @@ namespace app.states {
       private templateUtils: any // TODO: type this
     ) {}
 
-    private deferred: ng.IDeferred<any> = null;
+    private deferred: ng.IDeferred<void> = null;
     private popupPromise: ICustomIonicPopupPromise = null;
 
     isOpen(): boolean {
