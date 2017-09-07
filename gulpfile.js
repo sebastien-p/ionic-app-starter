@@ -139,42 +139,39 @@ require('./gulp/load')(function tasksSettings(FOLDERS, PATTERNS) {
       ]
     },
     'watch': [{
-        cwd: FOLDERS.SRC,
-        src: [
-          PATTERNS.IMAGES,
-          PATTERNS.FONTS,
-          PATTERNS.JSON,
-          '!modules/*/{config,i18n}/' + PATTERNS.JSON
-        ],
-        run: ['copy']
-      }, {
-        src: FOLDERS.MODULES + '*/i18n/**/' + PATTERNS.I18N + '.json',
-        run: ['i18n']
-      }, {
-        cwd: FOLDERS.MODULES,
-        src: [
-          '*/config/' + PATTERNS.JSON,
-          PATTERNS.PUG
-        ],
-        run: ['templates']
-      }, {
-        src: FOLDERS.STYLES + PATTERNS.SASS,
-        run: ['styles']
-      },
-      /* {
-           src: FOLDERS.ROOT + '{package,project}.json',
-           run: ['constants'] // FIXME: does not refresh anymore
-         }, */
-      {
-        src: [
-          FOLDERS.MODULES + PATTERNS.JS,
-          FOLDERS.MODULES + PATTERNS.TS,
-          FOLDERS.SRC + PATTERNS.HTML,
-          FOLDERS.ROOT + 'bower.json'
-        ],
-        run: ['inject']
-      }
-    ],
+      cwd: FOLDERS.SRC,
+      src: [
+        PATTERNS.IMAGES,
+        PATTERNS.FONTS,
+        PATTERNS.JSON,
+        '!modules/*/{config,i18n}/' + PATTERNS.JSON
+      ],
+      run: ['copy']
+    }, {
+      src: FOLDERS.MODULES + '*/i18n/**/' + PATTERNS.I18N + '.json',
+      run: ['i18n']
+    }, {
+      cwd: FOLDERS.MODULES,
+      src: [
+        '*/config/' + PATTERNS.JSON,
+        PATTERNS.PUG
+      ],
+      run: ['templates']
+    }, {
+      src: FOLDERS.STYLES + PATTERNS.SASS,
+      run: ['styles']
+    }, /* {
+      src: FOLDERS.ROOT + '{package,project}.json',
+      run: ['constants'] // FIXME: does not refresh anymore
+    }, */{
+      src: [
+        FOLDERS.MODULES + PATTERNS.JS,
+        FOLDERS.MODULES + PATTERNS.TS,
+        FOLDERS.SRC + PATTERNS.HTML,
+        FOLDERS.ROOT + 'bower.json'
+      ],
+      run: ['inject']
+    }],
     'test.e2e': {
       cwd: FOLDERS.TEST + 'e2e/',
       src: PATTERNS.SPEC
