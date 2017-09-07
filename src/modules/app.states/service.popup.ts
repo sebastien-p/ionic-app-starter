@@ -93,7 +93,7 @@ namespace app.states {
           }]
         }),
         // Close popups when changing state successfully.
-        { off: this.$rootScope.$on('$stateChangeSuccess', () => this.close) }
+        { off: this.$rootScope.$on('$stateChangeSuccess', () => this.close()) }
       );
       this.deferred = this.$q.defer();
       // Handle Android hardware back button.
